@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Student_Attendance_MS</string>
+    <string name="email_text">Email</string>
+    <string name="password_text">Password</string>
+    <string name="sign_in_text">Sign In</string>
+    <string name="forgot_your_password_text">Forgot your password?</string>
+    <string name="title_text">Student Attendance</string>
+    <string name="logo_text">Logo</string>
+    <string name="sign_up_text">Sign Up</string>
+    <string name="create_account_text">Create Account</string>
+    <string name="student_text">student</string>
+    <string name="teacher_text">teacher</string>
 </resources>
