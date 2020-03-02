@@ -1,5 +1,9 @@
 package com.example.student_attendance_ms
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,10 +11,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.onboarding_page_layout.*
+
+private const val INTRO = "INTRO"
 
 class WalkthroughActivity : AppCompatActivity() {
 
@@ -39,8 +47,18 @@ class WalkthroughActivity : AppCompatActivity() {
     private lateinit var nextButton: Button
     private lateinit var prevButton: Button
 
+    private lateinit var preferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.onboarding_page_layout)
+
+        // получаем настройки приложения
+        preferences = getSharedPreferences(INTRO, Context.MODE_PRIVATE)
+        if (!preferences.getBoolean(INTRO, true)){
+            startActivity(Intent(this@WalkthroughActivity, LoginActivity::class.java))
+            finish()
+        }
 
         viewPager.adapter = pagesAdapter
 
@@ -49,6 +67,8 @@ class WalkthroughActivity : AppCompatActivity() {
 
         setupIndicators()
         setCurrentIndicator(0)
+
+        // работаем с кнопками для слайдинга viewPager
         viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 setCurrentIndicator(position)
@@ -65,6 +85,17 @@ class WalkthroughActivity : AppCompatActivity() {
                     2 -> {
                         prevButton.visibility = View.VISIBLE
                         nextButton.text = resources.getString(R.string.finish_button_text)
+
+                        // устанавливаем настройки sharedPreference
+                        // для однократного отображения приветственного окна
+                        // и вызываем новую активити
+                        nextButton.setOnClickListener {
+                            startActivity(Intent(this@WalkthroughActivity, LoginActivity::class.java))
+                            finish()
+                            preferences.edit()
+                                    .putBoolean(INTRO, false)
+                                    .apply()
+                        }
                     }
                 }
 
