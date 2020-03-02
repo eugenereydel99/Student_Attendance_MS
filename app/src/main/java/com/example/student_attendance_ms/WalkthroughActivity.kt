@@ -23,7 +23,7 @@ private const val INTRO = "INTRO"
 class WalkthroughActivity : AppCompatActivity() {
 
     // задаём контент страниц
-    private val pagesAdapter = OnboardPageAdapter(
+    private var pagesAdapter = OnboardPageAdapter(
             listOf(
                     OnboardPage(
                             title = "Личный кабинет",
@@ -51,7 +51,6 @@ class WalkthroughActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.onboarding_page_layout)
 
         // получаем настройки приложения
         preferences = getSharedPreferences(INTRO, Context.MODE_PRIVATE)
@@ -60,6 +59,7 @@ class WalkthroughActivity : AppCompatActivity() {
             finish()
         }
 
+        setContentView(R.layout.onboarding_page_layout)
         viewPager.adapter = pagesAdapter
 
         nextButton = findViewById(R.id.btn_next)
@@ -73,6 +73,7 @@ class WalkthroughActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 setCurrentIndicator(position)
 
+                // меняем отображение кнопок навигации
                 when (position){
                     0 -> {
                         prevButton.visibility = View.GONE
@@ -85,30 +86,31 @@ class WalkthroughActivity : AppCompatActivity() {
                     2 -> {
                         prevButton.visibility = View.VISIBLE
                         nextButton.text = resources.getString(R.string.finish_button_text)
-
-                        // устанавливаем настройки sharedPreference
-                        // для однократного отображения приветственного окна
-                        // и вызываем новую активити
-                        nextButton.setOnClickListener {
-                            startActivity(Intent(this@WalkthroughActivity, LoginActivity::class.java))
-                            finish()
-                            preferences.edit()
-                                    .putBoolean(INTRO, false)
-                                    .apply()
-                        }
                     }
                 }
 
             }
         })
 
-        btn_next.setOnClickListener {
-            viewPager.currentItem += 1
+        nextButton.setOnClickListener {
+            if (viewPager.currentItem + 1 < pagesAdapter.itemCount){
+                viewPager.currentItem += 1
+            } else {
+                // запускаем новую активити и убиваем старую
+                Intent(applicationContext, LoginActivity::class.java).also {
+                    startActivity(it)
+                    finish()
+                }
+                // устанавливаем настройки sharedPreference
+                preferences.edit()
+                        .putBoolean(INTRO, false)
+                        .apply()
+            }
         }
-
-        btn_prev.setOnClickListener {
+        prevButton.setOnClickListener {
             viewPager.currentItem -= 1
         }
+
     }
 
     // установка индикаторов
