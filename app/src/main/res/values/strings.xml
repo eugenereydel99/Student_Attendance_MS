@@ -8,10 +8,12 @@
     <string name="logo_text">Logo</string>
     <string name="sign_up_text">Sign Up</string>
     <string name="create_account_text">Create Account</string>
+    <string name="account_already_exists_text">Account Already Exists</string>
     <string name="student_text">student</string>
     <string name="teacher_text">teacher</string>
 
     <string name="next_button_text">NEXT</string>
     <string name="back_button_text">BACK</string>
     <string name="finish_button_text">FINISH</string>
+
 </resources>

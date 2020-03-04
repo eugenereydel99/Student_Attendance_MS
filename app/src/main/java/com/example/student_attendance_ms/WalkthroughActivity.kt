@@ -1,6 +1,5 @@
 package com.example.student_attendance_ms
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,9 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.edit
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import kotlinx.android.synthetic.main.onboarding_page_layout.*
@@ -55,7 +52,7 @@ class WalkthroughActivity : AppCompatActivity() {
         // получаем настройки приложения
         preferences = getSharedPreferences(INTRO, Context.MODE_PRIVATE)
         if (!preferences.getBoolean(INTRO, true)){
-            startActivity(Intent(this@WalkthroughActivity, LoginActivity::class.java))
+            startActivity(Intent(this@WalkthroughActivity, MainActivity::class.java))
             finish()
         }
 
@@ -97,7 +94,7 @@ class WalkthroughActivity : AppCompatActivity() {
                 viewPager.currentItem += 1
             } else {
                 // запускаем новую активити и убиваем старую
-                Intent(applicationContext, LoginActivity::class.java).also {
+                Intent(applicationContext, MainActivity::class.java).also {
                     startActivity(it)
                     finish()
                 }
