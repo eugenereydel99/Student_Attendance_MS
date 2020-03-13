@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
+    android:id="@+id/login_navigation"
     app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.student_attendance_ms.SignInFragment"
+        android:name="com.example.student_attendance_ms.login.SignInFragment"
         android:label="SignInFragment"
         tools:layout="@layout/sign_in_layout">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.student_attendance_ms.SignUpFragment"
+        android:name="com.example.student_attendance_ms.login.SignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/sign_up_layout"
         >

@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms
+package com.example.student_attendance_ms.walkthrough
 
 data class OnboardPage(
         val title: String,

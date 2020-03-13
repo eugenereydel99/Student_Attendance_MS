@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms
+package com.example.student_attendance_ms.walkthrough
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.student_attendance_ms.R
 
 class OnboardPageAdapter (private val pages: List<OnboardPage>): RecyclerView.Adapter<OnboardPageAdapter.PageViewHolder>(){
 

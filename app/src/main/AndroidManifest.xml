@@ -10,12 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/loginTheme">
         </activity>
         <activity
-            android:name=".WalkthroughActivity"
+            android:name=".walkthrough.WalkthroughActivity"
             android:screenOrientation="portrait"
             android:theme="@style/walkthroughTheme">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms
+package com.example.student_attendance_ms.login
 
 
 import android.os.Bundle
@@ -6,12 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigator
+import com.example.student_attendance_ms.R
 import kotlinx.android.synthetic.main.sign_in_layout.view.*
-import kotlin.math.sign
 
 class SignInFragment : Fragment() {
 

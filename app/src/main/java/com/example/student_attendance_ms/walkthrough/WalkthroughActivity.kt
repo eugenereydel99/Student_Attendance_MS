@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms
+package com.example.student_attendance_ms.walkthrough
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,8 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
+import com.example.student_attendance_ms.login.LoginActivity
+import com.example.student_attendance_ms.R
 import kotlinx.android.synthetic.main.onboarding_page_layout.*
 
 private const val INTRO = "INTRO"
@@ -52,7 +54,7 @@ class WalkthroughActivity : AppCompatActivity() {
         // получаем настройки приложения
         preferences = getSharedPreferences(INTRO, Context.MODE_PRIVATE)
         if (!preferences.getBoolean(INTRO, true)){
-            startActivity(Intent(this@WalkthroughActivity, MainActivity::class.java))
+            startActivity(Intent(this@WalkthroughActivity, LoginActivity::class.java))
             finish()
         }
 
@@ -94,7 +96,7 @@ class WalkthroughActivity : AppCompatActivity() {
                 viewPager.currentItem += 1
             } else {
                 // запускаем новую активити и убиваем старую
-                Intent(applicationContext, MainActivity::class.java).also {
+                Intent(applicationContext, LoginActivity::class.java).also {
                     startActivity(it)
                     finish()
                 }

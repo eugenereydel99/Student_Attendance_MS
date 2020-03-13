@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms
+package com.example.student_attendance_ms.login
 
 
 import android.os.Bundle
@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.navigation.Navigation
+import com.example.student_attendance_ms.R
 import kotlinx.android.synthetic.main.sign_up_layout.view.*
 
 
