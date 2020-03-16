@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/signInButton"
+        app:layout_constraintBottom_toTopOf="@id/signUpButton"
         android:paddingTop="72dp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email_text"
+            app:errorEnabled="true"
             app:endIconMode="clear_text"
             app:startIconDrawable="@drawable/baseline_email_white_18dp"
             app:boxBackgroundColor="@color/white"
@@ -57,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_text"
+            app:errorEnabled="true"
             app:endIconMode="password_toggle"
             app:startIconDrawable="@drawable/baseline_lock_white_18dp"
             app:boxBackgroundColor="@color/white"
@@ -71,11 +73,52 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/repeatPasswordTextField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirm_password_text"
+            app:errorEnabled="true"
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/baseline_lock_white_18dp"
+            app:boxBackgroundColor="@color/white"
+            android:layout_marginTop="8dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/roles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/student_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/student_role_rb"
+                />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/teacher_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/teacher_role_rb"/>
+
+        </RadioGroup>
 
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/signInButton"
+        android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"

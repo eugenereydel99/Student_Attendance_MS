@@ -15,5 +15,8 @@
     <string name="next_button_text">NEXT</string>
     <string name="back_button_text">BACK</string>
     <string name="finish_button_text">FINISH</string>
+    <string name="student_role_rb">Student</string>
+    <string name="teacher_role_rb">Teacher</string>
+    <string name="confirm_password_text">Confirm password</string>
 
 </resources>
