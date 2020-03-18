@@ -1,19 +1,33 @@
 <resources>
     <string name="app_name">Student_Attendance_MS</string>
-    <string name="email_text">Email</string>
-    <string name="password_text">Password</string>
-    <string name="sign_in_text">Sign In</string>
-    <string name="forgot_your_password_text">Forgot your password?</string>
+
+    <string name="authorization_text">Авторизация</string>
+    <string name="registration_text">Регистрация</string>
+    <string name="login_text">Логин</string>
+    <string name="password_text">Пароль</string>
+    <string name="sign_in_text">Войти</string>
+    <string name="forgot_your_password_text">Забыли пароль?</string>
     <string name="title_text">Student Attendance</string>
     <string name="logo_text">Logo</string>
-    <string name="sign_up_text">Sign Up</string>
-    <string name="create_account_text">Create Account</string>
-    <string name="account_already_exists_text">Account Already Exists</string>
-    <string name="student_text">student</string>
-    <string name="teacher_text">teacher</string>
+    <string name="sign_up_text">Зарегистрироваться</string>
+    <string name="create_account_text">Создать аккаунт</string>
+    <string name="account_already_exists_text">У меня уже есть аккаунт</string>
+    <string name="student_text">студент</string>
+    <string name="teacher_text">преподаватель</string>
 
-    <string name="next_button_text">NEXT</string>
-    <string name="back_button_text">BACK</string>
-    <string name="finish_button_text">FINISH</string>
+    <string name="next_button_text">Далее</string>
+    <string name="back_button_text">Назад</string>
+    <string name="finish_button_text">Завершить</string>
+    <string name="student_role_rb">Студент</string>
+    <string name="teacher_role_rb">Преподаватель</string>
+    <string name="confirm_password_text">Подтвердите пароль</string>
+
+    <string name="title_profile">Профиль</string>
+    <string name="title_attendance">Посещаемость</string>
+    <string name="title_study">Задания</string>
+    <string name="title_schedule">Календарь</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="selected_role">Выбрана роль</string>
 
 </resources>

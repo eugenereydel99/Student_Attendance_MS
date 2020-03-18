@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/profileFragment">
+    <include app:graph="@navigation/login_navigation" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.student_attendance_ms.main.ui.profile.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/profile_fragment" />
+    <fragment
+        android:id="@+id/attendanceFragment"
+        android:name="com.example.student_attendance_ms.main.ui.attendance.AttendanceFragment"
+        android:label="Контроль посещаемости"
+        tools:layout="@layout/attendance_fragment" />
+    <fragment
+        android:id="@+id/scheduleFragment"
+        android:name="com.example.student_attendance_ms.main.ui.schedule.ScheduleFragment"
+        android:label="Календарь"
+        tools:layout="@layout/schedule_fragment" />
+</navigation>
