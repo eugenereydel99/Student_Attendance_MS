@@ -33,7 +33,7 @@
         </com.google.android.material.textview.MaterialTextView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/loginTextField"
+            android:id="@+id/loginTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_text"
@@ -42,9 +42,13 @@
             app:boxBackgroundColor="@color/white"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="15"
+            app:errorEnabled="true"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -53,7 +57,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/passwordTextField"
+            android:id="@+id/passwordTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_text"
@@ -64,6 +68,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"

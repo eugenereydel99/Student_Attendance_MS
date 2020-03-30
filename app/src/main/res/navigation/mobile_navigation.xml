@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/profileFragment">
-    <include app:graph="@navigation/login_navigation" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.student_attendance_ms.main.ui.profile.ProfileFragment"

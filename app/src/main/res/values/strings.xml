@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Student_Attendance_MS</string>
+    <string name="app_name">TUSUR</string>
 
     <string name="authorization_text">Авторизация</string>
     <string name="registration_text">Регистрация</string>
@@ -17,7 +17,7 @@
 
     <string name="next_button_text">Далее</string>
     <string name="back_button_text">Назад</string>
-    <string name="finish_button_text">Завершить</string>
+    <string name="finish_button_text">Готово</string>
     <string name="student_role_rb">Студент</string>
     <string name="teacher_role_rb">Преподаватель</string>
     <string name="confirm_password_text">Подтвердите пароль</string>
@@ -29,5 +29,15 @@
     <string name="title_activity_main">MainActivity</string>
 
     <string name="selected_role">Выбрана роль</string>
+
+    <string name="title_qr_scanner">QR код</string>
+    <string name="title_image_key">Граф. ключ</string>
+    <string name="title_solve_tests">Тесты</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="password_error">Invalid password</string>
 
 </resources>

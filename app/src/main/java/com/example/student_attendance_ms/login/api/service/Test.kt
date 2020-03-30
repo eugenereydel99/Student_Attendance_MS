@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.login.api
+package com.example.student_attendance_ms.login.api.service
 
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -12,20 +12,27 @@ private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .build()
 
-interface UserApiService{
+interface UserApiServiceTest{
     @FormUrlEncoded
     @POST("users/new")
     fun createUser(
-            @Field("login") login:String,
+            @Field("login") login: String,
             @Field("password") password: String,
             @Field("role") role: String
+    ): Call<String>
+
+    @FormUrlEncoded
+    @POST("login")
+    fun login(
+            @Field("login") login: String,
+            @Field("password") password: String
     ): Call<String>
 
 }
 
 // singleton
-object UserApi{
-    val retrofitService: UserApiService by lazy {
-        retrofit.create(UserApiService::class.java)
+object UserApiTest{
+    val retrofitService: UserApiServiceTest by lazy {
+        retrofit.create(UserApiServiceTest::class.java)
     }
 }

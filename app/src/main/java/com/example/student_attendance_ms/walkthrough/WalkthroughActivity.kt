@@ -27,18 +27,18 @@ class WalkthroughActivity : AppCompatActivity() {
                     OnboardPage(
                             title = "Личный кабинет",
                             description = "Доступ в личный кабинет ТУСУР",
-                            image = R.drawable.tusur
+                            animation = R.raw.profile
                     ),
-                    OnboardPage(
-                            title = "Мини-тесты",
-                            description = "Проверяйте свои знания, проходя мини-тесты в конце пары",
-                            image = R.drawable.tusur
-                    ),
-
                     OnboardPage(
                             title = "Посещаемость",
                             description = "Помогайте снизить нагрузку с преподавателей и старост групп, сканируя QR-код во время проверки посещаемости",
-                            image = R.drawable.tusur
+                            animation = R.raw.scan_qr_code1
+                    ),
+
+                    OnboardPage(
+                            title = "Расписание",
+                            description = "Теперь вам не нужно заходить в браузер, чтобы посмотреть, когда начнётся пара",
+                            animation = R.raw.timetable
                     )
             )
     )

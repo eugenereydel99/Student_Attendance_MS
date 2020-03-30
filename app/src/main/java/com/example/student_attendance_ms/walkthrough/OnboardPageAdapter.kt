@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.student_attendance_ms.R
 
-class OnboardPageAdapter (private val pages: List<OnboardPage>): RecyclerView.Adapter<OnboardPageAdapter.PageViewHolder>(){
+class OnboardPageAdapter (
+        private val pages: List<OnboardPage>
+): RecyclerView.Adapter<OnboardPageAdapter.PageViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageViewHolder {
         return PageViewHolder(
@@ -30,12 +33,12 @@ class OnboardPageAdapter (private val pages: List<OnboardPage>): RecyclerView.Ad
     inner class PageViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val title = view.findViewById<TextView>(R.id.page_title)
         private val description = view.findViewById<TextView>(R.id.page_desc)
-        private val image = view.findViewById<ImageView>(R.id.page_icon)
+        private val animation = view.findViewById<LottieAnimationView>(R.id.page_icon)
 
         fun onCreatePages(pages: OnboardPage){
             title.text = pages.title
             description.text = pages.description
-            image.setImageResource(pages.image)
+            animation.setAnimation(pages.animation)
         }
 
     }
