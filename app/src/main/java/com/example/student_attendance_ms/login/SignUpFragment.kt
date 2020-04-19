@@ -10,11 +10,11 @@ import android.widget.*
 import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.helper.SignUpPattern
-import com.example.student_attendance_ms.login.api.model.UserSignUpResponse
-import com.example.student_attendance_ms.login.api.service.UserApi
+import com.example.student_attendance_ms.api.model.UserSignUpResponse
+import com.example.student_attendance_ms.api.service.UserApi
 import com.example.student_attendance_ms.main.MainActivity
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.sign_up_layout.view.*
+import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +31,7 @@ class SignUpFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val signUpView = inflater.inflate(R.layout.sign_up_layout, container, false)
+        val signUpView = inflater.inflate(R.layout.fragment_sign_up, container, false)
         onCreateAlreadyExistsButton(signUpView)
 
         initializeViews(signUpView)

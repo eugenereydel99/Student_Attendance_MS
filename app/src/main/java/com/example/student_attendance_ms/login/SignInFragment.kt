@@ -18,7 +18,7 @@ import com.example.student_attendance_ms.main.MainActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
-import kotlinx.android.synthetic.main.sign_in_layout.view.*
+import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 
 class SignInFragment : Fragment() {
 
@@ -34,7 +34,7 @@ class SignInFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val signInView = inflater.inflate(R.layout.sign_in_layout, container, false)
+        val signInView = inflater.inflate(R.layout.fragment_sign_in, container, false)
 
         initializeViews(signInView)
         onCreateAccount(signInView)

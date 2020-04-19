@@ -6,17 +6,27 @@
     app:startDestination="@id/profileFragment">
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.student_attendance_ms.main.ui.profile.ProfileFragment"
+        android:name="com.example.student_attendance_ms.main.profile.ProfileFragment"
         android:label="Профиль"
-        tools:layout="@layout/profile_fragment" />
+        tools:layout="@layout/fragment_user_profile" />
     <fragment
         android:id="@+id/attendanceFragment"
-        android:name="com.example.student_attendance_ms.main.ui.attendance.AttendanceFragment"
+        android:name="com.example.student_attendance_ms.main.methods.AttendanceFragment"
         android:label="Контроль посещаемости"
-        tools:layout="@layout/attendance_fragment" />
+        tools:layout="@layout/fragment_attendance" />
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="com.example.student_attendance_ms.main.ui.schedule.ScheduleFragment"
+        android:name="com.example.student_attendance_ms.main.schedule.base.ScheduleFragment"
         android:label="Календарь"
-        tools:layout="@layout/schedule_fragment" />
+        tools:layout="@layout/fragment_schedule" >
+        <action
+            android:id="@+id/action_scheduleFragment_to_attendanceEntryFragment"
+            app:destination="@id/attendanceEntryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/attendanceEntryFragment"
+        android:name="com.example.student_attendance_ms.main.schedule.subscription.AttendanceEntryFragment"
+        android:label="AttendanceEntryFragment"
+        tools:layout="@layout/fragment_attendace_entry"
+        />
 </navigation>

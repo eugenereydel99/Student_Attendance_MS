@@ -9,7 +9,7 @@
         android:id="@+id/signInFragment"
         android:name="com.example.student_attendance_ms.login.SignInFragment"
         android:label="SignInFragment"
-        tools:layout="@layout/sign_in_layout">
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment"
@@ -19,7 +19,7 @@
         android:id="@+id/signUpFragment"
         android:name="com.example.student_attendance_ms.login.SignUpFragment"
         android:label="SignUpFragment"
-        tools:layout="@layout/sign_up_layout"
+        tools:layout="@layout/fragment_sign_up"
         >
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
