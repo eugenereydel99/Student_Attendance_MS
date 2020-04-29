@@ -9,60 +9,57 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.helper.SignUpPattern
+import com.example.student_attendance_ms.helper.validation.SignUpPattern
 import com.example.student_attendance_ms.api.model.UserSignUpResponse
-import com.example.student_attendance_ms.api.service.UserApi
+import com.example.student_attendance_ms.api.service.UserApiTest
 import com.example.student_attendance_ms.main.MainActivity
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpFragment : Fragment() {
 
-    private lateinit var loginInputLayout: TextInputLayout
+    private lateinit var emailInputLayout: TextInputLayout
     private lateinit var passwordInputLayout: TextInputLayout
-    private lateinit var loginEditText: EditText
+    private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var roles: RadioGroup
     private lateinit var signUpButton: Button
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
 
         val signUpView = inflater.inflate(R.layout.fragment_sign_up, container, false)
         onCreateAlreadyExistsButton(signUpView)
 
         initializeViews(signUpView)
-        roles = signUpView.findViewById(R.id.roles)
 
         return signUpView.rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        // регистрация
-        val userRole = onRolesRadioButtonClicked(view)
-
         signUpButton = view.findViewById(R.id.signUpButton)
         signUpButton.setOnClickListener {
 
-            if (SignUpPattern().isLoginValid(loginInputLayout) and SignUpPattern().isPasswordValid(passwordInputLayout)){
-                UserApi.retrofitService.createUser(
-                        loginEditText.toString(), passwordEditText.toString(), userRole
-                ).enqueue(object: Callback<UserSignUpResponse>{
-                    override fun onFailure(call: Call<UserSignUpResponse>, t: Throwable) {
+            if (SignUpPattern().isPasswordValid(passwordInputLayout)
+                    and SignUpPattern().isEmailValid(emailInputLayout)){
+                UserApiTest.retrofitService.createUser(
+                        emailEditText.text.toString(), passwordEditText.text.toString()
+                ).enqueue(object: Callback<ResponseBody>{
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
                     }
 
-                    override fun onResponse(call: Call<UserSignUpResponse>, response: Response<UserSignUpResponse>) {
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, response.body().toString(), Toast.LENGTH_LONG).show()
-                            Intent(context?.applicationContext, MainActivity::class.java).also {
-                                startActivity(it)
-                                activity?.finish()
-                            }
+                            Toast.makeText(context, response.code(), Toast.LENGTH_LONG).show()
+                        } else {
+                            Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_LONG).show()
                         }
                     }
                 })
@@ -86,22 +83,12 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun onRolesRadioButtonClicked(view: View): String{
-        var roleUser = ""
-        roles.setOnCheckedChangeListener { _, checkedId ->
-            val role: RadioButton = view.findViewById(checkedId)
-            roleUser = role.text.toString()
-            Toast.makeText(context, "${resources.getString(R.string.selected_role)}: ${role.text}", Toast.LENGTH_SHORT).show()
-        }
-        return roleUser
-    }
-
     private fun initializeViews(view: View){
 
         // validation views
-        loginInputLayout = view.findViewById(R.id.loginTextInput)
+        emailInputLayout = view.findViewById(R.id.emailTextInput)
         passwordInputLayout = view.findViewById(R.id.passwordTextInput)
-        loginEditText = view.findViewById(R.id.loginEditText)
+        emailEditText = view.findViewById(R.id.emailEditText)
         passwordEditText = view.findViewById(R.id.passwordEditText)
     }
 

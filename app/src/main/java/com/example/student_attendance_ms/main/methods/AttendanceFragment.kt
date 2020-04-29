@@ -20,7 +20,6 @@ class AttendanceFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.pager_attendance_methods, container, false)
     }
 

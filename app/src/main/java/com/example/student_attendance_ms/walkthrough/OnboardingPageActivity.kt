@@ -55,7 +55,6 @@ class WalkthroughActivity : AppCompatActivity() {
         preferences = getSharedPreferences(INTRO, Context.MODE_PRIVATE)
         if (!preferences.getBoolean(INTRO, true)){
             startActivity(Intent(this@WalkthroughActivity, LoginActivity::class.java))
-            finish()
         }
 
         setContentView(R.layout.pager_onboarding)

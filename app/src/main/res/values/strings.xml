@@ -39,5 +39,8 @@
 
 
     <string name="password_error">Invalid password</string>
+    <string name="about_app">О приложении</string>
+    <string name="settings_title">Настройки</string>
+    <string name="email_text">Email</string>
 
 </resources>

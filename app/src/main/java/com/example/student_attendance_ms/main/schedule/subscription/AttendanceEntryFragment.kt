@@ -34,7 +34,7 @@ class AttendanceEntryFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_attendace_entry, container, false)
+        val view = inflater.inflate(R.layout.fragment_attendance_entry, container, false)
 
         viewManager = LinearLayoutManager(context)
         viewAdapter = AttendanceEntryAdapter(userEntries)

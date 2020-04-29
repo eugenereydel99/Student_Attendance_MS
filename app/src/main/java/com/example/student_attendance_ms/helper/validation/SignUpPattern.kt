@@ -1,9 +1,11 @@
-package com.example.student_attendance_ms.helper
+package com.example.student_attendance_ms.helper.validation
 
+import android.util.Patterns
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
 class SignUpPattern{
+
     private val regexLogin: Pattern =
             Pattern.compile("^" +
                     "(?=.*[0-9])" + // минимум 1 цифра
@@ -23,6 +25,24 @@ class SignUpPattern{
                     ".{4,}" + //минимум 8 символов
                     "$"
             )
+
+    fun isEmailValid(emailInputLayout: TextInputLayout): Boolean{
+        val valid: Boolean
+        val email = emailInputLayout.editText?.text.toString().trim()
+
+        if (email.isEmpty()){
+            emailInputLayout.error = "Поле не должно быть пустым"
+            valid = false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            emailInputLayout.error = "Некорректная почта"
+            valid = false
+        } else {
+            emailInputLayout.error = null
+            valid = true
+        }
+
+        return valid
+    }
 
     fun isLoginValid(loginInputLayout: TextInputLayout): Boolean{
         val valid: Boolean

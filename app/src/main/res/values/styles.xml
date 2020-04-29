@@ -1,43 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="mainActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="android:textColorPrimary">#EEE</item>
-        <item name="android:textColorSecondary">#EEE</item>
-        <item name="theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
-    </style>
-
-    <style name="loginActivityTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-    </style>
-
-    <style name="loginToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">
-        <item name="tint">@color/white</item>
-    </style>
-
-    <style name="walkthroughTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="Button">
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
@@ -55,5 +29,6 @@
         <item name="android:textColor">@color/white</item>
         <item name="textAllCaps">true</item>
     </style>
+
 
 </resources>
