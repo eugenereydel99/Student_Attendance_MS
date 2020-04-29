@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
-private const val BASE_URL = "https://e04de493.ngrok.io/"
+private const val BASE_URL = "http://94eb3c26.ngrok.io/"
 
 private val httpLoggingInterceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -24,11 +24,13 @@ private val retrofit = Retrofit.Builder()
         .build()
 
 interface UserApiServiceTest{
-    @FormUrlEncoded
+
+//    @FormUrlEncoded
     @POST(BASE_URL)
     fun createUser(
-            @Field("email") email: String,
-            @Field("password") password: String
+//            @Field("email") email: String,
+//            @Field("password") password: String,
+            @Body() userX: UserX
     ): Call<ResponseBody>
 
 }

@@ -1,6 +1,5 @@
 package com.example.student_attendance_ms.login
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.api.service.User
 import com.example.student_attendance_ms.helper.validation.SignUpPattern
-import com.example.student_attendance_ms.api.model.UserSignUpResponse
 import com.example.student_attendance_ms.api.service.UserApiTest
-import com.example.student_attendance_ms.main.MainActivity
+import com.example.student_attendance_ms.api.service.UserX
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import okhttp3.ResponseBody
@@ -48,8 +47,16 @@ class SignUpFragment : Fragment() {
 
             if (SignUpPattern().isPasswordValid(passwordInputLayout)
                     and SignUpPattern().isEmailValid(emailInputLayout)){
+
+                val userCredentials = UserX(
+                        User(
+                                emailEditText.text.toString(),
+                                passwordEditText.text.toString()
+                        )
+                )
+
                 UserApiTest.retrofitService.createUser(
-                        emailEditText.text.toString(), passwordEditText.text.toString()
+                        userCredentials
                 ).enqueue(object: Callback<ResponseBody>{
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
@@ -57,9 +64,9 @@ class SignUpFragment : Fragment() {
 
                     override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                         if (response.isSuccessful) {
-                            Toast.makeText(context, response.code(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Успешно", Toast.LENGTH_LONG).show()
                         } else {
-                            Toast.makeText(context, response.errorBody().toString(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Безуспешно", Toast.LENGTH_LONG).show()
                         }
                     }
                 })
