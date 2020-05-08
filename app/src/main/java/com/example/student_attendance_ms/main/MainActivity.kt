@@ -1,6 +1,7 @@
 package com.example.student_attendance_ms.main
 
 import android.Manifest
+import android.accounts.AccountManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,28 +28,14 @@ private val REQUIRED_PERMISSIONS = arrayOf(
 
 class MainActivity : AppCompatActivity() {
 
-//    private lateinit var navController: NavController
-//    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        setSupportActionBar(toolbar)
 
-//        bottomNavigationView = findViewById(R.id.bottom_nav_view)
-//        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-//        bottomNavigationView.setupWithNavController(navController)
-//        NavigationUI.setupActionBarWithNavController(this, navController)
-//
-//        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-//            when (destination.id){
-//                R.id.attendanceEntryFragment -> {
-//                    bottomNavigationView.visibility = View.GONE
-//                }
-//                else -> bottomNavigationView.visibility = View.VISIBLE
-//            }
-//        }
+
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 

@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.api.service.User
+import com.example.student_attendance_ms.network.model.User
 import com.example.student_attendance_ms.helper.validation.SignUpPattern
-import com.example.student_attendance_ms.api.service.UserApiTest
-import com.example.student_attendance_ms.api.service.UserX
+import com.example.student_attendance_ms.network.model.UserCredentials
+import com.example.student_attendance_ms.network.service.UserApi
+import com.example.student_attendance_ms.network.service.UserApiService
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import okhttp3.ResponseBody
@@ -25,6 +26,7 @@ class SignUpFragment : Fragment() {
     private lateinit var passwordInputLayout: TextInputLayout
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
+
     private lateinit var signUpButton: Button
 
     override fun onCreateView(
@@ -48,14 +50,14 @@ class SignUpFragment : Fragment() {
             if (SignUpPattern().isPasswordValid(passwordInputLayout)
                     and SignUpPattern().isEmailValid(emailInputLayout)){
 
-                val userCredentials = UserX(
-                        User(
+                val userCredentials = User(
+                        UserCredentials(
                                 emailEditText.text.toString(),
                                 passwordEditText.text.toString()
                         )
                 )
 
-                UserApiTest.retrofitService.createUser(
+                UserApiService.retrofitService.createUser(
                         userCredentials
                 ).enqueue(object: Callback<ResponseBody>{
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -74,16 +76,6 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    // сохранение состояния фрагмента
-    override fun onSaveInstanceState(outState: Bundle) {
-
-    }
-
-    // получение ранее сохраненного состояния
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-    }
-
     private fun onCreateAlreadyExistsButton(view: View){
         view.accountAlreadyExists.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment)
@@ -94,9 +86,9 @@ class SignUpFragment : Fragment() {
 
         // validation views
         emailInputLayout = view.findViewById(R.id.emailTextInput)
-        passwordInputLayout = view.findViewById(R.id.passwordTextInput)
+        passwordInputLayout = view.findViewById(R.id.passwordSignUpTextInput)
         emailEditText = view.findViewById(R.id.emailEditText)
-        passwordEditText = view.findViewById(R.id.passwordEditText)
+        passwordEditText = view.findViewById(R.id.passwordSignUpEditText)
     }
 
 }
