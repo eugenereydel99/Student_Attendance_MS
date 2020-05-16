@@ -1,6 +1,6 @@
 package com.example.student_attendance_ms.network.service
 
-import com.example.student_attendance_ms.utils.Const
+import com.example.student_attendance_ms.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,7 +15,7 @@ private val okHttpClient = OkHttpClient.Builder()
 
 private val retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(Const.BASE_URL)
+        .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .build()
 

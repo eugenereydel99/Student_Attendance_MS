@@ -29,7 +29,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Even
 
     static class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        final TextView eventTime, eventTitle, eventType, eventLocation, eventTeacher;
+        final TextView eventTime, eventTitle, eventType, eventLocation, eventCreator;
         final CardView eventCard;
         final OnEventClickListener onEventClickListener;
 
@@ -41,7 +41,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Even
             eventTitle = itemView.findViewById(R.id.event_title);
             eventType = itemView.findViewById(R.id.event_type);
             eventLocation = itemView.findViewById(R.id.event_location);
-            eventTeacher = itemView.findViewById(R.id.event_teacher);
+            eventCreator = itemView.findViewById(R.id.event_creator);
 
             itemView.setOnClickListener(this);
         }
@@ -51,7 +51,7 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Even
             eventTitle.setText(event.getTitle());
             eventType.setText(event.getType());
             eventLocation.setText(event.getLocation());
-            eventTeacher.setText(event.getTeacher());
+            eventCreator.setText(event.getCreator());
         }
 
         @Override
@@ -74,10 +74,6 @@ public class EventCardAdapter extends RecyclerView.Adapter<EventCardAdapter.Even
     @Override
     public void onBindViewHolder(@NonNull EventCardAdapter.EventViewHolder holder, int position) {
         holder.bind(events.get(position));
-
-//        holder.eventCard.setOnClickListener(v ->
-//                Toast.makeText(context, "Position " + position, Toast.LENGTH_LONG).show()
-//        );
     }
 
     @Override

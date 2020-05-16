@@ -1,14 +1,12 @@
 package com.example.student_attendance_ms.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.main.MainActivity
-import com.example.student_attendance_ms.utils.SessionManager
+import com.example.student_attendance_ms.network.service.SessionManager
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {

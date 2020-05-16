@@ -14,6 +14,12 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.main.MainActivity
+import com.example.student_attendance_ms.network.service.UserApiService
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val CAMERA_REQUEST_CODE = 10
 private val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
@@ -47,9 +53,25 @@ class ScannerFragment : Fragment() {
         val activity = requireActivity()
         barcodeScanner = CodeScanner(activity, scannerView)
 
+        val intent = (activity as MainActivity).getAuthorizationData()
+
         barcodeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
                 Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
+
+                UserApiService.retrofitService.sendQR(
+                    it.text, intent?.authentication_token
+                ).enqueue(object : Callback<ResponseBody>{
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                    }
+
+                    // удачное сканирование qr
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                        Toast.makeText(context, "Удачное сканирование", Toast.LENGTH_LONG).show()
+                    }
+
+                })
             }
         }
 

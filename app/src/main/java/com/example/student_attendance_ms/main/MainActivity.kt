@@ -1,25 +1,23 @@
 package com.example.student_attendance_ms.main
 
 import android.Manifest
-import android.accounts.AccountManager
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.utils.SessionManager
+import com.example.student_attendance_ms.network.model.AuthorizationResponse
+import com.example.student_attendance_ms.utils.Constants
+import com.example.student_attendance_ms.network.service.SessionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 private val REQUIRED_PERMISSIONS = arrayOf(
         Manifest.permission.CAMERA,
@@ -34,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -97,6 +94,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId){
+            R.id.logout_dest -> {
+                SessionManager(this).logout()
+            }
+        }
+
         return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
                 || super.onOptionsItemSelected(item)
     }
@@ -105,4 +109,8 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
     }
 
+    // получаем данные из активности логина
+    public fun getAuthorizationData(): AuthorizationResponse? {
+        return intent.getParcelableExtra(Constants.AUTHORIZATION_DATA)
+    }
 }

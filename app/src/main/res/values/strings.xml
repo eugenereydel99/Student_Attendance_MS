@@ -42,5 +42,6 @@
     <string name="about_app">О приложении</string>
     <string name="settings_title">Настройки</string>
     <string name="email_text">Email</string>
+    <string name="logout_title">Выйти</string>
 
 </resources>

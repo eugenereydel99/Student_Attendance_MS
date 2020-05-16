@@ -12,6 +12,10 @@ import android.text.TextUtils;
 
 import com.example.student_attendance_ms.login.LoginActivity;
 
+import java.nio.charset.Charset;
+
+import okhttp3.Credentials;
+
 
 public class Authenticator extends AbstractAccountAuthenticator {
 
@@ -59,13 +63,12 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
         String authToken = accountManager.peekAuthToken(account, authTokenType);
 
-//        if (TextUtils.isEmpty(authToken)){
-//            final String password = accountManager.getPassword(account);
-//            if (password != null){
-//                authToken = Loader(
-//                        context, account.name, password);
-//            }
-//        }
+        if (TextUtils.isEmpty(authToken)){
+            final String password = accountManager.getPassword(account);
+            if (password != null){
+                authToken = Credentials.basic(account.name, password, Charset.forName(authTokenType));
+            }
+        }
 
         if (!TextUtils.isEmpty(authToken)) {
 

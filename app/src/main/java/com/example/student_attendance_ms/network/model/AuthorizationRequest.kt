@@ -6,6 +6,5 @@ data class User (
 
 data class UserCredentials(
         val email: String,
-        val password: String,
-        val token: String? = null
+        val password: String
 )

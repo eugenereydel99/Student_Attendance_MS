@@ -50,8 +50,8 @@ public class AttendanceEntryAdapter extends RecyclerView.Adapter<AttendanceEntry
 
         UserEntriesViewHolder(@NonNull View itemView) {
             super(itemView);
-            userImage = (CircleImageView) itemView.findViewById(R.id.profile_image);
-            userName = (TextView) itemView.findViewById(R.id.person_name);
+            userImage = itemView.findViewById(R.id.profile_image);
+            userName = itemView.findViewById(R.id.person_name);
         }
 
         void bind(UserEntry userEntries){

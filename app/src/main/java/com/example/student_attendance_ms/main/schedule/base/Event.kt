@@ -5,6 +5,6 @@ data class Event(
     val title: String,
     val type: String,
     val location: String,
-    val teacher: String,
+    val creator: String,
     val extra: String? = null
 )

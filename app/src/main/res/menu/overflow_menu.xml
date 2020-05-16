@@ -12,4 +12,11 @@
         android:orderInCategory="2"
         android:menuCategory="secondary"
         android:title="@string/settings_title" />
+
+    <item
+        android:id="@+id/logout_dest"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:orderInCategory="3"
+        android:menuCategory="secondary"
+        android:title="@string/logout_title" />
 </menu>
