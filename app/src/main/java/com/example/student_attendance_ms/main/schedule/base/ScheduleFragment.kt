@@ -7,41 +7,56 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
 
 /**
  * A simple [Fragment] subclass.
  */
 
-private val events = listOf(
-        Event("10:40\n12:15", "Прикладная криптография", "Лекция", "ТУСУР", "Якимук А.И"),
-        Event("13:15\n14:50", "ММТСиС", "Практика", "ТУСУР", "Мастеров И.В."),
-        Event("16:45\n18:20", "ГПО", "Практика", "ТУСУР", "Харченко С.С.")
-)
-
-class ScheduleFragment : Fragment(), EventCardAdapter.OnEventClickListener{
+class ScheduleFragment : Fragment(){
 
     private lateinit var calendarView: CalendarView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: EventCardAdapter
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: EventAdapter
+
+    private val viewModel: ScheduleViewModel by lazy {
+        ViewModelProvider(this).get(ScheduleViewModel::class.java)
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_schedule, container, false)
+        val binding = FragmentScheduleBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
 
-        viewManager = LinearLayoutManager(context)
-        viewAdapter = EventCardAdapter(events, this)
+        // инициализируем адаптер
+        viewAdapter = EventAdapter(EventAdapter.OnClickListener{
+            view?.findNavController()?.navigate(R.id.action_scheduleFragment_to_attendanceEntryFragment, null)
+        })
+        binding.eventsRecyclerView.adapter = viewAdapter
 
-        recyclerView = view.findViewById(R.id.events_recycler_view)
+        viewModel.events.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                viewAdapter.submitList(it)
+            }
+        })
 
-        return view
+//        viewAdapter = EventAdapter()
+//        recyclerView = binding.eventsRecyclerView
+//        recyclerView.apply {
+//            setHasFixedSize(true)
+//            this.adapter = viewAdapter
+//        }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,18 +70,5 @@ class ScheduleFragment : Fragment(), EventCardAdapter.OnEventClickListener{
             ).show()
         }
 
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
-
-
     }
-
-    // переход во фрагмент на запись КП по нажатию элемента из списка событий
-    override fun onEventClick(view: View, position: Int) {
-        view.findNavController().navigate(R.id.action_scheduleFragment_to_attendanceEntryFragment, null)
-    }
-
 }
