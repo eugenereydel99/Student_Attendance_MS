@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TUSUR</string>
+    <string name="app_name">Student AMS</string>
 
     <string name="authorization_text">Авторизация</string>
     <string name="registration_text">Регистрация</string>

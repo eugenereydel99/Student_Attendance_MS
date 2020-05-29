@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.widget.CalendarView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
+import org.json.JSONObject
 
 /**
  * A simple [Fragment] subclass.
@@ -43,32 +45,34 @@ class ScheduleFragment : Fragment(){
         })
         binding.eventsRecyclerView.adapter = viewAdapter
 
+        calendarView = binding.calendarView
+
         viewModel.events.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewAdapter.submitList(it)
             }
         })
 
-//        viewAdapter = EventAdapter()
-//        recyclerView = binding.eventsRecyclerView
-//        recyclerView.apply {
-//            setHasFixedSize(true)
-//            this.adapter = viewAdapter
-//        }
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+//            val currentDate = JSONObject().put(
+//                    "date","$month/$dayOfMonth/$year"
+//            ).toString().replace("\\","")
+            viewModel.displayEventsByDate("${month+1}/$dayOfMonth/$year")
+//            Toast.makeText(context, "${month+1}/$dayOfMonth/$year", Toast.LENGTH_LONG).show()
+
+
+//            viewModel.events.observe(viewLifecycleOwner, Observer {
+//                it?.let {
+//                    viewAdapter.submitList(it)
+//                }
+//            })
+
+        }
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        calendarView = view.findViewById(R.id.schedule_view)
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            Toast.makeText(
-                    context,
-                    "$dayOfMonth/$month/$year",
-                    Toast.LENGTH_LONG
-            ).show()
-        }
+    private fun getDate(viewModel: ScheduleViewModel){
 
     }
 }

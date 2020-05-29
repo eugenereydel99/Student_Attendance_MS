@@ -15,8 +15,8 @@ import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.main.MainActivity
 import com.example.student_attendance_ms.network.model.AuthorizationResponse
+import com.example.student_attendance_ms.network.model.User
 
-import com.example.student_attendance_ms.network.model.UserCredentials
 import com.example.student_attendance_ms.network.service.UserApiService
 import com.example.student_attendance_ms.network.service.SessionManager
 import com.google.android.material.button.MaterialButton
@@ -58,36 +58,32 @@ class SignInFragment : Fragment() {
 
         //авторизация
         signInButton.setOnClickListener {
-            Intent(context, MainActivity::class.java).also {
-                startActivity(it)
-                activity?.finish()
-            }
-//            val userCredentials = UserCredentials(
-//                    loginEditText.text.toString(),
-//                    passwordEditText.text.toString()
-//            )
-//
-//            UserApiService.retrofitService.login(
-//                    userCredentials
-//            ).enqueue(object: Callback<AuthorizationResponse> {
-//                override fun onFailure(call: Call<AuthorizationResponse>, t: Throwable) {
-//                    Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
-//                }
-//
-//                // обработка успешного запроса авторизации
-//                override fun onResponse(call: Call<AuthorizationResponse>, response: Response<AuthorizationResponse>) {
-//                    if (response.isSuccessful) {
-//                        val userData = response.body()
-//                        sessionManager.create(userData).also {
-//                            startActivity(it)
-//                            activity?.finish()
-//                        }
-//
-//                    } else {
-//                        Toast.makeText(context, "Безуспешно", Toast.LENGTH_LONG).show()
-//                    }
-//                }
-//            })
+            val userCredentials = User(
+                    loginEditText.text.toString(),
+                    passwordEditText.text.toString()
+            )
+
+            UserApiService.retrofitService.login(
+                    userCredentials
+            ).enqueue(object: Callback<AuthorizationResponse> {
+                override fun onFailure(call: Call<AuthorizationResponse>, t: Throwable) {
+                    Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+                }
+
+                // обработка успешного запроса авторизации
+                override fun onResponse(call: Call<AuthorizationResponse>, response: Response<AuthorizationResponse>) {
+                    if (response.isSuccessful) {
+                        val userData = response.body()
+                        sessionManager.create(userData).also {
+                            startActivity(it)
+                            activity?.finish()
+                        }
+
+                    } else {
+                        Toast.makeText(context, "Безуспешно", Toast.LENGTH_LONG).show()
+                    }
+                }
+            })
         }
     }
 

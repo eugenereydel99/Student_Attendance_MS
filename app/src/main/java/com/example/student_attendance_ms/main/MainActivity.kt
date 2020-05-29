@@ -94,13 +94,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId){
-            R.id.logout_dest -> {
-                SessionManager(this).logout()
-            }
-        }
-
         return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
                 || super.onOptionsItemSelected(item)
     }

@@ -59,19 +59,19 @@ class ScannerFragment : Fragment() {
             activity.runOnUiThread {
                 Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
 
-                UserApiService.retrofitService.sendQR(
-                    it.text, intent?.authentication_token
-                ).enqueue(object : Callback<ResponseBody>{
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                        Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
-                    }
-
-                    // удачное сканирование qr
-                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                        Toast.makeText(context, "Удачное сканирование", Toast.LENGTH_LONG).show()
-                    }
-
-                })
+//                UserApiService.retrofitService.sendQR(
+//                    it.text, intent?.authentication_token
+//                ).enqueue(object : Callback<ResponseBody>{
+//                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                        Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
+//                    }
+//
+//                    // удачное сканирование qr
+//                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                        Toast.makeText(context, "Удачное сканирование", Toast.LENGTH_LONG).show()
+//                    }
+//
+//                })
             }
         }
 

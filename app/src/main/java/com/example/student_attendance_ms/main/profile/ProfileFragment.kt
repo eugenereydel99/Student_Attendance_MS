@@ -12,8 +12,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
 import com.example.student_attendance_ms.main.MainActivity
+import com.example.student_attendance_ms.network.service.SessionManager
+import com.google.android.material.button.MaterialButton
 
 class ProfileFragment : Fragment() {
+
+    private lateinit var logoutButton: MaterialButton
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -29,9 +33,14 @@ class ProfileFragment : Fragment() {
                 false
         )
 
+        binding.logoutButton.setOnClickListener {
+            SessionManager(context).logout()
+        }
+
         binding.user = intent
 
         return binding.root
     }
+
 
 }

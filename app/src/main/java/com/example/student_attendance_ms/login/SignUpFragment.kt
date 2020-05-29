@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.model.User
 import com.example.student_attendance_ms.helper.validation.SignUpPattern
-import com.example.student_attendance_ms.network.model.UserCredentials
+import com.example.student_attendance_ms.network.model.UserX
 import com.example.student_attendance_ms.network.service.UserApi
 import com.example.student_attendance_ms.network.service.UserApiService
 import com.google.android.material.textfield.TextInputLayout
@@ -50,8 +50,8 @@ class SignUpFragment : Fragment() {
             if (SignUpPattern().isPasswordValid(passwordInputLayout)
                     and SignUpPattern().isEmailValid(emailInputLayout)){
 
-                val userCredentials = User(
-                        UserCredentials(
+                val userCredentials = UserX(
+                        User(
                                 emailEditText.text.toString(),
                                 passwordEditText.text.toString()
                         )

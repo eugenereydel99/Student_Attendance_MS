@@ -1,20 +1,37 @@
 package com.example.student_attendance_ms.network.service
 
 import com.example.student_attendance_ms.utils.Constants
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 private val httpLoggingInterceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
 private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor {
+            val original = it.request()
+            val request = original.newBuilder()
+                    .header("Authorization", "token")
+                    .build()
+
+            return@addInterceptor it.proceed(request)
+        }.build()
+
+private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
         .build()
 
 private val retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create()) // отправляем
+        .addConverterFactory(MoshiConverterFactory.create(moshi)) // получаем
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .baseUrl(Constants.BASE_URL)
         .client(okHttpClient)
         .build()
