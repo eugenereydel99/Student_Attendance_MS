@@ -17,3 +17,4 @@ data class Event(
     @Json(name = "created_at") val createdAt: String,
     @Json(name = "updated_at") val updatedAt: String
 ): Parcelable
+

@@ -14,15 +14,7 @@ private val httpLoggingInterceptor = HttpLoggingInterceptor()
         .setLevel(HttpLoggingInterceptor.Level.BODY)
 
 private val okHttpClient = OkHttpClient.Builder()
-        .addInterceptor(httpLoggingInterceptor)
-        .addInterceptor {
-            val original = it.request()
-            val request = original.newBuilder()
-                    .header("Authorization", "token")
-                    .build()
-
-            return@addInterceptor it.proceed(request)
-        }.build()
+        .addInterceptor(httpLoggingInterceptor).build()
 
 private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

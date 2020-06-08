@@ -1,6 +1,8 @@
 package com.example.student_attendance_ms.main.schedule.base
 
+import android.app.Application
 import android.widget.Toast
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,10 +18,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScheduleViewModel : ViewModel() {
+class ScheduleViewModel (
+        val authToken: String?,
+        application: Application
+) : AndroidViewModel(application) {
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>>
         get() = _events
+
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -43,10 +49,12 @@ class ScheduleViewModel : ViewModel() {
         displayEventsByDate()
     }
 
-    fun displayEventsByDate(date: String = currentDate){
+    fun displayEventsByDate(date: String = currentDate, token: String? = authToken){
         coroutineScope.launch {
 //            _events.value = testData
-            val getEventsDeferred = UserApiService.retrofitService.getEventsAsync("")
+            val getEventsDeferred = UserApiService.retrofitService.getEventsAsync(
+                    date, authToken
+            )
             try {
                 val listResult = getEventsDeferred.await()
                 _events.value = listResult

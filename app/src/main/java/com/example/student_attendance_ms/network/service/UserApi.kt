@@ -25,13 +25,10 @@ interface UserApi {
     ): Call<AuthorizationResponse>
 
     // запрос списка событий
-//    @GET("events")
-//    fun getEventsAsync(
-//            @Query("date") date: String
-//    ): Deferred<List<Event>>
-
-    @GET("{eventsByDate}")
+    @GET("events")
     fun getEventsAsync(
-            @Path("eventsByDate") date: String
+        @Query("date") eventsByDate: String,
+        @Header("Authorization") token: String?
     ): Deferred<List<Event>>
+
 }

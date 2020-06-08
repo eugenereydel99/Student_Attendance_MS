@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
+import com.example.student_attendance_ms.main.MainActivity
 import org.json.JSONObject
 
 /**
@@ -26,14 +27,20 @@ class ScheduleFragment : Fragment(){
     private lateinit var calendarView: CalendarView
     private lateinit var viewAdapter: EventAdapter
 
-    private val viewModel: ScheduleViewModel by lazy {
-        ViewModelProvider(this).get(ScheduleViewModel::class.java)
-    }
+//    private val viewModel: ScheduleViewModel by lazy {
+//        ViewModelProvider(this).get(ScheduleViewModel::class.java)
+//    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        val intent = (activity as MainActivity).getAuthorizationData()?.authentication_token
+        val viewModelFactory = ScheduleViewModelFactory(intent, requireNotNull(this.activity).application)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(
+                ScheduleViewModel::class.java
+        )
 
         val binding = FragmentScheduleBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -48,7 +55,7 @@ class ScheduleFragment : Fragment(){
         calendarView = binding.calendarView
 
         viewModel.events.observe(viewLifecycleOwner, Observer {
-            it?.let {
+            it.let {
                 viewAdapter.submitList(it)
             }
         })
@@ -72,7 +79,4 @@ class ScheduleFragment : Fragment(){
         return binding.root
     }
 
-    private fun getDate(viewModel: ScheduleViewModel){
-
-    }
 }
