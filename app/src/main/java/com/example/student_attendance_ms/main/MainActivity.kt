@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
+import androidx.security.crypto.MasterKey
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.model.AuthorizationResponse
 import com.example.student_attendance_ms.utils.Constants
@@ -103,7 +104,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     // получаем данные из активности логина
-    public fun getAuthorizationData(): AuthorizationResponse? {
+    fun getAuthorizationData(): AuthorizationResponse? {
         return intent.getParcelableExtra(Constants.AUTHORIZATION_DATA)
     }
+
+
 }

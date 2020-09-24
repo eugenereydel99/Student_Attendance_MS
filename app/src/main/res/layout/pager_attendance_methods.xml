@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             app:tabTextColor="@color/white"
             app:tabBackground="@color/colorPrimary"
+            app:tabIndicatorFullWidth="true"
             />
 
         <androidx.viewpager2.widget.ViewPager2

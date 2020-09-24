@@ -15,7 +15,6 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.main.MainActivity
-import com.example.student_attendance_ms.network.service.UserApiService
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

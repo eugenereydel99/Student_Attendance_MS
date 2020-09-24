@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
@@ -34,7 +32,7 @@ class ProfileFragment : Fragment() {
         )
 
         binding.logoutButton.setOnClickListener {
-            SessionManager(context).logout()
+            SessionManager(context).finishSession()
         }
 
         binding.user = intent

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 public class AuthorizationResponse implements Parcelable{
 
-    private String authentication_token;
+    private String authToken;
     private Integer id;
     private String first_name;
     private String second_name;
@@ -13,7 +13,7 @@ public class AuthorizationResponse implements Parcelable{
     private String email;
 
     private AuthorizationResponse(Parcel in) {
-        authentication_token = in.readString();
+        authToken = in.readString();
         if (in.readByte() == 0) {
             id = null;
         } else {
@@ -27,7 +27,7 @@ public class AuthorizationResponse implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(authentication_token);
+        dest.writeString(authToken);
         if (id == null) {
             dest.writeByte((byte) 0);
         } else {
@@ -57,8 +57,8 @@ public class AuthorizationResponse implements Parcelable{
         }
     };
 
-    public String getAuthentication_token() {
-        return authentication_token;
+    public String getAuthToken() {
+        return authToken;
     }
 
     public Integer getId() {

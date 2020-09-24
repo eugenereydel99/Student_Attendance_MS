@@ -27,16 +27,12 @@ class ScheduleFragment : Fragment(){
     private lateinit var calendarView: CalendarView
     private lateinit var viewAdapter: EventAdapter
 
-//    private val viewModel: ScheduleViewModel by lazy {
-//        ViewModelProvider(this).get(ScheduleViewModel::class.java)
-//    }
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
-        val intent = (activity as MainActivity).getAuthorizationData()?.authentication_token
+        val intent = (activity as MainActivity).getAuthorizationData()?.authToken
         val viewModelFactory = ScheduleViewModelFactory(intent, requireNotNull(this.activity).application)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(
                 ScheduleViewModel::class.java
@@ -54,7 +50,7 @@ class ScheduleFragment : Fragment(){
 
         calendarView = binding.calendarView
 
-        viewModel.events.observe(viewLifecycleOwner, Observer {
+        viewModel.events.observe(viewLifecycleOwner, {
             it.let {
                 viewAdapter.submitList(it)
             }

@@ -30,5 +30,33 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <style name="TabLayout" parent="Widget.Design.TabLayout">
+
+
+        <item name="tabTextColor">@color/gray_500</item>
+        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabIndicatorColor">@color/gray_500</item>
+        <item name="tabBackground">@color/gray_100</item>
+
+<!--        <item name="tabMaxWidth">0dp</item>-->
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+
+        <!-- Индикатор по ширине названия вкладки -->
+        <item name="tabIndicatorFullWidth">true</item>
+
+        <!-- Цвет пульсаций по нажатию на вкладку -->
+        <item name="tabRippleColor">@color/white</item>
+
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+
+
+    </style>
+
+    <!-- Кастомизация вкладок -->
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
 </resources>

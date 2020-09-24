@@ -13,7 +13,7 @@ import retrofit2.http.*
 interface UserApi {
 
     // регистрация
-    @POST(Constants.BASE_URL)
+    @POST(Constants.API_BASE_URL)
     fun createUser(
             @Body() userX: UserX
     ): Call<ResponseBody>
@@ -26,9 +26,8 @@ interface UserApi {
 
     // запрос списка событий
     @GET("events")
-    fun getEventsAsync(
+    suspend fun getEvents(
         @Query("date") eventsByDate: String,
-        @Header("Authorization") token: String?
     ): Deferred<List<Event>>
 
 }

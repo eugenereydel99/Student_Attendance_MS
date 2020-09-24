@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.navigation.Navigation
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.model.User
-import com.example.student_attendance_ms.helper.validation.SignUpPattern
+import com.example.student_attendance_ms.utils.SignUpPattern
 import com.example.student_attendance_ms.network.model.UserX
-import com.example.student_attendance_ms.network.service.UserApi
-import com.example.student_attendance_ms.network.service.UserApiService
+import com.example.student_attendance_ms.network.service.ApiService
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,7 +32,6 @@ class SignUpFragment : Fragment() {
     ): View? {
 
         val signUpView = inflater.inflate(R.layout.fragment_sign_up, container, false)
-        onCreateAlreadyExistsButton(signUpView)
 
         initializeViews(signUpView)
 
@@ -57,7 +53,7 @@ class SignUpFragment : Fragment() {
                         )
                 )
 
-                UserApiService.retrofitService.createUser(
+                ApiService.build().createUser(
                         userCredentials
                 ).enqueue(object: Callback<ResponseBody>{
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -76,18 +72,12 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun onCreateAlreadyExistsButton(view: View){
-        view.accountAlreadyExists.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_signInFragment)
-        }
-    }
-
     private fun initializeViews(view: View){
 
         // validation views
-        emailInputLayout = view.findViewById(R.id.emailTextInput)
-        passwordInputLayout = view.findViewById(R.id.passwordSignUpTextInput)
-        emailEditText = view.findViewById(R.id.emailEditText)
+        emailInputLayout = view.findViewById(R.id.emailSignUpTextField)
+        passwordInputLayout = view.findViewById(R.id.passwordSignUpTextField)
+        emailEditText = view.findViewById(R.id.emailSignUpEditText)
         passwordEditText = view.findViewById(R.id.passwordSignUpEditText)
     }
 
