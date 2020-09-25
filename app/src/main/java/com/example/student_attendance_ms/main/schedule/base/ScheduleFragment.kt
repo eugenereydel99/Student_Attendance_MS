@@ -6,17 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
-import com.example.student_attendance_ms.main.MainActivity
-import org.json.JSONObject
 
 /**
  * A simple [Fragment] subclass.
@@ -27,16 +20,12 @@ class ScheduleFragment : Fragment(){
     private lateinit var calendarView: CalendarView
     private lateinit var viewAdapter: EventAdapter
 
+    private val viewModel: ScheduleViewModel by viewModels()
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-        val intent = (activity as MainActivity).getAuthorizationData()?.authToken
-        val viewModelFactory = ScheduleViewModelFactory(intent, requireNotNull(this.activity).application)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(
-                ScheduleViewModel::class.java
-        )
 
         val binding = FragmentScheduleBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -56,20 +45,9 @@ class ScheduleFragment : Fragment(){
             }
         })
 
+        // отображение событий в календаре при выборе определенной даты
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-//            val currentDate = JSONObject().put(
-//                    "date","$month/$dayOfMonth/$year"
-//            ).toString().replace("\\","")
             viewModel.displayEventsByDate("${month+1}/$dayOfMonth/$year")
-//            Toast.makeText(context, "${month+1}/$dayOfMonth/$year", Toast.LENGTH_LONG).show()
-
-
-//            viewModel.events.observe(viewLifecycleOwner, Observer {
-//                it?.let {
-//                    viewAdapter.submitList(it)
-//                }
-//            })
-
         }
 
         return binding.root

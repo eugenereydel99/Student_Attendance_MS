@@ -1,6 +1,6 @@
 package com.example.student_attendance_ms.network.service
 
-import com.example.student_attendance_ms.utils.Constants
+import com.example.student_attendance_ms.BuildConfig
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -9,36 +9,42 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiService {
 
-    // логирование тела запроса/ответа
-    private val httpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
-            // раскомментировать при использовании соединения по HTTPS
-//            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
-
-    private val retrofit: Retrofit.Builder = Retrofit.Builder()
-            .baseUrl(Constants.API_BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+    private const val BASE_URL = "http://91.105.146.185:3000/"
 
     @JvmStatic
     fun build(authToken: String? = null): UserApi{
 
+        // логирование тела запроса/ответа
+        val logger = HttpLoggingInterceptor()
+
+        // использование логирования только при отладке приложения
+        if (BuildConfig.DEBUG){
+            logger.level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(logger)
+        // раскомментировать при использовании соединения по HTTPS
+//            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
+
+        val retrofit: Retrofit.Builder = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+
         if (authToken != null){
-            val authInterceptor = Interceptor { chain ->
-                var request = chain.request()
-                request = request.newBuilder()
+            okHttpClient.addInterceptor { chain ->
+                val original = chain.request()
+                val request = original.newBuilder()
                         .header("Authorization", authToken)
                         .build()
 
                 chain.proceed(request)
             }
-
-            okHttpClient.addInterceptor(authInterceptor)
         }
 
-        retrofit.client(okHttpClient.build())
-
-        return retrofit.build().create(UserApi::class.java)
+        return retrofit.client(okHttpClient.build())
+                .build()
+                .create(UserApi::class.java)
     }
 
 

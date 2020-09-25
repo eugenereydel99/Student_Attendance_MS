@@ -43,7 +43,7 @@ public class SessionManager {
         intent.putExtra(Constants.AUTHORIZATION_DATA, authResponse);
 
         editor = sessionPrefs.edit();
-        editor.putString(Constants.ACCESS_TOKEN, authToken);
+        editor.putString(Constants.AUTH_TOKEN, authToken);
         editor.putBoolean(Constants.LOGIN_SESSION, true);
         editor.apply();
 
@@ -51,7 +51,7 @@ public class SessionManager {
     }
 
     public void finishSession(){
-        editor.remove(Constants.ACCESS_TOKEN).clear().apply();
+        editor.remove(Constants.AUTH_TOKEN).clear().apply();
         editor.remove(Constants.LOGIN_SESSION).clear().apply();
         final Intent intent = new Intent(context, LoginActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

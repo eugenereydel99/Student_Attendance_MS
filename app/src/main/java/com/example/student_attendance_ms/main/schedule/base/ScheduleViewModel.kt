@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.student_attendance_ms.network.service.ApiService
+import com.example.student_attendance_ms.network.service.AuthRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,13 +16,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleViewModel (
-        val authToken: String?,
+        authRepository: AuthRepository,
         application: Application
 ) : AndroidViewModel(application) {
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>>
         get() = _events
 
+    // получение токена аутентификации
+    private val authToken = authRepository.getToken()
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -36,7 +39,7 @@ class ScheduleViewModel (
 
     fun displayEventsByDate(date: String = currentDate, token: String? = authToken){
         coroutineScope.launch {
-            val getEventsDeferred = ApiService.build(token).getEvents(date)
+            val getEventsDeferred = ApiService.build(token).getEventsAsync(date)
             try {
                 val listResult = getEventsDeferred.await()
                 _events.value = listResult
