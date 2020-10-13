@@ -9,20 +9,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 
-import androidx.navigation.Navigation
-import androidx.security.crypto.MasterKey
-
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.model.AuthorizationResponse
-import com.example.student_attendance_ms.network.model.User
 import com.example.student_attendance_ms.network.service.ApiService
 
-import com.example.student_attendance_ms.network.service.SessionManager
-import com.example.student_attendance_ms.network.service.UserApi
+import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 
-import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,7 +45,7 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val sessionManager = SessionManager(this.context)
+        val sessionManager = SessionManager(activity as LoginActivity)
 
         signInButton = view.findViewById(R.id.signInButton)
 
@@ -73,9 +67,13 @@ class SignInFragment : Fragment() {
                 override fun onResponse(call: Call<AuthorizationResponse>, response: Response<AuthorizationResponse>) {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
-                        sessionManager.createSession(authResponse).also {
-                            startActivity(it)
-                            activity?.finish()
+                        if (authResponse != null) {
+                            sessionManager.createSession(authResponse).also {
+                                startActivity(it)
+                                activity?.finish()
+                            }
+                        } else {
+                            Toast.makeText(context, "null", Toast.LENGTH_LONG).show()
                         }
 
                     } else {

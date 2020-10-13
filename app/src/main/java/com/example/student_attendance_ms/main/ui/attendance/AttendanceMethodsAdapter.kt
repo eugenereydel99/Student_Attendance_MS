@@ -1,10 +1,10 @@
-package com.example.student_attendance_ms.main.methods
+package com.example.student_attendance_ms.main.ui.attendance
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.student_attendance_ms.main.methods.image_key.ImageKeyFragment
-import com.example.student_attendance_ms.main.methods.scanner.ScannerFragment
-import com.example.student_attendance_ms.main.methods.testing.TestingFragment
+import com.example.student_attendance_ms.main.ui.attendance.image_key.ImageKeyFragment
+import com.example.student_attendance_ms.main.ui.attendance.scanner.ScannerFragment
+import com.example.student_attendance_ms.main.ui.attendance.testing.TestingFragment
 
 class AttendanceMethodsAdapter(
         fragment: Fragment

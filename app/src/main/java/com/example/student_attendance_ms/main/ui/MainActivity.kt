@@ -1,6 +1,7 @@
-package com.example.student_attendance_ms.main
+package com.example.student_attendance_ms.main.ui
 
-import android.Manifest
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,19 +12,13 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
-import androidx.security.crypto.MasterKey
+import androidx.security.crypto.EncryptedSharedPreferences
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.model.AuthorizationResponse
 import com.example.student_attendance_ms.utils.Constants
-import com.example.student_attendance_ms.network.service.SessionManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-
-private val REQUIRED_PERMISSIONS = arrayOf(
-        Manifest.permission.CAMERA,
-        Manifest.permission.INTERNET
-)
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
@@ -108,5 +104,9 @@ class MainActivity : AppCompatActivity() {
         return intent.getParcelableExtra(Constants.AUTHORIZATION_DATA)
     }
 
+//    fun getToken(): String?{
+//        val prefs = getSharedPreferences("token", MODE_PRIVATE)
+//        return prefs.getString(Constants.AUTH_TOKEN, null)
+//    }
 
 }

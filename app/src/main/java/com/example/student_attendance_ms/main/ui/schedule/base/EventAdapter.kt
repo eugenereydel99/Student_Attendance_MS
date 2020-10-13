@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.schedule.base
+package com.example.student_attendance_ms.main.ui.schedule.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,17 +6,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.databinding.ListEventsBinding
+import com.example.student_attendance_ms.network.model.Event
 
 class EventAdapter (
     private val clickListener: OnClickListener
-): ListAdapter<Event,EventAdapter.EventViewHolder>(DiffCallback) {
+): ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallback) {
 
     class EventViewHolder(
             private val binding: ListEventsBinding
     ): RecyclerView.ViewHolder(binding.root){
         fun bind(clickListener: OnClickListener, event: Event){
             binding.event = event
-            binding.clickListener = clickListener
+//            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
     }

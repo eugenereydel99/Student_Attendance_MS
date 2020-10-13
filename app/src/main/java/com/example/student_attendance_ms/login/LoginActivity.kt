@@ -6,8 +6,8 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.main.MainActivity
-import com.example.student_attendance_ms.network.service.SessionManager
+import com.example.student_attendance_ms.main.ui.MainActivity
+import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         // если сессия активна, то открывается основное окно приложения
-        if (SessionManager(this).isLoggedIn){
+        if (SessionManager(this).isLoggedIn()){
             startActivity(Intent(
                     this,
                     MainActivity::class.java

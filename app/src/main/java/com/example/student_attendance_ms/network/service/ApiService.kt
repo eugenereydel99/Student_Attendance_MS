@@ -1,25 +1,22 @@
 package com.example.student_attendance_ms.network.service
 
-import com.example.student_attendance_ms.BuildConfig
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+import com.example.student_attendance_ms.BuildConfig
 
 object ApiService {
 
-    private const val BASE_URL = "http://91.105.146.185:3000/"
+    private const val BASE_URL = "http://5.136.88.51:8000/"
 
-    @JvmStatic
     fun build(authToken: String? = null): UserApi{
 
-        // логирование тела запроса/ответа
-        val logger = HttpLoggingInterceptor()
-
-        // использование логирования только при отладке приложения
-        if (BuildConfig.DEBUG){
-            logger.level = HttpLoggingInterceptor.Level.BODY
+        // логирование тела запроса/ответа только в режиме отладки
+        val logger = HttpLoggingInterceptor().apply {
+            if (BuildConfig.DEBUG) {
+                this.level = HttpLoggingInterceptor.Level.BODY
+            }
         }
 
         val okHttpClient = OkHttpClient.Builder()

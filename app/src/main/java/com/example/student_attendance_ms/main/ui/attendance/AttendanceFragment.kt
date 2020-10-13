@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.methods
+package com.example.student_attendance_ms.main.ui.attendance
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

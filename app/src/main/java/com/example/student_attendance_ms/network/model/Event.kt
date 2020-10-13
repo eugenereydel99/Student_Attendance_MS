@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.schedule.base
+package com.example.student_attendance_ms.network.model
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

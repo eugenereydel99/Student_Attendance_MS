@@ -19,4 +19,5 @@ class LoginTabsAdapter (fragmentActivity: FragmentActivity): FragmentStateAdapte
     override fun getItemCount() = loginTabs.size
 
     override fun createFragment(position: Int) = loginTabs[position]
+
 }

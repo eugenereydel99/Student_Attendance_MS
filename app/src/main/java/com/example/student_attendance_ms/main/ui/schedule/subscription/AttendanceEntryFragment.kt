@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.schedule.subscription
+package com.example.student_attendance_ms.main.ui.schedule.subscription
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.network.model.UserEntry
 
 /**
  * A simple [Fragment] subclass.

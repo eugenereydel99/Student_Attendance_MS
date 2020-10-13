@@ -1,10 +1,9 @@
 package com.example.student_attendance_ms.network.service
 
-import com.example.student_attendance_ms.main.schedule.base.Event
+import com.example.student_attendance_ms.network.model.Event
 import com.example.student_attendance_ms.network.model.AuthorizationResponse
-import com.example.student_attendance_ms.network.model.User
-import com.example.student_attendance_ms.network.model.UserX
-import com.example.student_attendance_ms.utils.Constants
+import com.example.student_attendance_ms.login.User
+import com.example.student_attendance_ms.login.UserX
 import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -13,7 +12,7 @@ import retrofit2.http.*
 interface UserApi {
 
     // регистрация
-    @POST()
+    @POST("http://5.136.88.51:8000/")
     fun createUser(
             @Body() userX: UserX
     ): Call<ResponseBody>

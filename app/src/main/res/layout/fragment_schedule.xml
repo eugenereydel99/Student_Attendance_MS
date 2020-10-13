@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.student_attendance_ms.main.schedule.base.ScheduleViewModel" />
+            type="com.example.student_attendance_ms.main.ui.schedule.base.ScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".main.schedule.base.ScheduleFragment">
+        tools:context=".main.ui.schedule.base.ScheduleFragment">
 
         <CalendarView
             android:id="@+id/calendarView"

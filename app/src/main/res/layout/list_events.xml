@@ -5,11 +5,11 @@
     <data>
         <variable
             name="event"
-            type="com.example.student_attendance_ms.main.schedule.base.Event" />
+            type="com.example.student_attendance_ms.network.model.Event" />
 
         <variable
             name="clickListener"
-            type="com.example.student_attendance_ms.main.schedule.base.EventAdapter.OnClickListener" />
+            type="com.example.student_attendance_ms.main.ui.schedule.base.EventAdapter" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,7 +20,6 @@
         android:layout_marginBottom="5dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> clickListener.onClick(event)}"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout

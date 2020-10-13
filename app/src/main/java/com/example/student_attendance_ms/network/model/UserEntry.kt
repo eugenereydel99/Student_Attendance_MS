@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.schedule.subscription
+package com.example.student_attendance_ms.network.model
 
 data class UserEntry (
         val userImage: Int,

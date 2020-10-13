@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.methods.testing
+package com.example.student_attendance_ms.main.ui.attendance.image_key
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,12 +10,12 @@ import android.widget.TextView
 /**
  * A simple [Fragment] subclass.
  */
-class TestingFragment : Fragment() {
+class ImageKeyFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return TextView(activity).apply {
-            setText("Тематические тесты")
+            setText("Графический ключ")
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.profile
+package com.example.student_attendance_ms.main.ui.profile
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil
 
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
-import com.example.student_attendance_ms.main.MainActivity
-import com.example.student_attendance_ms.network.service.SessionManager
+import com.example.student_attendance_ms.main.ui.MainActivity
+import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.button.MaterialButton
 
 class ProfileFragment : Fragment() {
@@ -32,7 +32,10 @@ class ProfileFragment : Fragment() {
         )
 
         binding.logoutButton.setOnClickListener {
-            SessionManager(context).finishSession()
+            val context = this.context
+            if (context != null) {
+                SessionManager(context).finishSession(context)
+            }
         }
 
         binding.user = intent

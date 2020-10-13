@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.schedule.subscription;
+package com.example.student_attendance_ms.main.ui.schedule.subscription;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.student_attendance_ms.R;
+import com.example.student_attendance_ms.network.model.UserEntry;
 
 import java.util.List;
 

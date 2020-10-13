@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.network.model.User
 import com.example.student_attendance_ms.utils.SignUpPattern
-import com.example.student_attendance_ms.network.model.UserX
 import com.example.student_attendance_ms.network.service.ApiService
 import com.google.android.material.textfield.TextInputLayout
 import okhttp3.ResponseBody

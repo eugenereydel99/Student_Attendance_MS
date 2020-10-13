@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.methods.scanner
+package com.example.student_attendance_ms.main.ui.attendance.scanner
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -14,11 +14,7 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.main.MainActivity
-import okhttp3.ResponseBody
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.student_attendance_ms.main.ui.MainActivity
 
 private const val CAMERA_REQUEST_CODE = 10
 private val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
