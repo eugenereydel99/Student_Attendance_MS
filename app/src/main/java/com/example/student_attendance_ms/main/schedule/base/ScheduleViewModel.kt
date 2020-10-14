@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui.schedule.base
+package com.example.student_attendance_ms.main.schedule.base
 import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.Event
 import com.example.student_attendance_ms.network.service.ApiService
@@ -27,9 +27,6 @@ class ScheduleViewModel (
     val events: LiveData<List<Event>>
         get() = _events
 
-    // получение токена аутентификации
-
-
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
@@ -43,10 +40,9 @@ class ScheduleViewModel (
 
     fun displayEventsByDate(date: String = currentDate, token: String? = authToken){
         coroutineScope.launch {
-            val getEventsDeferred = ApiService.build(token).getEventsAsync(date)
+            val getEvents = ApiService.build(token).getEvents(date)
             try {
-                val listResult = getEventsDeferred.await()
-                _events.value = listResult
+                _events.value = getEvents
             } catch (e: Exception){
                 _events.value = ArrayList()
             }

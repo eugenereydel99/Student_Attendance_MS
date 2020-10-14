@@ -5,10 +5,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import com.example.student_attendance_ms.BuildConfig
+import com.example.student_attendance_ms.utils.Constants
 
 object ApiService {
-
-    private const val BASE_URL = "http://5.136.88.51:8000/"
 
     fun build(authToken: String? = null): UserApi{
 
@@ -25,7 +24,7 @@ object ApiService {
 //            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
 
         val retrofit: Retrofit.Builder = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
 
         if (authToken != null){

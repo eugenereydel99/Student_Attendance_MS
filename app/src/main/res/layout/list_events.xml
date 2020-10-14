@@ -9,7 +9,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.student_attendance_ms.main.ui.schedule.base.EventAdapter" />
+            type="com.example.student_attendance_ms.main.schedule.base.EventAdapter" />
     </data>
 
     <androidx.cardview.widget.CardView

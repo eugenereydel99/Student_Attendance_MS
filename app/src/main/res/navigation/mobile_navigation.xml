@@ -6,22 +6,22 @@
     app:startDestination="@id/profileFragment">
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.student_attendance_ms.main.ui.profile.ProfileFragment"
+        android:name="com.example.student_attendance_ms.main.profile.ProfileFragment"
         android:label="Профиль"
-        tools:layout="@layout/fragment_user_profile" />
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/attendanceFragment"
-        android:name="com.example.student_attendance_ms.main.ui.attendance.AttendanceFragment"
+        android:name="com.example.student_attendance_ms.main.attendance.AttendanceFragment"
         android:label="Контроль посещаемости"
         tools:layout="@layout/fragment_attendance" />
     <fragment
         android:id="@+id/attendanceEntryFragment"
-        android:name="com.example.student_attendance_ms.main.ui.schedule.subscription.AttendanceEntryFragment"
+        android:name="com.example.student_attendance_ms.main.schedule.sub.AttendanceEntryFragment"
         android:label="Предмет"
         tools:layout="@layout/fragment_attendance_entry" />
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="com.example.student_attendance_ms.main.ui.schedule.base.ScheduleFragment"
+        android:name="com.example.student_attendance_ms.main.schedule.base.ScheduleFragment"
         android:label="Календарь"
         tools:layout="@layout/fragment_schedule" >
 

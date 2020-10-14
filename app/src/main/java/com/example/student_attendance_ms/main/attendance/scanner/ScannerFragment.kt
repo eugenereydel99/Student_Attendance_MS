@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui.attendance.scanner
+package com.example.student_attendance_ms.main.attendance.scanner
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -14,7 +14,7 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.main.ui.MainActivity
+import com.example.student_attendance_ms.main.MainActivity
 
 private const val CAMERA_REQUEST_CODE = 10
 private val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)

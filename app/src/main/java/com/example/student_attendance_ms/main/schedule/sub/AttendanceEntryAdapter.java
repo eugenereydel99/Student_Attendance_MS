@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui.schedule.subscription;
+package com.example.student_attendance_ms.main.schedule.sub;
 
 import android.view.LayoutInflater;
 import android.view.View;

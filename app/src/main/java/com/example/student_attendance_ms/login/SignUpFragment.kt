@@ -44,8 +44,8 @@ class SignUpFragment : Fragment() {
             if (SignUpPattern().isPasswordValid(passwordInputLayout)
                     and SignUpPattern().isEmailValid(emailInputLayout)){
 
-                val userCredentials = UserX(
-                        User(
+                val userCredentials = AuthorizationRequest(
+                        AuthData(
                                 emailEditText.text.toString(),
                                 passwordEditText.text.toString()
                         )

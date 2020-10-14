@@ -51,14 +51,14 @@ class SignInFragment : Fragment() {
 
         //авторизация
         signInButton.setOnClickListener {
-            val userCredentials = User(
+            val userCredentials = AuthData(
                     loginEditText.text.toString(),
                     passwordEditText.text.toString()
             )
 
             ApiService.build().login(
                     userCredentials
-            ).enqueue(object: Callback<AuthorizationResponse> {
+            ).enqueue(object : Callback<AuthorizationResponse> {
                 override fun onFailure(call: Call<AuthorizationResponse>, t: Throwable) {
                     Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
                 }
@@ -70,12 +70,9 @@ class SignInFragment : Fragment() {
                         if (authResponse != null) {
                             sessionManager.createSession(authResponse).also {
                                 startActivity(it)
-                                activity?.finish()
+                                this@SignInFragment.activity?.finish()
                             }
-                        } else {
-                            Toast.makeText(context, "null", Toast.LENGTH_LONG).show()
                         }
-
                     } else {
                         Toast.makeText(context, "Безуспешно", Toast.LENGTH_LONG).show()
                     }
@@ -84,9 +81,7 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun initializeViews(view: View){
-
-        // validation views
+    private fun initializeViews(view: View) {
         loginInputLayout = view.findViewById(R.id.emailSignInTextInput)
         passwordInputLayout = view.findViewById(R.id.passwordSignInTextInput)
         loginEditText = view.findViewById(R.id.emailSignInEditText)

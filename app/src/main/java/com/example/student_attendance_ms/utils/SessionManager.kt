@@ -7,10 +7,10 @@ import android.content.SharedPreferences.*
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 import com.example.student_attendance_ms.login.LoginActivity;
-import com.example.student_attendance_ms.main.ui.MainActivity;
+import com.example.student_attendance_ms.main.MainActivity;
 import com.example.student_attendance_ms.network.model.AuthorizationResponse;
 
-class SessionManager (val context: Context){
+class SessionManager(val context: Context) {
 
     private val masterKey: MasterKey = MasterKey.Builder(context)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -24,20 +24,21 @@ class SessionManager (val context: Context){
 
     private var editor: Editor = sessionPreferences.edit()
 
-    fun createSession(authorizationResponse: AuthorizationResponse): Intent{
+    fun createSession(authorizationResponse: AuthorizationResponse): Intent {
 
-        val authToken = authorizationResponse.authToken
         val intent = Intent(context, MainActivity::class.java)
-                .putExtra(Constants.AUTHORIZATION_DATA, authToken)
+                .putExtra(Constants.AUTHORIZATION_DATA, authorizationResponse)
 
-        editor.putString(Constants.AUTH_TOKEN, authToken)
+        editor.putInt(Constants.USER_ID, authorizationResponse.id)
+        editor.putString(Constants.AUTH_TOKEN, authorizationResponse.authToken)
         editor.putBoolean(Constants.LOGGED_IN, true)
         editor.apply()
 
         return intent
     }
 
-    fun finishSession(context: Context){
+    fun finishSession(context: Context) {
+        editor.remove(Constants.USER_ID).clear().apply()
         editor.remove(Constants.AUTH_TOKEN).clear().apply()
         editor.remove(Constants.LOGGED_IN).clear().apply()
 
@@ -47,11 +48,15 @@ class SessionManager (val context: Context){
         )
     }
 
+    fun getUserId(): Int {
+        return sessionPreferences.getInt(Constants.USER_ID, 0)
+    }
+
     fun getToken(): String? {
         return sessionPreferences.getString(Constants.AUTH_TOKEN, null)
     }
 
-    fun isLoggedIn(): Boolean{
+    fun isLoggedIn(): Boolean {
         return sessionPreferences.getBoolean(Constants.LOGGED_IN, false)
     }
 }

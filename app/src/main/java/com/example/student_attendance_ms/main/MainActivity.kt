@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui
+package com.example.student_attendance_ms.main
 
 import android.content.Intent
 import android.content.SharedPreferences

@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui.schedule.base
+package com.example.student_attendance_ms.main.schedule.base
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
-import com.example.student_attendance_ms.main.ui.MainActivity
+import com.example.student_attendance_ms.main.MainActivity
 import com.example.student_attendance_ms.utils.SessionManager
 
 class ScheduleFragment : Fragment(){

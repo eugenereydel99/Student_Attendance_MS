@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui.schedule.base
+package com.example.student_attendance_ms.main.schedule.base
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

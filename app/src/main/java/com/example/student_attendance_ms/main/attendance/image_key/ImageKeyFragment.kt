@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.ui.attendance.image_key
+package com.example.student_attendance_ms.main.attendance.image_key
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
