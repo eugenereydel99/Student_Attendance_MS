@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentProfileBinding
-import com.example.student_attendance_ms.main.MainActivity
 import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.button.MaterialButton
 
@@ -21,8 +20,6 @@ class ProfileFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-        val intent = (activity as MainActivity).getAuthorizationData()
 
         val binding = DataBindingUtil.inflate<FragmentProfileBinding>(
                 inflater,
@@ -38,8 +35,6 @@ class ProfileFragment : Fragment() {
                 this@ProfileFragment.activity?.finish()
             }
         }
-
-        binding.user = intent
 
         return binding.root
     }

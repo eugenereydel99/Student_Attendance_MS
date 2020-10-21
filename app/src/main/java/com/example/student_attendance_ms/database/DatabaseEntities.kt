@@ -1,12 +1,11 @@
 package com.example.student_attendance_ms.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 
 // сущность для хранения текущего пользователя
 @Entity(tableName = "user")
-data class User(
-        @PrimaryKey val id: String,
+data class UserDb constructor(
+        @PrimaryKey (autoGenerate = false) val id: String,
         val email: String,
         val firstName: String,
         val secondName: String,
@@ -19,12 +18,12 @@ data class User(
 interface UserDao {
 
     @Query("SELECT id FROM user WHERE id = :userId")
-    fun getId(userId: String): String
+    fun getUserId(userId: String): String
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(user: User)
+    fun save(userDb: UserDb)
 
     @Query("SELECT * FROM user WHERE id = :userId")
-    fun load(userId: String): LiveData<User>
+    fun load(userId: String): UserDb
 }
 

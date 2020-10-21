@@ -27,16 +27,16 @@ object ApiService {
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
 
-        if (authToken != null){
-            okHttpClient.addInterceptor { chain ->
-                val original = chain.request()
-                val request = original.newBuilder()
-                        .header("Authorization", authToken)
-                        .build()
-
-                chain.proceed(request)
-            }
-        }
+//        if (authToken != null){
+//            okHttpClient.addInterceptor { chain ->
+//                val original = chain.request()
+//                val request = original.newBuilder()
+//                        .header("Authorization", authToken)
+//                        .build()
+//
+//                chain.proceed(request)
+//            }
+//        }
 
         return retrofit.client(okHttpClient.build())
                 .build()

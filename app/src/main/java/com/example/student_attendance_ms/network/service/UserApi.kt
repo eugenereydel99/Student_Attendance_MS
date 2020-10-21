@@ -27,11 +27,12 @@ interface UserApi {
     @GET("/user/:{id}")
     fun getUser(
             @Path("id") userId: Int
-    ): Call<User>
+    ): User
 
     // запрос списка событий
     @GET("events")
     suspend fun getEvents(
+            @Header("Authorization") authToken: String,
             @Query("date") eventsByDate: String,
     ): List<Event>
 

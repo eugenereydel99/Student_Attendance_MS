@@ -1,7 +1,5 @@
 package com.example.student_attendance_ms.main
 
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,20 +10,20 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
-import androidx.security.crypto.EncryptedSharedPreferences
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.model.AuthorizationResponse
 import com.example.student_attendance_ms.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
@@ -53,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavMenu(navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            when (destination.id){
+            when (destination.id) {
                 R.id.attendanceEntryFragment -> {
                     bottom_nav_view?.visibility = View.GONE
                 }
@@ -66,24 +64,24 @@ class MainActivity : AppCompatActivity() {
     private fun setupActionBar(
             navController: NavController,
             appBarConfig: AppBarConfiguration
-    ){
+    ) {
         setupActionBarWithNavController(navController, appBarConfig)
     }
 
-    private fun setupNavigationMenu(navController: NavController){
+    private fun setupNavigationMenu(navController: NavController) {
         findViewById<NavigationView>(R.id.nav_view)
                 ?.setupWithNavController(navController)
     }
 
-    private fun setupBottomNavMenu(navController: NavController){
+    private fun setupBottomNavMenu(navController: NavController) {
         findViewById<BottomNavigationView>(R.id.bottom_nav_view)
                 ?.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val retValue =  super.onCreateOptionsMenu(menu)
+        val retValue = super.onCreateOptionsMenu(menu)
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        if (navigationView == null){
+        if (navigationView == null) {
             menuInflater.inflate(R.menu.overflow_menu, menu)
             return true
         }
@@ -98,15 +96,4 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
     }
-
-    // получаем данные из активности логина
-    fun getAuthorizationData(): AuthorizationResponse? {
-        return intent.getParcelableExtra(Constants.AUTHORIZATION_DATA)
-    }
-
-//    fun getToken(): String?{
-//        val prefs = getSharedPreferences("token", MODE_PRIVATE)
-//        return prefs.getString(Constants.AUTH_TOKEN, null)
-//    }
-
 }

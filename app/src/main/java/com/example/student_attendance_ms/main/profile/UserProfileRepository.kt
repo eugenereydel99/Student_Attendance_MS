@@ -1,31 +1,27 @@
 package com.example.student_attendance_ms.main.profile
 
-import androidx.lifecycle.LiveData
 import com.example.student_attendance_ms.database.UserDao
-import com.example.student_attendance_ms.database.User
+import com.example.student_attendance_ms.database.UserDb
 import com.example.student_attendance_ms.network.service.ApiService
-import com.example.student_attendance_ms.network.service.UserApi
-import java.util.concurrent.Executor
+import com.example.student_attendance_ms.utils.asDatabaseModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class UserProfileRepository(
-        private val userApi: UserApi,
-        private val userDao: UserDao
-) {
-
-    fun getUser(userId: String, authToken: String): LiveData<User>{
-        refreshUser(userId, authToken)
-        return userDao.load(userId)
-    }
-
-    private fun refreshUser(userId: String, authToken: String){
-        val userData = userDao.getId(userId)
-
-        val response = ApiService.build(authToken).getUser(userId.toInt())
-
-        // здесь можно проверять на ошибки
-
-        // обновление базы данных
-//        userDao.save(response.body)
-    }
-
-}
+//
+//class UserProfileRepository @Inject constructor(
+//        private val apiService: ApiService,
+//        private val userDao: UserDao
+//) {
+//    suspend fun getUser(userId: Int, authToken: String?): UserDb {
+//        val userData = userDao.getUserId(userId.toString())
+//
+//        if (userData.isEmpty()) {
+//            withContext(Dispatchers.IO) {
+//                val response = apiService.build(authToken).getUser(userId)
+//                userDao.save(response.asDatabaseModel())
+//            }
+//        }
+//        return userDao.load(userId.toString())
+//    }
+//}

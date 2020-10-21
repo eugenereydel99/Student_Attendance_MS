@@ -5,32 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
 import com.example.student_attendance_ms.main.MainActivity
 import com.example.student_attendance_ms.utils.SessionManager
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScheduleFragment : Fragment(){
 
     private lateinit var calendarView: CalendarView
     private lateinit var viewAdapter: EventAdapter
 
-    private lateinit var viewModel: ScheduleViewModel
-    private lateinit var viewModelFactory: ScheduleViewModelFactory
+    private val viewModel: ScheduleViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-
-        val sessionManager = SessionManager(activity as MainActivity)
-
-        viewModelFactory = ScheduleViewModelFactory(sessionManager.getToken())
-        viewModel = ViewModelProvider(this, viewModelFactory).get(
-                ScheduleViewModel::class.java
-        )
 
         val binding = FragmentScheduleBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -45,9 +40,7 @@ class ScheduleFragment : Fragment(){
         calendarView = binding.calendarView
 
         viewModel.events.observe(viewLifecycleOwner){
-            it.let {
-                viewAdapter.submitList(it)
-            }
+            viewAdapter.submitList(it)
         }
 
         // отображение событий в календаре при выборе определенной даты

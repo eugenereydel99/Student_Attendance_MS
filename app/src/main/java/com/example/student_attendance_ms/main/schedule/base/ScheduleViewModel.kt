@@ -1,7 +1,11 @@
 package com.example.student_attendance_ms.main.schedule.base
+import android.content.Context
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.Event
 import com.example.student_attendance_ms.network.service.ApiService
+import com.example.student_attendance_ms.utils.SessionManager
+import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -11,24 +15,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ScheduleViewModelFactory (
-        private val authToken: String?
-): ViewModelProvider.Factory{
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return ScheduleViewModel(authToken) as T
-    }
-}
-
-class ScheduleViewModel (
-        private val authToken: String?
+class ScheduleViewModel @ViewModelInject constructor(
+      @ActivityContext private val context: Context
 ) : ViewModel() {
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>>
         get() = _events
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    private val authToken = SessionManager(context).getToken()
 
     // устанавливаем текущую дату
     private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
@@ -39,8 +33,8 @@ class ScheduleViewModel (
     }
 
     fun displayEventsByDate(date: String = currentDate, token: String? = authToken){
-        coroutineScope.launch {
-            val getEvents = ApiService.build(token).getEvents(date)
+        viewModelScope.launch {
+            val getEvents = token?.let { ApiService.build(token).getEvents(it, date) }
             try {
                 _events.value = getEvents
             } catch (e: Exception){
@@ -49,8 +43,4 @@ class ScheduleViewModel (
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 }

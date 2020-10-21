@@ -48,7 +48,6 @@ class ScannerFragment : Fragment() {
         val activity = requireActivity()
         barcodeScanner = CodeScanner(activity, scannerView)
 
-        val intent = (activity as MainActivity).getAuthorizationData()
 
         barcodeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
