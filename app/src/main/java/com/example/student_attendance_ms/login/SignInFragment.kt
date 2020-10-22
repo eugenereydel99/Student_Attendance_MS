@@ -16,11 +16,14 @@ import com.example.student_attendance_ms.network.service.ApiService
 import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignInFragment : Fragment() {
 
     private lateinit var loginInputLayout: TextInputLayout
@@ -29,6 +32,8 @@ class SignInFragment : Fragment() {
     private lateinit var passwordEditText: EditText
 
     private lateinit var signInButton: MaterialButton
+
+    @Inject lateinit var apiService: ApiService
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +61,7 @@ class SignInFragment : Fragment() {
                     passwordEditText.text.toString()
             )
 
-            ApiService.build().login(
+            apiService.login(
                     userCredentials
             ).enqueue(object : Callback<AuthorizationResponse> {
                 override fun onFailure(call: Call<AuthorizationResponse>, t: Throwable) {

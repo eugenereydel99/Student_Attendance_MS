@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.attendance.scanner
+package com.example.student_attendance_ms.main.verification_methods.scanner
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -14,7 +14,6 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.main.MainActivity
 
 private const val CAMERA_REQUEST_CODE = 10
 private val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
@@ -29,7 +28,7 @@ class ScannerFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        val barcodeView = inflater.inflate(R.layout.fragment_methods_scanner, container,false)
+        val barcodeView = inflater.inflate(R.layout.fragment_scanner, container,false)
         scannerView = barcodeView.findViewById(R.id.scanner_view)
 
         return barcodeView.rootView

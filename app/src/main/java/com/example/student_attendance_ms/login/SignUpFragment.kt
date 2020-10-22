@@ -10,11 +10,14 @@ import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.utils.SignUpPattern
 import com.example.student_attendance_ms.network.service.ApiService
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
     private lateinit var emailInputLayout: TextInputLayout
@@ -23,6 +26,8 @@ class SignUpFragment : Fragment() {
     private lateinit var passwordEditText: EditText
 
     private lateinit var signUpButton: Button
+
+    @Inject lateinit var apiService: ApiService
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +56,7 @@ class SignUpFragment : Fragment() {
                         )
                 )
 
-                ApiService.build().createUser(
+                apiService.createUser(
                         userCredentials
                 ).enqueue(object: Callback<ResponseBody>{
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

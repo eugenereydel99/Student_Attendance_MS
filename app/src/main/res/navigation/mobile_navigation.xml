@@ -7,21 +7,16 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.student_attendance_ms.main.profile.ProfileFragment"
+        android:name="com.example.student_attendance_ms.main.profile.UserProfileFragment"
         android:label="Профиль"
-        tools:layout="@layout/fragment_profile"
+        tools:layout="@layout/fragment_user_profile"
         />
 
     <fragment
-        android:id="@+id/attendanceFragment"
-        android:name="com.example.student_attendance_ms.main.attendance.AttendanceFragment"
-        android:label="Контроль посещаемости"
-        tools:layout="@layout/fragment_attendance" />
-    <fragment
-        android:id="@+id/attendanceEntryFragment"
-        android:name="com.example.student_attendance_ms.main.schedule.sub.AttendanceEntryFragment"
+        android:id="@+id/eventDetailFragment"
+        android:name="com.example.student_attendance_ms.main.schedule.detail.EventDetailFragment"
         android:label="Предмет"
-        tools:layout="@layout/fragment_attendance_entry" />
+        tools:layout="@layout/fragment_event_detail" />
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.example.student_attendance_ms.main.schedule.base.ScheduleFragment"
@@ -30,7 +25,7 @@
 
         <action
             android:id="@+id/action_scheduleFragment_to_attendanceEntryFragment"
-            app:destination="@id/attendanceEntryFragment"
+            app:destination="@id/eventDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

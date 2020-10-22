@@ -1,8 +1,8 @@
-package com.example.student_attendance_ms.main.di
+package com.example.student_attendance_ms.di
 
 import android.content.Context
 import com.example.student_attendance_ms.database.AppDatabase
-import com.example.student_attendance_ms.database.UserDao
+import com.google.gson.annotations.Expose
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,6 @@ class DatabaseModule {
     }
 
     @Provides
-    fun provideUser(appDatabase: AppDatabase): UserDao{
-        return appDatabase.userDao()
-    }
+    fun provideUser(appDatabase: AppDatabase) = appDatabase.userDao()
+
 }

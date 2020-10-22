@@ -1,7 +1,6 @@
 package com.example.student_attendance_ms.utils;
 
-object Constants{
-    const val BASE_URL = "http://5.136.88.51:8000/"
+object Constants {
     const val LOGIN_SESSION = "LOGIN_SESSION"
     const val LOGGED_IN = "LOGGED_IN"
     const val AUTH_TOKEN = "AUTH_TOKEN"

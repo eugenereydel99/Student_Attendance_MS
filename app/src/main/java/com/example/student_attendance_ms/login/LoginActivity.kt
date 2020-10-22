@@ -10,7 +10,9 @@ import com.example.student_attendance_ms.main.MainActivity
 import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginTabsAdapter: LoginTabsAdapter

@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.schedule.sub;
+package com.example.student_attendance_ms.main.schedule.detail;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.student_attendance_ms.R;
-import com.example.student_attendance_ms.network.model.UserEntry;
+import com.example.student_attendance_ms.network.model.EventMember;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class AttendanceEntryAdapter extends RecyclerView.Adapter<AttendanceEntryAdapter.UserEntriesViewHolder> {
+public class EventDetailAdapter extends RecyclerView.Adapter<EventDetailAdapter.UserEntriesViewHolder> {
 
-    private List<UserEntry> userEntries;
+    private List<EventMember> userEntries;
 
-    public AttendanceEntryAdapter (List<UserEntry> userEntries){
+    public EventDetailAdapter(List<EventMember> userEntries){
         this.userEntries = userEntries;
     }
 
@@ -26,7 +26,7 @@ public class AttendanceEntryAdapter extends RecyclerView.Adapter<AttendanceEntry
     @Override
     public UserEntriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.list_user_entries,
+                R.layout.list_event_members,
                 parent,
                 false
         );
@@ -54,7 +54,7 @@ public class AttendanceEntryAdapter extends RecyclerView.Adapter<AttendanceEntry
             userName = itemView.findViewById(R.id.person_name);
         }
 
-        void bind(UserEntry userEntries){
+        void bind(EventMember userEntries){
             userImage.setImageResource(userEntries.getUserImage());
             userName.setText(userEntries.getUserName());
         }

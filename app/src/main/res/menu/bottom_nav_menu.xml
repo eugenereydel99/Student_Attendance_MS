@@ -7,11 +7,6 @@
         android:title="@string/title_profile" />
 
     <item
-        android:id="@+id/attendanceFragment"
-        android:icon="@drawable/ic_check_black_24dp"
-        android:title="@string/title_attendance" />
-
-    <item
         android:id="@+id/scheduleFragment"
         android:icon="@drawable/baseline_calendar_black_18dp"
         android:title="@string/title_schedule"

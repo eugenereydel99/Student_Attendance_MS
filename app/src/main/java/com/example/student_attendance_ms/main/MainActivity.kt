@@ -11,8 +11,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.network.model.AuthorizationResponse
-import com.example.student_attendance_ms.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         // установка конфигурации панели инструментов
         val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.profileFragment, R.id.attendanceFragment, R.id.scheduleFragment),
+                setOf(R.id.profileFragment, R.id.scheduleFragment),
                 drawerLayout
         )
 
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
-                R.id.attendanceEntryFragment -> {
+                R.id.eventDetailFragment -> {
                     bottom_nav_view?.visibility = View.GONE
                 }
                 else -> bottom_nav_view?.visibility = View.VISIBLE
