@@ -1,81 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="event"
             type="com.example.student_attendance_ms.network.model.Event" />
 
         <variable
             name="clickListener"
-            type="com.example.student_attendance_ms.main.schedule.base.EventAdapter" />
+            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/event_card"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:clickable="true"
         android:focusable="true"
+        android:orientation="vertical"
+        android:onClick="@{clickListener}"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/event_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:layout_margin="15dp"
                 android:text="@{event.timeStart + '\n' + event.timeEnd}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
+                tools:text="08:50\n10:25" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/event_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="30dp"
+                android:text="@{event.title}"
+                app:layout_constraintBottom_toTopOf="@+id/event_location"
+                app:layout_constraintEnd_toEndOf="@+id/event_location"
+                app:layout_constraintStart_toStartOf="@+id/event_location"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/event_time"
+                app:layout_constraintVertical_chainStyle="spread"
+                tools:text="ПТСГПОГПО" />
+
+            <TextView
+                android:id="@+id/event_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{event.location}"
+                app:layout_constraintBottom_toTopOf="@+id/event_creator"
+                app:layout_constraintEnd_toEndOf="@+id/event_creator"
+                app:layout_constraintStart_toStartOf="@+id/event_creator"
+                app:layout_constraintTop_toBottomOf="@+id/event_title"
+                tools:text="улк 808" />
+
+            <TextView
+                android:id="@+id/event_creator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:text="@{event.creator}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                >
-
-                <TextView
-                    android:id="@+id/event_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{event.title}"
-                    />
-
-                <TextView
-                    android:id="@+id/event_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{event.location}"
-                    />
-
-                <TextView
-                    android:id="@+id/event_creator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{event.creator}" />
-
-            </LinearLayout>
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/event_time"
+                app:layout_constraintTop_toBottomOf="@+id/event_location"
+                tools:text="Аврамчук В.С." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     </androidx.cardview.widget.CardView>
+
 </layout>
+
 
 

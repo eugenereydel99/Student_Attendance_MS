@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.network.model;
+package com.example.student_attendance_ms.login;
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

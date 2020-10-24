@@ -8,23 +8,27 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.student_attendance_ms.main.profile.UserProfileFragment"
-        android:label="Профиль"
+        android:label="@string/title_profile"
         tools:layout="@layout/fragment_user_profile"
         />
 
     <fragment
         android:id="@+id/eventDetailFragment"
         android:name="com.example.student_attendance_ms.main.schedule.detail.EventDetailFragment"
-        android:label="Предмет"
-        tools:layout="@layout/fragment_event_detail" />
+        android:label="@string/event_members_text"
+        tools:layout="@layout/fragment_event_detail" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
         android:name="com.example.student_attendance_ms.main.schedule.base.ScheduleFragment"
-        android:label="Календарь"
+        android:label="@string/title_schedule"
         tools:layout="@layout/fragment_schedule" >
 
         <action
-            android:id="@+id/action_scheduleFragment_to_attendanceEntryFragment"
+            android:id="@+id/action_scheduleFragment_to_eventDetailFragment"
             app:destination="@id/eventDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

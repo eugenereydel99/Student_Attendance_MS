@@ -5,53 +5,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.network.model.EventMember
+import androidx.navigation.fragment.navArgs
+import com.example.student_attendance_ms.databinding.FragmentEventDetailBinding
+import com.example.student_attendance_ms.main.schedule.base.ScheduleViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass.
  */
+
+@AndroidEntryPoint
 class EventDetailFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: EventDetailAdapter
-    private lateinit var viewManager: RecyclerView.LayoutManager
 
-    private val userEntries = listOf(
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Рейдель Евгений Викторович"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Губайдуллин Андрей Евгеньевич"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Денисов Никита Михайлович"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Фокина Яна Игоревна"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Гордиенко Марк Александрович"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Ковалева Анастасия Павловна"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Половников Артем Евгеньевич"),
-            EventMember(R.drawable.ic_account_circle_black_24dp, "Иконников Сергей Сергеевич")
-    )
+    // ининциализируем переменную, в которой будет храниться eventId
+    private val args: EventDetailFragmentArgs by navArgs()
+
+    // внедряем ViewModelFactory, сгенерированную при помощи AssistedInject
+    @Inject
+    lateinit var eventDetailViewModelFactory: EventDetailViewModel.AssistedFactory
+
+    // инициализируем EventDetailViewModel используя ViewModelProvider.Factory
+    private val eventDetailViewModel: EventDetailViewModel by viewModels{
+        EventDetailViewModel.provideFactory(
+                eventDetailViewModelFactory,
+                args.eventId
+        )
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_event_detail, container, false)
+        val binding = FragmentEventDetailBinding.inflate(inflater)
+        binding.lifecycleOwner = this
 
-        viewManager = LinearLayoutManager(context)
-        viewAdapter = EventDetailAdapter(userEntries)
-        recyclerView = view.findViewById(R.id.users_recycler_view)
+        binding.viewModel = eventDetailViewModel
 
-        return view
+        // инициализируем адаптер
+        viewAdapter = EventDetailAdapter()
+        binding.eventMembersRecyclerView.adapter = viewAdapter
 
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+        // отображаем список участников события в RecyclerView
+        eventDetailViewModel.events.observe(viewLifecycleOwner){
+            viewAdapter.submitList(it)
         }
+
+        return binding.root
+
     }
 
 

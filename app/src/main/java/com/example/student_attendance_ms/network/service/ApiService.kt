@@ -3,10 +3,8 @@ package com.example.student_attendance_ms.network.service
 import com.example.student_attendance_ms.BuildConfig
 import com.example.student_attendance_ms.login.AuthorizationRequest
 import com.example.student_attendance_ms.login.AuthData
-import com.example.student_attendance_ms.network.model.AuthorizationResponse
-import com.example.student_attendance_ms.network.model.Event
-import com.example.student_attendance_ms.network.model.User
-import com.example.student_attendance_ms.utils.Constants
+import com.example.student_attendance_ms.login.AuthorizationResponse
+import com.example.student_attendance_ms.network.model.*
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,9 +16,10 @@ import retrofit2.http.*
 interface ApiService {
 
     // регистрация
-    @POST("http://5.136.88.51:8000/")
+    @POST("http://37.21.141.75:8000/")
     fun createUser(
-            @Body() authorizationRequest: AuthorizationRequest): Call<ResponseBody>
+            @Body() authorizationRequest: AuthorizationRequest
+    ): Call<ResponseBody>
 
     // авторизация
     @POST("login")
@@ -29,10 +28,10 @@ interface ApiService {
     ): Call<AuthorizationResponse>
 
     // запрос данных пользователя
-    @GET("/user/{id}")
+    @GET("user/{id}")
     suspend fun getUser(
             @Header("Authorization") authToken: String,
-            @Path("id") userId: Int
+            @Path("id") userId: String
     ): User
 
     // запрос списка событий
@@ -42,10 +41,24 @@ interface ApiService {
             @Query("date") eventsByDate: String
     ): List<Event>
 
+    // запрос списка участников событий
+    @GET("events/{id}/participants")
+    suspend fun getEventMembers(
+            @Header("Authorization") authToken: String,
+            @Path("id") eventId: String
+    ): List<EventMember>
+
+    // запрос подписки на событие
+    @GET("events/event_id")
+    suspend fun subscribeOnEvent(
+            @Header("Authorization") authToken: String,
+            @Body() eventId: String
+    ): ResponseBody
+
 
     companion object {
 
-        private const val BASE_URL = "http://5.136.88.51:8000/"
+        private const val BASE_URL = "http://37.21.141.75:8000/"
 
         fun build(): ApiService {
 

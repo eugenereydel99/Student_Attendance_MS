@@ -20,7 +20,12 @@ class DatabaseModule {
         return AppDatabase.getDatabase(context)
     }
 
+    @Singleton
     @Provides
     fun provideUser(appDatabase: AppDatabase) = appDatabase.userDao()
+
+    @Singleton
+    @Provides
+    fun provideEvent(appDatabase: AppDatabase) = appDatabase.eventDao()
 
 }

@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.Toast
 
 import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.network.model.AuthorizationResponse
 import com.example.student_attendance_ms.network.service.ApiService
 
 import com.example.student_attendance_ms.utils.SessionManager

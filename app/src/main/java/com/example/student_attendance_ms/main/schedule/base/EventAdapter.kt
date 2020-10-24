@@ -1,26 +1,16 @@
 package com.example.student_attendance_ms.main.schedule.base
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.databinding.ListEventsBinding
 import com.example.student_attendance_ms.network.model.Event
 
-class EventAdapter (
-    private val clickListener: OnClickListener
-): ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallback) {
-
-    class EventViewHolder(
-            private val binding: ListEventsBinding
-    ): RecyclerView.ViewHolder(binding.root){
-        fun bind(clickListener: OnClickListener, event: Event){
-            binding.event = event
-//            binding.clickListener = clickListener
-            binding.executePendingBindings()
-        }
-    }
+class EventAdapter : ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallback) {
 
     /**
      * Создаём RecyclerView элементы
@@ -38,7 +28,32 @@ class EventAdapter (
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = getItem(position)
-        holder.bind(clickListener, event)
+        holder.bind(event)
+    }
+
+    class EventViewHolder(
+            private val binding: ListEventsBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.setClickListener { view ->
+                binding.event?.let { event ->
+                    navigateToEvent(event, view)
+                }
+            }
+        }
+
+        fun bind(event: Event) {
+            binding.event = event
+            binding.executePendingBindings()
+        }
+
+        private fun navigateToEvent(event: Event, view: View) {
+            val direction = ScheduleFragmentDirections
+                    .actionScheduleFragmentToEventDetailFragment(event.id)
+            view.findNavController().navigate(direction)
+        }
+
     }
 
     /**
@@ -55,12 +70,4 @@ class EventAdapter (
             return oldItem.id == newItem.id
         }
     }
-
-    /**
-     * Кастомный listener, который перехватывает клики RecyclerView элементов.
-     */
-    class OnClickListener(val clickListener: (event: Event) -> Unit) {
-        fun onClick(event: Event) = clickListener(event)
-    }
-
 }

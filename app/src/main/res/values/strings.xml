@@ -12,14 +12,11 @@
     <string name="sign_up_text">Зарегистрироваться</string>
     <string name="create_account_text">Создать аккаунт</string>
     <string name="account_already_exists_text">У меня уже есть аккаунт</string>
-    <string name="student_text">студент</string>
-    <string name="teacher_text">преподаватель</string>
+    <string name="event_members_text">Участники события</string>
 
     <string name="next_button_text">Далее</string>
     <string name="back_button_text">Назад</string>
     <string name="finish_button_text">Готово</string>
-    <string name="student_role_rb">Студент</string>
-    <string name="teacher_role_rb">Преподаватель</string>
     <string name="confirm_password_text">Подтвердите пароль</string>
 
     <string name="title_profile">Профиль</string>
@@ -27,8 +24,6 @@
     <string name="title_study">Задания</string>
     <string name="title_schedule">Календарь</string>
     <string name="title_activity_main">MainActivity</string>
-
-    <string name="selected_role">Выбрана роль</string>
 
     <string name="title_qr_scanner">QR код</string>
     <string name="title_image_key">Граф. ключ</string>
@@ -46,5 +41,6 @@
     <string name="surname_text">Фамилия</string>
     <string name="name_text">Имя</string>
     <string name="patronymic_text">Отчество</string>
+    <string name="subscribe_string">Записаться</string>
 
 </resources>

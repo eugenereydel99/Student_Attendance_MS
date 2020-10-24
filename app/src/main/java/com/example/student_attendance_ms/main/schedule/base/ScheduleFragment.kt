@@ -1,4 +1,5 @@
 package com.example.student_attendance_ms.main.schedule.base
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -6,13 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CalendarView
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
-import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ScheduleFragment : Fragment(){
+class ScheduleFragment : Fragment() {
 
     private lateinit var calendarView: CalendarView
     private lateinit var viewAdapter: EventAdapter
@@ -26,23 +25,20 @@ class ScheduleFragment : Fragment(){
 
         val binding = FragmentScheduleBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        binding.viewModel = viewModel
 
         // инициализируем адаптер
-        viewAdapter = EventAdapter(EventAdapter.OnClickListener{
-            view?.findNavController()?.navigate(R.id.action_scheduleFragment_to_attendanceEntryFragment, null)
-        })
+        viewAdapter = EventAdapter()
         binding.eventsRecyclerView.adapter = viewAdapter
 
         calendarView = binding.calendarView
 
-        viewModel.events.observe(viewLifecycleOwner){
+        viewModel.events.observe(viewLifecycleOwner) {
             viewAdapter.submitList(it)
         }
 
         // отображение событий в календаре при выборе определенной даты
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.displayEventsByDate("${month+1}/$dayOfMonth/$year")
+            viewModel.displayEventsByDate("${month + 1}/$dayOfMonth/$year")
         }
 
         return binding.root

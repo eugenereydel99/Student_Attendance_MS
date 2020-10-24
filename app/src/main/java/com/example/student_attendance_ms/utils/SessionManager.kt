@@ -8,7 +8,7 @@ import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 import com.example.student_attendance_ms.login.LoginActivity;
 import com.example.student_attendance_ms.main.MainActivity;
-import com.example.student_attendance_ms.network.model.AuthorizationResponse;
+import com.example.student_attendance_ms.login.AuthorizationResponse;
 
 class SessionManager(val context: Context) {
 

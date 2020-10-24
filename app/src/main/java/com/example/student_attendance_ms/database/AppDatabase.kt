@@ -6,15 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-        entities = [CurrentUser::class],
+        entities = [UserEntity::class, EventEntity::class],
         version = 1,
         exportSchema = false
 )
 abstract class AppDatabase: RoomDatabase() {
+
     abstract fun userDao(): UserDao
 
+    abstract fun eventDao(): EventDao
+
     companion object{
-        // для предотвращения создания нескольких объектов БД в одно и то же время
+
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase{
