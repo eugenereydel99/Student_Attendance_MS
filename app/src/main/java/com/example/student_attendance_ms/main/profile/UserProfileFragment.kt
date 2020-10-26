@@ -10,12 +10,16 @@ import androidx.lifecycle.Observer
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
 import com.example.student_attendance_ms.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UserProfileFragment : Fragment() {
 
     private val viewModel: UserProfileViewModel by viewModels()
     private lateinit var binding: FragmentUserProfileBinding
+
+    @Inject lateinit var sessionManager: SessionManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentUserProfileBinding.inflate(inflater, container, false)
@@ -32,7 +36,7 @@ class UserProfileFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
             val context = this.context
             if (context != null) {
-                SessionManager(context).finishSession(context)
+                sessionManager.finishSession(context)
                 this@UserProfileFragment.activity?.finish()
             }
         }

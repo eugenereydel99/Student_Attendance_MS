@@ -11,6 +11,7 @@ import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -19,11 +20,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginViewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
 
+    @Inject lateinit var sessionManager: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // если сессия активна, то открывается основное окно приложения
-        if (SessionManager(this).isLoggedIn()) {
+        if (sessionManager.isLoggedIn()) {
             startActivity(Intent(
                     this,
                     MainActivity::class.java

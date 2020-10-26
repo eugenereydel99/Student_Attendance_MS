@@ -33,6 +33,7 @@ class SignInFragment : Fragment() {
     private lateinit var signInButton: MaterialButton
 
     @Inject lateinit var apiService: ApiService
+    @Inject lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +49,6 @@ class SignInFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val sessionManager = SessionManager(activity as LoginActivity)
 
         signInButton = view.findViewById(R.id.signInButton)
 

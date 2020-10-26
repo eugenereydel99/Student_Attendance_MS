@@ -7,12 +7,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
 @Module
-class DatabaseModule {
+class StorageModule {
 
     @Singleton
     @Provides
@@ -27,5 +28,6 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideEvent(appDatabase: AppDatabase) = appDatabase.eventDao()
+
 
 }

@@ -14,14 +14,8 @@ import java.lang.Exception
 
 class EventDetailViewModel @AssistedInject constructor(
         private val apiService: ApiService,
-        @ActivityContext private val context: Context,
         @Assisted private val eventId: Int
 ) : ViewModel() {
-
-    // получение токена аутентификации
-    private val authToken = SessionManager(context).getToken()!!
-
-    // переводим eventId в JSON
 
     private val _eventMembers = MutableLiveData<List<EventMember>>()
     val events: LiveData<List<EventMember>>
@@ -33,7 +27,7 @@ class EventDetailViewModel @AssistedInject constructor(
     // запрос на получение списка участников события и статуса подписки
     init {
         viewModelScope.launch {
-            val response = apiService.getEventMembers(authToken, eventId.toString())
+            val response = apiService.getEventMembers(eventId.toString())
             try {
                 _eventMembers.value = response
 //                isSubscribed = response.isSubscribed

@@ -15,17 +15,21 @@ class UserProfileRepository @Inject constructor(
         private val userProfileMapper: UserProfileMapper
 ) {
 
-    suspend fun getUser(authToken: String, userId: Int): User {
-        val userData = userDao.getUserId(userId.toString())
+    suspend fun getUser(): User {
 
-        if (userData.isNullOrEmpty()) {
+        // получаем информацию из локальной базы данных о наличии пользователя
+        val userData = userDao.getUser()
+
+        // если локальная БД пуста, выполняем запрос к серверу
+        if (userData.isEmpty()) {
             withContext(Dispatchers.IO) {
-                val response = apiService.getUser(authToken, userId.toString())
+                val response = apiService.getUser()
                 userDao.save(userProfileMapper.mapToEntity(response))
             }
         }
 
-        val result = userDao.load(userId.toString())
+        // заново пытаемся получить данные из локальной БД
+        val result = userDao.load()
         return userProfileMapper.mapFromEntity(result)
     }
 

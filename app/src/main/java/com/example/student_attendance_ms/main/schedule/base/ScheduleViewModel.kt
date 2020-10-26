@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.Event
 import com.example.student_attendance_ms.network.service.ApiService
 import com.example.student_attendance_ms.utils.SessionManager
+import com.squareup.inject.assisted.Assisted
 import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,15 +16,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ScheduleViewModel @ViewModelInject constructor(
-      @ActivityContext private val context: Context,
       private val apiService: ApiService
 ) : ViewModel() {
 
     private val _events = MutableLiveData<List<Event>>()
     val events: LiveData<List<Event>>
         get() = _events
-
-    private val authToken = SessionManager(context).getToken()!!
 
     // устанавливаем текущую дату
     private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
@@ -33,9 +31,9 @@ class ScheduleViewModel @ViewModelInject constructor(
         displayEventsByDate()
     }
 
-    fun displayEventsByDate(date: String = currentDate, token: String = authToken){
+    fun displayEventsByDate(date: String = currentDate){
         viewModelScope.launch {
-            val getEvents = apiService.getEvents(token, date)
+            val getEvents = apiService.getEvents(date)
             try {
                 _events.value = getEvents
             } catch (e: Exception){

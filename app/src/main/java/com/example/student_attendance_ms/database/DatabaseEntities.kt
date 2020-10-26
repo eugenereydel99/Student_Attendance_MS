@@ -21,14 +21,23 @@ data class UserEntity constructor(
 @Dao
 interface UserDao {
 
-    @Query("SELECT id FROM user WHERE id = :userId")
-    suspend fun getUserId(userId: String): String
+    /*
+    * Получаем пользователей из таблицы user
+    * (он либо есть, либо его не существует)
+    * */
+    @Query("SELECT * FROM user")
+    suspend fun getUser(): List<UserEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(user: UserEntity)
 
-    @Query("SELECT * FROM user WHERE id = :userId")
-    suspend fun load(userId: String): UserEntity
+    /*
+    * Загружаем пользователя в таблицу user
+    * (необходимо для предотвращения повторной
+    * отправки запроса пользователя на сервер)
+    * */
+    @Query("SELECT * FROM user")
+    suspend fun load(): UserEntity
 }
 
 //------------------------------------------------------------------------------------------------//
