@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.main.MainActivity
-import com.example.student_attendance_ms.utils.SessionManager
+import com.example.student_attendance_ms.storage.SessionManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint

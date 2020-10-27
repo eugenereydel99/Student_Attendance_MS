@@ -11,18 +11,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ActivityRetainedComponent
-import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.scopes.ActivityScoped
-import dagger.hilt.android.scopes.FragmentScoped
-import javax.inject.Singleton
 
-@InstallIn(FragmentComponent::class)
+@InstallIn(ActivityComponent::class)
 @Module
 class RepositoryModule {
 
-    @FragmentScoped
+    @ActivityScoped
     @Provides
     fun provideUserProfileRepository(
             apiService: ApiService,
@@ -32,7 +27,7 @@ class RepositoryModule {
             apiService, userDao, userProfileMapper
     )
 
-    @FragmentScoped
+    @ActivityScoped
     @Provides
     fun provideEventRepository(
             apiService: ApiService,

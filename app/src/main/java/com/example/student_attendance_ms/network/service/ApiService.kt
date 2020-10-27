@@ -1,32 +1,12 @@
 package com.example.student_attendance_ms.network.service
 
-import android.content.Context
-import android.content.SharedPreferences
-import com.example.student_attendance_ms.BuildConfig
-import com.example.student_attendance_ms.di.AssistedInject_AssistedInjectModule
-import com.example.student_attendance_ms.di.NetworkModule
 import com.example.student_attendance_ms.login.AuthorizationRequest
 import com.example.student_attendance_ms.login.AuthData
 import com.example.student_attendance_ms.login.AuthorizationResponse
 import com.example.student_attendance_ms.network.model.*
-import com.example.student_attendance_ms.utils.SessionManager
-import dagger.Binds
-import dagger.Component
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.DefineComponent
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import javax.inject.Singleton
 
 interface ApiService {
 
@@ -66,48 +46,48 @@ interface ApiService {
 
 
     companion object {
+        const val BASE_URL = "http://37.21.141.75:8000/"
 
-        private const val BASE_URL = "http://37.21.141.75:8000/"
-
-        fun build(sessionManager: SessionManager): ApiService {
-
-            val authToken = sessionManager.getToken()
-
-            // логирование тела запроса/ответа только в режиме отладки
-            val logger = HttpLoggingInterceptor().apply {
-                if (BuildConfig.DEBUG) {
-                    this.level = HttpLoggingInterceptor.Level.BODY
-                }
-            }
-
-            val okHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(logger)
-            // раскомментировать при использовании соединения по HTTPS
-//            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
-
-
-            if (authToken != null){
-                val authInterceptor = Interceptor { chain ->
-                    var request = chain.request()
-                    request = request.newBuilder()
-                            .header("Authorization", authToken)
-                            .build()
-
-                    chain.proceed(request)
-                }
-
-                okHttpClient.addInterceptor(authInterceptor)
-            }
-
-
-            return Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient.build())
-                    .build()
-                    .create(ApiService::class.java)
-        }
+//        fun build(sessionManager: SessionManager): ApiService {
+//
+//            val authToken = sessionManager.getToken()
+//
+//            // логирование тела запроса/ответа только в режиме отладки
+//            val logger = HttpLoggingInterceptor().apply {
+//                if (BuildConfig.DEBUG) {
+//                    this.level = HttpLoggingInterceptor.Level.BODY
+//                }
+//            }
+//
+//            val okHttpClient = OkHttpClient.Builder()
+//                    .addInterceptor(logger)
+//            // раскомментировать при использовании соединения по HTTPS
+////            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
+//
+//
+//            if (authToken != null) {
+//                val authInterceptor = Interceptor { chain ->
+//                    var request = chain.request()
+//                    request = request.newBuilder()
+//                            .header("Authorization", authToken)
+//                            .build()
+//
+//                    chain.proceed(request)
+//                }
+//
+//                okHttpClient.addInterceptor(authInterceptor)
+//            }
+//
+//
+//            return Retrofit.Builder()
+//                    .baseUrl(BASE_URL)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(okHttpClient.build())
+//                    .build()
+//                    .create(ApiService::class.java)
+//        }
+//    }
     }
-
 }
+
 

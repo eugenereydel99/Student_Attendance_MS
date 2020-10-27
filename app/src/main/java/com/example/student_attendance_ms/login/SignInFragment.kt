@@ -11,8 +11,8 @@ import android.widget.Toast
 
 import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.network.service.ApiService
+import com.example.student_attendance_ms.storage.SessionManager
 
-import com.example.student_attendance_ms.utils.SessionManager
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,6 +50,8 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        val scope = requireContext()
+
         signInButton = view.findViewById(R.id.signInButton)
 
         //авторизация
@@ -71,7 +73,7 @@ class SignInFragment : Fragment() {
                     if (response.isSuccessful) {
                         val authResponse = response.body()
                         if (authResponse != null) {
-                            sessionManager.createSession(authResponse).also {
+                            sessionManager.createSession(scope, authResponse).also {
                                 startActivity(it)
                                 this@SignInFragment.activity?.finish()
                             }

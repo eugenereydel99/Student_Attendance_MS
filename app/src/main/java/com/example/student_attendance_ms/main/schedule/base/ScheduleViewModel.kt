@@ -1,14 +1,8 @@
 package com.example.student_attendance_ms.main.schedule.base
-import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.Event
 import com.example.student_attendance_ms.network.service.ApiService
-import com.example.student_attendance_ms.utils.SessionManager
-import com.squareup.inject.assisted.Assisted
-import dagger.hilt.android.qualifiers.ActivityContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.text.SimpleDateFormat

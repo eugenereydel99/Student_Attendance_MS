@@ -1,18 +1,16 @@
 package com.example.student_attendance_ms.main.profile
 
-import android.content.Context
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.student_attendance_ms.network.model.User
-import com.example.student_attendance_ms.utils.SessionManager
-import dagger.hilt.android.qualifiers.ActivityContext
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class UserProfileViewModel @ViewModelInject constructor(
-        private val repository: UserProfileRepository,
-): ViewModel() {
+        private val repository: UserProfileRepository
+) : ViewModel() {
 
     private val _userParams = MutableLiveData<User>()
     val userParams: LiveData<User> = _userParams

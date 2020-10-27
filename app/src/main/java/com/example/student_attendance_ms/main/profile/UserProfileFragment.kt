@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
-import com.example.student_attendance_ms.utils.SessionManager
+import com.example.student_attendance_ms.storage.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @AndroidEntryPoint

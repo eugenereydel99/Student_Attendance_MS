@@ -1,15 +1,11 @@
 package com.example.student_attendance_ms.main.schedule.detail
 
-import android.content.Context
 import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.EventMember
 import com.example.student_attendance_ms.network.service.ApiService
-import com.example.student_attendance_ms.utils.SessionManager
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-import dagger.hilt.android.qualifiers.ActivityContext
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 import java.lang.Exception
 
 class EventDetailViewModel @AssistedInject constructor(
