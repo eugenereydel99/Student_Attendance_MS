@@ -35,7 +35,7 @@ class SessionManager @Inject constructor(
         )
     }
 
-    fun getAccessToken() = storage.getString(Constants.AUTH_TOKEN, null)
+    fun getAccessToken() = storage.getString(Constants.AUTH_TOKEN, "")
 
     fun isLoggedIn() = storage.getBoolean(Constants.LOGGED_IN, false)
 }

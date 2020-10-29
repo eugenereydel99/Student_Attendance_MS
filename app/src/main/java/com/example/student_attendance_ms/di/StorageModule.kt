@@ -9,9 +9,8 @@ import dagger.hilt.android.components.ApplicationComponent
 
 @InstallIn(ApplicationComponent::class)
 @Module
-abstract class StorageModule {
+abstract class StorageModule{
 
     @Binds
     abstract fun provideStorage(storage: SharedPreferencesStorage): Storage
-
 }

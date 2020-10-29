@@ -12,12 +12,14 @@ interface ApiService {
 
     // регистрация
     @POST("http://37.21.141.75:8000/")
+    @Headers("No-Authentication: true")
     fun createUser(
             @Body() authorizationRequest: AuthorizationRequest
     ): Call<ResponseBody>
 
     // авторизация
     @POST("login")
+    @Headers("No-Authentication: true")
     fun login(
             @Body() user: AuthData
     ): Call<AuthorizationResponse>
@@ -47,46 +49,6 @@ interface ApiService {
 
     companion object {
         const val BASE_URL = "http://37.21.141.75:8000/"
-
-//        fun build(sessionManager: SessionManager): ApiService {
-//
-//            val authToken = sessionManager.getToken()
-//
-//            // логирование тела запроса/ответа только в режиме отладки
-//            val logger = HttpLoggingInterceptor().apply {
-//                if (BuildConfig.DEBUG) {
-//                    this.level = HttpLoggingInterceptor.Level.BODY
-//                }
-//            }
-//
-//            val okHttpClient = OkHttpClient.Builder()
-//                    .addInterceptor(logger)
-//            // раскомментировать при использовании соединения по HTTPS
-////            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
-//
-//
-//            if (authToken != null) {
-//                val authInterceptor = Interceptor { chain ->
-//                    var request = chain.request()
-//                    request = request.newBuilder()
-//                            .header("Authorization", authToken)
-//                            .build()
-//
-//                    chain.proceed(request)
-//                }
-//
-//                okHttpClient.addInterceptor(authInterceptor)
-//            }
-//
-//
-//            return Retrofit.Builder()
-//                    .baseUrl(BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .client(okHttpClient.build())
-//                    .build()
-//                    .create(ApiService::class.java)
-//        }
-//    }
     }
 }
 

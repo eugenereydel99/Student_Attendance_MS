@@ -9,7 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SharedPreferencesStorage @Inject constructor(
-        @ApplicationContext context: Context
+        @ApplicationContext private val context: Context
 ) : Storage {
 
     private val masterKey: MasterKey = MasterKey.Builder(context)
@@ -31,8 +31,8 @@ class SharedPreferencesStorage @Inject constructor(
         }
     }
 
-    override fun getString(key: String, value: String?): String? {
-        return sharedPreferences.getString(key, null)
+    override fun getString(key: String, value: String): String {
+        return sharedPreferences.getString(key, "")!!
     }
 
     override fun setBoolean(key: String, value: Boolean) {
