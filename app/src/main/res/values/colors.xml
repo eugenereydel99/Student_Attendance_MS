@@ -14,4 +14,12 @@
     <color name="gray_500">#9E9E9E</color>
     <color name="gray_600">#757575</color>
 
+    <!-- Цвета по типу event -->
+    <color name="pistachio">#ffe5ffd5</color>
+    <color name="yellow">#fffff95b</color>
+    <color name="azure">#ffd5f6ff</color>
+    <color name="lilac">#ffd7d7f4</color>
+    <color name="rusty_light">#fff4e3d7</color>
+    <color name="blue">#ff005bae</color>
+    <color name="event_time">#ff757575</color>
 </resources>

@@ -43,4 +43,20 @@
     <string name="patronymic_text">Отчество</string>
     <string name="subscribe_string">Записаться</string>
 
+    <string name="group">группа %s</string>
+
+    <!-- Типы событий -->
+    <string name="lecture">lecture</string>
+    <string name="educational_practice">educational_practice</string>
+    <string name="standard_practice">standard_practice</string>
+    <string name="lab">lab</string>
+    <string name="coursework">coursework</string>
+    <string name="string_logout">Выйти</string>
+    <string name="legal_information">Правовая информация</string>
+    <string name="change_password">Сменить пароль</string>
+    <string name="academic_performance">Моя успеваемость</string>
+    <string name="my_attendance">Моя посещаемость</string>
+    <string name="portfolio">Портфолио</string>
+    <string name="additional_information">Дополнительная информация</string>
+
 </resources>

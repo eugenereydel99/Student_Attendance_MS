@@ -21,13 +21,13 @@ class ScheduleFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = FragmentScheduleBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         // инициализируем адаптер
-        viewAdapter = EventAdapter()
+        viewAdapter = EventAdapter(this)
         binding.eventsRecyclerView.adapter = viewAdapter
 
         calendarView = binding.calendarView

@@ -31,23 +31,19 @@ class MainActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val host: NavHostFragment = supportFragmentManager
-                .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment: NavHostFragment =
+                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         // устанавливаем контроллер в хост
-        navController = host.navController
+        navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
-        // установка конфигурации панели инструментов
-        val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
-                setOf(R.id.profileFragment, R.id.scheduleFragment),
-                drawerLayout
+                setOf(R.id.profileFragment, R.id.scheduleFragment)
         )
 
         setupActionBar(navController, appBarConfiguration)
-        setupNavigationMenu(navController)
         setupBottomNavMenu(navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
@@ -55,6 +51,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.eventDetailFragment -> {
                     bottom_nav_view?.visibility = View.GONE
                 }
+                // Фрагменты для меню
+
                 else -> bottom_nav_view?.visibility = View.VISIBLE
             }
         }
@@ -68,24 +66,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfig)
     }
 
-    private fun setupNavigationMenu(navController: NavController) {
-        findViewById<NavigationView>(R.id.nav_view)
-                ?.setupWithNavController(navController)
-    }
-
     private fun setupBottomNavMenu(navController: NavController) {
         findViewById<BottomNavigationView>(R.id.bottom_nav_view)
                 ?.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val retValue = super.onCreateOptionsMenu(menu)
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        if (navigationView == null) {
-            menuInflater.inflate(R.menu.overflow_menu, menu)
-            return true
-        }
-        return retValue
+        menuInflater.inflate(R.menu.overflow_menu, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,6 +82,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

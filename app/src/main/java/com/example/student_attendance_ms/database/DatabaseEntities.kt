@@ -2,7 +2,6 @@ package com.example.student_attendance_ms.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.google.gson.annotations.SerializedName
 
 /*
 * Сущность для хранения текущего пользователя
@@ -11,11 +10,10 @@ import com.google.gson.annotations.SerializedName
 data class UserEntity constructor(
         @PrimaryKey(autoGenerate = false) val id: String,
         val email: String,
+        val group: String,
         val firstName: String,
         val secondName: String,
-        val lastName: String,
-        val createdAt: String,
-        val updatedAt: String
+        val lastName: String
 )
 
 @Dao
@@ -50,10 +48,11 @@ data class EventEntity constructor(
         @PrimaryKey(autoGenerate = false) val id: Int,
         val title: String,
         val location: String,
+        val type: String,
         val timeStart: String,
         val timeEnd: String,
         val creator: String,
-        val comments: String,
+        val comments: String?,
         val date: String
 )
 

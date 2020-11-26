@@ -58,45 +58,4 @@ class NetworkModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService =
             retrofit.create(ApiService::class.java)
-
-//    @Singleton
-//    @Provides
-//    fun provideApiService(sessionManager: SessionManager): ApiService {
-//
-//        val accessToken = sessionManager.getAccessToken()
-//
-//        // логирование тела запроса/ответа только в режиме отладки
-//        val logger = HttpLoggingInterceptor().apply {
-//            if (BuildConfig.DEBUG) {
-//                this.level = HttpLoggingInterceptor.Level.BODY
-//            }
-//        }
-//
-//        val okHttpClient = OkHttpClient.Builder()
-//                .addInterceptor(logger)
-//        // раскомментировать при использовании соединения по HTTPS
-////            .connectionSpecs(listOf(ConnectionSpec.MODERN_TLS, ConnectionSpec.COMPATIBLE_TLS))
-//
-//        if (accessToken != null) {
-//            val authInterceptor = Interceptor { chain ->
-//                var request = chain.request()
-//                request = request.newBuilder()
-//                        .header("Authorization", accessToken)
-//                        .build()
-//
-//                chain.proceed(request)
-//            }
-//
-//            okHttpClient.addInterceptor(authInterceptor)
-//        }
-//
-//
-//        return Retrofit.Builder()
-//                .baseUrl(ApiService.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .client(okHttpClient.build())
-//                .build()
-//                .create(ApiService::class.java)
-//    }
-
 }

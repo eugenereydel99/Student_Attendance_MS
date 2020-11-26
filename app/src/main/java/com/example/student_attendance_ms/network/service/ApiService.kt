@@ -11,7 +11,7 @@ import retrofit2.http.*
 interface ApiService {
 
     // регистрация
-    @POST("http://37.21.141.75:8000/")
+    @POST("http://94b5c11216d1.ngrok.io/")
     @Headers("No-Authentication: true")
     fun createUser(
             @Body() authorizationRequest: AuthorizationRequest
@@ -48,7 +48,7 @@ interface ApiService {
 
 
     companion object {
-        const val BASE_URL = "http://37.21.141.75:8000/"
+        const val BASE_URL = "http://94b5c11216d1.ngrok.io/"
     }
 }
 

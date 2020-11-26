@@ -25,8 +25,7 @@ class UserProfileMapper @Inject constructor() : DataMapper<UserEntity, User> {
                 firstName = entity.firstName,
                 secondName = entity.secondName,
                 lastName = entity.lastName,
-                createdAt = entity.createdAt,
-                updatedAt = entity.updatedAt,
+                group = entity.group,
                 email = entity.email
         )
     }
@@ -37,8 +36,7 @@ class UserProfileMapper @Inject constructor() : DataMapper<UserEntity, User> {
                 firstName = domainModel.firstName,
                 secondName = domainModel.secondName,
                 lastName = domainModel.lastName,
-                createdAt = domainModel.createdAt,
-                updatedAt = domainModel.updatedAt,
+                group = domainModel.group,
                 email = domainModel.email
         )
     }
@@ -50,6 +48,7 @@ class EventMapper @Inject constructor() : DataMapper<EventEntity, Event> {
         return Event(
                 id = entity.id,
                 title = entity.title,
+                type = entity.type,
                 location = entity.location,
                 timeStart = entity.timeStart,
                 timeEnd = entity.timeEnd,
@@ -63,6 +62,7 @@ class EventMapper @Inject constructor() : DataMapper<EventEntity, Event> {
         return EventEntity(
                 id = domainModel.id,
                 title = domainModel.title,
+                type = domainModel.type,
                 location = domainModel.location,
                 timeStart = domainModel.timeStart,
                 timeEnd = domainModel.timeEnd,

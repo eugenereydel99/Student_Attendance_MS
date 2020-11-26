@@ -1,17 +1,23 @@
 package com.example.student_attendance_ms.main.schedule.base
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.ListEventsBinding
 import com.example.student_attendance_ms.network.model.Event
 
-class EventAdapter : ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallback) {
-
+class EventAdapter(
+        private val context: Fragment
+) : ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallback) {
+    
     /**
      * Создаём RecyclerView элементы
      */
@@ -31,7 +37,7 @@ class EventAdapter : ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallba
         holder.bind(event)
     }
 
-    class EventViewHolder(
+    inner class EventViewHolder(
             private val binding: ListEventsBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -45,6 +51,24 @@ class EventAdapter : ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallba
 
         fun bind(event: Event) {
             binding.event = event
+            when (event.type) {
+                context.getString(R.string.lecture) -> binding.eventCard.setCardBackgroundColor(
+                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                )
+                context.getString(R.string.standard_practice) -> binding.eventCard.setCardBackgroundColor(
+                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                )
+                context.getString(R.string.educational_practice) -> binding.eventCard.setCardBackgroundColor(
+                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                )
+                context.getString(R.string.lab) -> binding.eventCard.setCardBackgroundColor(
+                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                )
+                context.getString(R.string.coursework) -> binding.eventCard.setCardBackgroundColor(
+                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                )
+                else -> binding.eventCard.setCardBackgroundColor(Color.WHITE)
+            }
             binding.executePendingBindings()
         }
 

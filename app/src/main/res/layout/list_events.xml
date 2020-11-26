@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View"/>
+
         <variable
             name="event"
             type="com.example.student_attendance_ms.network.model.Event" />
@@ -14,14 +16,17 @@
             type="android.view.View.OnClickListener" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/event_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="vertical"
         android:onClick="@{clickListener}"
+        android:orientation="vertical"
+        app:strokeColor="@color/gray_400"
+        app:strokeWidth="1dp"
+        app:cardCornerRadius="0dp"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
+                android:textColor="@color/event_time"
                 android:text="@{event.timeStart + '\n' + event.timeEnd}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{event.title}"
+                android:fontFamily="sans-serif-black"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/event_location"
                 app:layout_constraintEnd_toEndOf="@+id/event_location"
                 app:layout_constraintStart_toStartOf="@+id/event_location"
@@ -57,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{event.location}"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/event_creator"
                 app:layout_constraintEnd_toEndOf="@+id/event_creator"
                 app:layout_constraintStart_toStartOf="@+id/event_creator"
@@ -68,6 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
+                android:textColor="@color/black"
                 android:text="@{event.creator}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -75,10 +85,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/event_location"
                 tools:text="Аврамчук В.С." />
 
+            <ImageView
+                android:id="@+id/event_note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/additional_information"
+                android:src="@drawable/ic_baseline_info_24"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:onNoteClick="@{event.comments}"
+                android:visibility="@{event.comments == null ? View.GONE : View.VISIBLE}"
+                />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>
 
