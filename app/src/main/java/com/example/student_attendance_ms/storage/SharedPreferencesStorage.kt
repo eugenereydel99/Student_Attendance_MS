@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class SharedPreferencesStorage @Inject constructor(
         @ApplicationContext private val context: Context
-) : Storage {
+) : IStorage {
 
     private val masterKey: MasterKey = MasterKey.Builder(context)
             .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)

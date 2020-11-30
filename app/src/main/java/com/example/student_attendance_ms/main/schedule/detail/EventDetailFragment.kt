@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.student_attendance_ms.R
@@ -21,9 +22,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class EventDetailFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: EventDetailAdapter
+    private var _binding: FragmentEventDetailBinding? = null
+    private val binding get() = _binding!!
 
+    private lateinit var viewAdapter: EventDetailAdapter
     // ининциализируем переменную, в которой будет храниться eventId
     private val args: EventDetailFragmentArgs by navArgs()
 
@@ -39,12 +41,17 @@ class EventDetailFragment : Fragment() {
         )
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val binding = FragmentEventDetailBinding.inflate(inflater)
+        _binding = FragmentEventDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
         binding.viewModel = eventDetailViewModel
@@ -57,6 +64,19 @@ class EventDetailFragment : Fragment() {
         eventDetailViewModel.events.observe(viewLifecycleOwner){
             viewAdapter.submitList(it)
         }
+
+        eventDetailViewModel.isSubscribed.observe(viewLifecycleOwner){
+            if (!it){
+                binding.onEventSubscribe.setOnClickListener {
+                    eventDetailViewModel.onEventSubscribe()
+                }
+            }
+        }
+//        binding.onEventSubscribe.setOnClickListener {
+//            if (eventDetailViewModel.isSubscribed.value == false){
+//                eventDetailViewModel.onEventSubscribe()
+//            }
+//        }
 
         return binding.root
 

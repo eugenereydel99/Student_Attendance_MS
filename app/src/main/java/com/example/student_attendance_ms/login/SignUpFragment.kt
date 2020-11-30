@@ -1,15 +1,14 @@
 package com.example.student_attendance_ms.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import com.example.student_attendance_ms.R
-import com.example.student_attendance_ms.utils.SignUpPattern
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.student_attendance_ms.databinding.FragmentSignUpBinding
 import com.example.student_attendance_ms.network.service.ApiService
-import com.google.android.material.textfield.TextInputLayout
+import com.example.student_attendance_ms.utils.SignUpPattern
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -20,45 +19,42 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
-    private lateinit var emailInputLayout: TextInputLayout
-    private lateinit var passwordInputLayout: TextInputLayout
-    private lateinit var emailEditText: EditText
-    private lateinit var passwordEditText: EditText
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var signUpButton: Button
-
-    @Inject lateinit var apiService: ApiService
+    @Inject
+    lateinit var apiService: ApiService
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val signUpView = inflater.inflate(R.layout.fragment_sign_up, container, false)
+        _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        initializeViews(signUpView)
-
-        return signUpView.rootView
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        signUpButton = view.findViewById(R.id.signUpButton)
-        signUpButton.setOnClickListener {
+        binding.signUpButton.setOnClickListener {
 
-            if (SignUpPattern().isPasswordValid(passwordInputLayout)
-                    and SignUpPattern().isEmailValid(emailInputLayout)){
+            if (SignUpPattern().isPasswordValid(binding.passwordSignUpTextField)
+                    and SignUpPattern().isEmailValid(binding.emailSignUpTextField)) {
 
-                val userCredentials = AuthorizationRequest(
-                        AuthData(
-                                emailEditText.text.toString(),
-                                passwordEditText.text.toString()
-                        )
+                val userCredentials = AuthData(
+                                binding.emailSignUpEditText.text.toString(),
+                                binding.passwordSignUpEditText.text.toString()
                 )
+
 
                 apiService.createUser(
                         userCredentials
-                ).enqueue(object: Callback<ResponseBody>{
+                ).enqueue(object : Callback<ResponseBody> {
                     override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                         Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
                     }
@@ -74,14 +70,4 @@ class SignUpFragment : Fragment() {
             }
         }
     }
-
-    private fun initializeViews(view: View){
-
-        // validation views
-        emailInputLayout = view.findViewById(R.id.emailSignUpTextField)
-        passwordInputLayout = view.findViewById(R.id.passwordSignUpTextField)
-        emailEditText = view.findViewById(R.id.emailSignUpEditText)
-        passwordEditText = view.findViewById(R.id.passwordSignUpEditText)
-    }
-
 }

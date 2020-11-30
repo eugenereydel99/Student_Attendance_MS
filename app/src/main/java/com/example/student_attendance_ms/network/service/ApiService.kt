@@ -1,6 +1,5 @@
 package com.example.student_attendance_ms.network.service
 
-import com.example.student_attendance_ms.login.AuthorizationRequest
 import com.example.student_attendance_ms.login.AuthData
 import com.example.student_attendance_ms.login.AuthorizationResponse
 import com.example.student_attendance_ms.network.model.*
@@ -11,10 +10,10 @@ import retrofit2.http.*
 interface ApiService {
 
     // регистрация
-    @POST("http://94b5c11216d1.ngrok.io/")
+    @POST("register")
     @Headers("No-Authentication: true")
     fun createUser(
-            @Body() authorizationRequest: AuthorizationRequest
+            @Body() authorizationRequest: AuthData
     ): Call<ResponseBody>
 
     // авторизация
@@ -25,7 +24,7 @@ interface ApiService {
     ): Call<AuthorizationResponse>
 
     // запрос данных пользователя
-    @GET("user")
+    @GET("users")
     suspend fun getUser(): User
 
     // запрос списка событий
@@ -35,20 +34,19 @@ interface ApiService {
     ): List<Event>
 
     // запрос списка участников событий
-    @GET("events/{id}/participants")
+    @GET("events/{id}/users")
     suspend fun getEventMembers(
             @Path("id") eventId: String
-    ): List<EventMember>
+    ): EventDetailResponse
 
     // запрос подписки на событие
-    @GET("events/event_id")
+    @POST("events/{eventId}/users")
     suspend fun subscribeOnEvent(
-            @Body() eventId: String
+            @Path("eventId") eventId: String
     ): ResponseBody
 
-
     companion object {
-        const val BASE_URL = "http://94b5c11216d1.ngrok.io/"
+        const val BASE_URL = "http://591c8745feab.ngrok.io/"
     }
 }
 

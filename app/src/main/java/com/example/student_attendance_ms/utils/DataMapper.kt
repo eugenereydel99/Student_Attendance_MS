@@ -1,8 +1,6 @@
 package com.example.student_attendance_ms.utils
 
-import com.example.student_attendance_ms.database.EventEntity
 import com.example.student_attendance_ms.database.UserEntity
-import com.example.student_attendance_ms.network.model.Event
 import com.example.student_attendance_ms.network.model.User
 import javax.inject.Inject
 
@@ -43,38 +41,40 @@ class UserProfileMapper @Inject constructor() : DataMapper<UserEntity, User> {
 
 }
 
-class EventMapper @Inject constructor() : DataMapper<EventEntity, Event> {
-    override fun mapFromEntity(entity: EventEntity): Event {
-        return Event(
-                id = entity.id,
-                title = entity.title,
-                type = entity.type,
-                location = entity.location,
-                timeStart = entity.timeStart,
-                timeEnd = entity.timeEnd,
-                creator = entity.creator,
-                comments = entity.comments,
-                date = entity.date
-        )
-    }
-
-    override fun mapToEntity(domainModel: Event): EventEntity {
-        return EventEntity(
-                id = domainModel.id,
-                title = domainModel.title,
-                type = domainModel.type,
-                location = domainModel.location,
-                timeStart = domainModel.timeStart,
-                timeEnd = domainModel.timeEnd,
-                creator = domainModel.creator,
-                comments = domainModel.comments,
-                date = domainModel.date
-        )
-    }
-
-    fun mapFromEntityList(entities: List<EventEntity>): List<Event> =
-            entities.map {
-                mapFromEntity(it)
-            }
-
-}
+//class EventMapper @Inject constructor() : DataMapper<EventEntity, Event> {
+//    override fun mapFromEntity(entity: EventEntity): Event {
+//        return Event(
+//                id = entity.id,
+//                title = entity.title,
+//                eventType = entity.eventType,
+//                location = entity.location,
+//                timeStart = entity.timeStart,
+//                timeEnd = entity.timeEnd,
+//                creator = entity.creator,
+//                comments = entity.comments,
+//                date = entity.date,
+//                checkType = entity.checkType
+//        )
+//    }
+//
+//    override fun mapToEntity(domainModel: Event): EventEntity {
+//        return EventEntity(
+//                id = domainModel.id,
+//                title = domainModel.title,
+//                eventType = domainModel.eventType,
+//                location = domainModel.location,
+//                timeStart = domainModel.timeStart,
+//                timeEnd = domainModel.timeEnd,
+//                creator = domainModel.creator,
+//                comments = domainModel.comments,
+//                date = domainModel.date,
+//                checkType = domainModel.checkType
+//        )
+//    }
+//
+//    fun mapFromEntityList(entities: List<EventEntity>): List<Event> =
+//            entities.map {
+//                mapFromEntity(it)
+//            }
+//
+//}

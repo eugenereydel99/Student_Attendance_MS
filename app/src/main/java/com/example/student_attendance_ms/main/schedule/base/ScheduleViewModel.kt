@@ -18,7 +18,7 @@ class ScheduleViewModel @ViewModelInject constructor(
         get() = _events
 
     // устанавливаем текущую дату
-    private val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
     private val currentDate = dateFormat.format(Date()).toString()
 
     init {

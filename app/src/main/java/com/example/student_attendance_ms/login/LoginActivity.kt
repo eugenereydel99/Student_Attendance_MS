@@ -6,6 +6,7 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.databinding.ActivityLoginBinding
 import com.example.student_attendance_ms.main.MainActivity
 import com.example.student_attendance_ms.storage.SessionManager
 import com.google.android.material.tabs.TabLayout
@@ -17,13 +18,17 @@ import javax.inject.Inject
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginTabsAdapter: LoginTabsAdapter
-    private lateinit var loginViewPager: ViewPager2
-    private lateinit var tabLayout: TabLayout
+    @Inject
+    lateinit var sessionManager: SessionManager
 
-    @Inject lateinit var sessionManager: SessionManager
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         // если сессия активна, то открывается основное окно приложения
         if (sessionManager.isLoggedIn()) {
@@ -34,16 +39,11 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        setContentView(R.layout.activity_login)
-
         loginTabsAdapter = LoginTabsAdapter(this)
-        loginViewPager = findViewById(R.id.login_ViewPager)
-        loginViewPager.adapter = loginTabsAdapter
-        tabLayout = findViewById(R.id.loginTabs)
-        TabLayoutMediator(tabLayout, loginViewPager) { tab, position ->
+        binding.loginViewPager.adapter = loginTabsAdapter
+        TabLayoutMediator(binding.loginTabs, binding.loginViewPager) { tab, position ->
             tab.text = getTabTitle(position)
         }.attach()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

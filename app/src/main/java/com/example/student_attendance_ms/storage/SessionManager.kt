@@ -9,7 +9,7 @@ import com.example.student_attendance_ms.utils.Constants
 import javax.inject.Inject
 
 class SessionManager @Inject constructor(
-        private val storage: Storage
+        private val storage: IStorage
 ) {
 
     fun createSession(context: Context, response: AuthorizationResponse): Intent {
@@ -17,7 +17,7 @@ class SessionManager @Inject constructor(
         val intent = Intent(context, MainActivity::class.java)
                 .putExtra(Constants.AUTHORIZATION_DATA, response)
 
-        storage.setString(Constants.AUTH_TOKEN, response.authToken)
+        storage.setString(Constants.AUTH_TOKEN, response.accessToken)
         storage.setBoolean(Constants.LOGGED_IN, true)
 
         return intent

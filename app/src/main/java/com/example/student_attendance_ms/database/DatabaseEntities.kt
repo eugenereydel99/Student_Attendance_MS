@@ -2,6 +2,7 @@ package com.example.student_attendance_ms.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.student_attendance_ms.network.model.Creator
 
 /*
 * Сущность для хранения текущего пользователя
@@ -40,32 +41,33 @@ interface UserDao {
 
 //------------------------------------------------------------------------------------------------//
 
-/*
-* Сущность для хранения списка событий
-* */
-@Entity(tableName = "events")
-data class EventEntity constructor(
-        @PrimaryKey(autoGenerate = false) val id: Int,
-        val title: String,
-        val location: String,
-        val type: String,
-        val timeStart: String,
-        val timeEnd: String,
-        val creator: String,
-        val comments: String?,
-        val date: String
-)
-
-@Dao
-interface EventDao {
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(event: EventEntity): Long
-
-    @Query("SELECT * FROM events WHERE date = :date")
-    suspend fun getEventsByDate(date: String): List<EventEntity>
-
-}
+///*
+//* Сущность для хранения списка событий
+//* */
+//@Entity(tableName = "events")
+//data class EventEntity constructor(
+//        @PrimaryKey(autoGenerate = false) val id: Int,
+//        val title: String,
+//        val location: String,
+//        val checkType: String,
+//        val eventType: String,
+//        val timeStart: String,
+//        val timeEnd: String,
+//        val creator: Creator,
+//        val comments: String?,
+//        val date: String
+//)
+//
+//@Dao
+//interface EventDao {
+//
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insert(event: EventEntity): Long
+//
+//    @Query("SELECT * FROM events WHERE date = :date")
+//    suspend fun getEventsByDate(date: String): List<EventEntity>
+//
+//}
 
 //------------------------------------------------------------------------------------------------//
 

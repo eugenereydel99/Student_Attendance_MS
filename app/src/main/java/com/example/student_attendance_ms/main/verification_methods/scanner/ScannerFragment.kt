@@ -14,24 +14,31 @@ import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.example.student_attendance_ms.R
+import com.example.student_attendance_ms.databinding.FragmentScannerBinding
 
 private const val CAMERA_REQUEST_CODE = 10
-private val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
+internal val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
 
 class ScannerFragment : Fragment() {
 
     private lateinit var barcodeScanner: CodeScanner
-    private lateinit var scannerView: CodeScannerView
+
+    private var _binding: FragmentScannerBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
-        val barcodeView = inflater.inflate(R.layout.fragment_scanner, container,false)
-        scannerView = barcodeView.findViewById(R.id.scanner_view)
+        _binding = FragmentScannerBinding.inflate(inflater, container,false)
 
-        return barcodeView.rootView
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +52,7 @@ class ScannerFragment : Fragment() {
 
     private fun startScanning(){
         val activity = requireActivity()
-        barcodeScanner = CodeScanner(activity, scannerView)
+        barcodeScanner = CodeScanner(activity, binding.scannerView)
 
 
         barcodeScanner.decodeCallback = DecodeCallback {
@@ -75,7 +82,7 @@ class ScannerFragment : Fragment() {
             }
         }
 
-        scannerView.setOnClickListener {
+        binding.scannerView.setOnClickListener {
             barcodeScanner.startPreview()
         }
     }

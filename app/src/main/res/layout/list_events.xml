@@ -24,9 +24,9 @@
         android:focusable="true"
         android:onClick="@{clickListener}"
         android:orientation="vertical"
-        app:strokeColor="@color/gray_400"
-        app:strokeWidth="1dp"
         app:cardCornerRadius="0dp"
+        app:strokeWidth="0.5dp"
+        app:strokeColor="@color/gray_400"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:textColor="@color/event_time"
-                android:text="@{event.timeStart + '\n' + event.timeEnd}"
+                android:text="@{event.timeStart.substring(0, 5) + '\n' + event.timeEnd.substring(0, 5)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:textColor="@color/black"
-                android:text="@{event.creator}"
+                android:text="@{event.creator.secondName + ` ` + event.creator.firstName.substring(0, 1) + `.` + event.creator.lastName.substring(0, 1) + `.`}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/event_time"

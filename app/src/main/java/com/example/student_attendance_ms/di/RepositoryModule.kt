@@ -1,11 +1,8 @@
 package com.example.student_attendance_ms.di
 
-import com.example.student_attendance_ms.database.EventDao
 import com.example.student_attendance_ms.database.UserDao
 import com.example.student_attendance_ms.main.profile.UserProfileRepository
-import com.example.student_attendance_ms.main.schedule.base.EventRepository
 import com.example.student_attendance_ms.network.service.ApiService
-import com.example.student_attendance_ms.utils.EventMapper
 import com.example.student_attendance_ms.utils.UserProfileMapper
 import dagger.Module
 import dagger.Provides
@@ -27,14 +24,14 @@ class RepositoryModule {
             apiService, userDao, userProfileMapper
     )
 
-    @ActivityScoped
-    @Provides
-    fun provideEventRepository(
-            apiService: ApiService,
-            eventDao: EventDao,
-            eventMapper: EventMapper
-    ): EventRepository = EventRepository(
-            apiService, eventDao, eventMapper
-    )
+//    @ActivityScoped
+//    @Provides
+//    fun provideEventRepository(
+//            apiService: ApiService,
+//            eventDao: EventDao,
+//            eventMapper: EventMapper
+//    ): EventRepository = EventRepository(
+//            apiService, eventDao, eventMapper
+//    )
 
 }

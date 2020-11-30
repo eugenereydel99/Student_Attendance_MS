@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'dagger.hilt.android.plugin'
@@ -34,6 +34,7 @@ android {
     }
 
     buildFeatures{
+        viewBinding true
         dataBinding = true
     }
 // To inline the bytecode built with JVM target 1.8 into

@@ -1,6 +1,6 @@
 package com.example.student_attendance_ms.storage
 
-interface Storage {
+interface IStorage {
     fun setString(key: String, value: String)
     fun getString(key: String, value: String): String
     fun setBoolean(key: String, value: Boolean)

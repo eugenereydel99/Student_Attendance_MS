@@ -1,6 +1,7 @@
 package com.example.student_attendance_ms.main.schedule.detail
 
 import androidx.lifecycle.*
+import com.example.student_attendance_ms.network.model.Creator
 import com.example.student_attendance_ms.network.model.EventMember
 import com.example.student_attendance_ms.network.service.ApiService
 import com.squareup.inject.assisted.Assisted
@@ -18,15 +19,18 @@ class EventDetailViewModel @AssistedInject constructor(
         get() = _eventMembers
 
     // проверка на наличие подписки у пользователя
-    var isSubscribed: Boolean = false
+    private val _isSubscribed = MutableLiveData<Boolean>()
+    val isSubscribed: LiveData<Boolean>
+        get() = _isSubscribed
+
 
     // запрос на получение списка участников события и статуса подписки
     init {
         viewModelScope.launch {
             val response = apiService.getEventMembers(eventId.toString())
             try {
-                _eventMembers.value = response
-//                isSubscribed = response.isSubscribed
+                _eventMembers.value = response.eventMembers
+                _isSubscribed.value = response.isSubscribed
             } catch (e: Exception) {
                 _eventMembers.value = ArrayList()
             }
@@ -35,12 +39,17 @@ class EventDetailViewModel @AssistedInject constructor(
 
     // подписка на событие
     fun onEventSubscribe(){
+        viewModelScope.launch {
+            val response = apiService.subscribeOnEvent(eventId.toString())
+        }
 
     }
 
     @AssistedInject.Factory
     interface AssistedFactory {
-        fun create(eventId: Int): EventDetailViewModel
+        fun create(
+                eventId: Int
+        ): EventDetailViewModel
     }
 
     companion object {

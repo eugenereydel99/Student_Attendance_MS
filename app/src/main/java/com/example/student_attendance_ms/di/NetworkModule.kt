@@ -3,8 +3,8 @@ package com.example.student_attendance_ms.di
 import com.example.student_attendance_ms.BuildConfig
 import com.example.student_attendance_ms.network.service.ApiService
 import com.example.student_attendance_ms.storage.AuthenticationInterceptor
+import com.example.student_attendance_ms.storage.IStorage
 import com.example.student_attendance_ms.storage.SessionManager
-import com.example.student_attendance_ms.storage.Storage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
@@ -23,7 +22,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun provideSessionManager(storage: Storage) = SessionManager(storage)
+    fun provideSessionManager(storage: IStorage) = SessionManager(storage)
 
     @Singleton
     @Provides

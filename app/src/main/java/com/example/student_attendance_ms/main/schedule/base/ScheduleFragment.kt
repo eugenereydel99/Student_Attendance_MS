@@ -13,8 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ScheduleFragment : Fragment() {
 
-    private lateinit var calendarView: CalendarView
     private lateinit var viewAdapter: EventAdapter
+
+    private var _binding: FragmentScheduleBinding? = null
+    private val binding get() = _binding!!
 
     private val viewModel: ScheduleViewModel by viewModels()
 
@@ -23,25 +25,30 @@ class ScheduleFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        val binding = FragmentScheduleBinding.inflate(inflater)
+        _binding = FragmentScheduleBinding.inflate(inflater)
+        
         binding.lifecycleOwner = this
 
         // инициализируем адаптер
         viewAdapter = EventAdapter(this)
         binding.eventsRecyclerView.adapter = viewAdapter
 
-        calendarView = binding.calendarView
-
         viewModel.events.observe(viewLifecycleOwner) {
             viewAdapter.submitList(it)
         }
 
+
         // отображение событий в календаре при выборе определенной даты
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.displayEventsByDate("${month + 1}/$dayOfMonth/$year")
+        binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            viewModel.displayEventsByDate("$year-${month+1}-$dayOfMonth")
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

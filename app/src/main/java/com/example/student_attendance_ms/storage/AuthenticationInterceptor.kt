@@ -12,7 +12,7 @@ class AuthenticationInterceptor @Inject constructor(
         if (request.header("No-Authentication") == null) {
             val accessToken = sessionManager.getAccessToken()
             request = request.newBuilder()
-                    .addHeader("Authorization", accessToken)
+                    .addHeader("Authorization", "Bearer $accessToken")
                     .build()
         }
         return chain.proceed(request)

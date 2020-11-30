@@ -44,6 +44,7 @@
     <string name="subscribe_string">Записаться</string>
 
     <string name="group">группа %s</string>
+    <string name="creator">Создатель события</string>
 
     <!-- Типы событий -->
     <string name="lecture">lecture</string>

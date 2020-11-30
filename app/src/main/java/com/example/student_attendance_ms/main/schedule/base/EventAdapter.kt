@@ -51,21 +51,21 @@ class EventAdapter(
 
         fun bind(event: Event) {
             binding.event = event
-            when (event.type) {
+            when (event.eventType) {
                 context.getString(R.string.lecture) -> binding.eventCard.setCardBackgroundColor(
                         ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
                 )
                 context.getString(R.string.standard_practice) -> binding.eventCard.setCardBackgroundColor(
-                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                        ResourcesCompat.getColor(context.resources, R.color.azure, null)
                 )
                 context.getString(R.string.educational_practice) -> binding.eventCard.setCardBackgroundColor(
-                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                        ResourcesCompat.getColor(context.resources, R.color.yellow, null)
                 )
                 context.getString(R.string.lab) -> binding.eventCard.setCardBackgroundColor(
-                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                        ResourcesCompat.getColor(context.resources, R.color.lilac, null)
                 )
                 context.getString(R.string.coursework) -> binding.eventCard.setCardBackgroundColor(
-                        ResourcesCompat.getColor(context.resources, R.color.pistachio, null)
+                        ResourcesCompat.getColor(context.resources, R.color.rusty_light, null)
                 )
                 else -> binding.eventCard.setCardBackgroundColor(Color.WHITE)
             }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="eventMember"
             type="com.example.student_attendance_ms.network.model.EventMember" />
@@ -18,7 +19,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="15dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/event_member_photo"
@@ -31,21 +33,33 @@
                 app:civ_border_color="#EEE"
                 app:civ_border_width="2dp" />
 
-            <TextView
-                android:id="@+id/event_member_name"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/event_member_fio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/event_member_photo"
-                android:layout_alignBottom="@id/event_member_photo"
-                android:layout_margin="10dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_toEndOf="@id/event_member_photo"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-black"
-                android:gravity="center_vertical"
+                android:fontFamily="@font/roboto"
                 android:maxLines="1"
-                android:text="@{Integer.toString(eventMember.memberId) + ' ' + eventMember.secondName + ' ' + eventMember.firstName + ' ' + eventMember.lastName}"
-                tools:text="Фамилия Имя Отчество"
-                android:textSize="16sp" />
+                android:text="@{eventMember.secondName + ' ' + eventMember.firstName + ' ' + eventMember.lastName}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="Рейдель Евгений Викторович" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/user_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/event_member_photo"
+                android:layout_marginHorizontal="10dp"
+                android:layout_toEndOf="@id/event_member_photo"
+                android:fontFamily="@font/roboto"
+                android:text="@{eventMember.group == null ? @string/creator : @string/group(eventMember.group)}"
+                android:textColor="@color/gray_600"
+                android:textSize="14sp"
+                tools:text="группа 737-1" />
 
         </RelativeLayout>
 

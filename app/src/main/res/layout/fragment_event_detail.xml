@@ -24,14 +24,15 @@
 
         <Button
             android:id="@+id/on_event_subscribe"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/subscribe_string"
             android:textSize="14sp"
+            android:textAllCaps="false"
             android:visibility="@{viewModel.subscribed ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
