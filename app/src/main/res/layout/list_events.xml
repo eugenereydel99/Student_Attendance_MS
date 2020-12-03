@@ -78,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:textColor="@color/black"
-                android:text="@{event.creator.secondName + ` ` + event.creator.firstName.substring(0, 1) + `.` + event.creator.lastName.substring(0, 1) + `.`}"
+                android:text="@{event.creator.surname + ` ` + event.creator.name.substring(0, 1) + `.` + event.creator.patronymic.substring(0, 1) + `.`}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/event_time"

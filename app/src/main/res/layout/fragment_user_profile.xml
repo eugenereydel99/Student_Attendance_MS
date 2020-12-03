@@ -37,7 +37,7 @@
                 android:layout_alignTop="@id/profile_icon"
                 android:layout_toEndOf="@id/profile_icon"
                 android:fontFamily="@font/roboto"
-                android:text="@{user.firstName + ' ' + user.secondName}"
+                android:text="@{user.name + ' ' + user.surname}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:text="Евгений Рейдель"

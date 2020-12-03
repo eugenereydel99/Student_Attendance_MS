@@ -11,10 +11,10 @@ import com.example.student_attendance_ms.network.model.Creator
 data class UserEntity constructor(
         @PrimaryKey(autoGenerate = false) val id: String,
         val email: String,
-        val group: String,
-        val firstName: String,
-        val secondName: String,
-        val lastName: String
+        val group: String?,
+        val firstName: String?,
+        val secondName: String?,
+        val lastName: String?
 )
 
 @Dao

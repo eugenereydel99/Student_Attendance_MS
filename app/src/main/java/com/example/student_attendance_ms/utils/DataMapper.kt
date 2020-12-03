@@ -20,9 +20,9 @@ class UserProfileMapper @Inject constructor() : DataMapper<UserEntity, User> {
     override fun mapFromEntity(entity: UserEntity): User {
         return User(
                 id = entity.id,
-                firstName = entity.firstName,
-                secondName = entity.secondName,
-                lastName = entity.lastName,
+                name = entity.firstName,
+                surname = entity.secondName,
+                patronymic = entity.lastName,
                 group = entity.group,
                 email = entity.email
         )
@@ -31,9 +31,9 @@ class UserProfileMapper @Inject constructor() : DataMapper<UserEntity, User> {
     override fun mapToEntity(domainModel: User): UserEntity {
         return UserEntity(
                 id = domainModel.id,
-                firstName = domainModel.firstName,
-                secondName = domainModel.secondName,
-                lastName = domainModel.lastName,
+                firstName = domainModel.name,
+                secondName = domainModel.surname,
+                lastName = domainModel.patronymic,
                 group = domainModel.group,
                 email = domainModel.email
         )

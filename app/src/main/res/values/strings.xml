@@ -59,5 +59,6 @@
     <string name="my_attendance">Моя посещаемость</string>
     <string name="portfolio">Портфолио</string>
     <string name="additional_information">Дополнительная информация</string>
+    <string name="attendance_label">Проверка посещаемости</string>
 
 </resources>

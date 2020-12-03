@@ -65,18 +65,13 @@ class EventDetailFragment : Fragment() {
             viewAdapter.submitList(it)
         }
 
-        eventDetailViewModel.isSubscribed.observe(viewLifecycleOwner){
-            if (!it){
+        eventDetailViewModel.isSubscribed.observe(viewLifecycleOwner) {
+            if (!it) {
                 binding.onEventSubscribe.setOnClickListener {
                     eventDetailViewModel.onEventSubscribe()
                 }
             }
         }
-//        binding.onEventSubscribe.setOnClickListener {
-//            if (eventDetailViewModel.isSubscribed.value == false){
-//                eventDetailViewModel.onEventSubscribe()
-//            }
-//        }
 
         return binding.root
 

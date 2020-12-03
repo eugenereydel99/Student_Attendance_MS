@@ -47,17 +47,13 @@ class MainActivity : AppCompatActivity() {
         setupActionBar(navController, appBarConfiguration)
         setupBottomNavMenu(navController)
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.eventDetailFragment -> {
-                    binding.bottomNavView.visibility = View.GONE
-                }
-                // Фрагменты для меню
-
-                else -> binding.bottomNavView.visibility = View.VISIBLE
+                R.id.profileFragment ->  binding.bottomNavView.visibility = View.VISIBLE
+                R.id.scheduleFragment -> binding.bottomNavView.visibility = View.VISIBLE
+                else -> binding.bottomNavView.visibility = View.GONE
             }
         }
-
     }
 
     private fun setupActionBar(
@@ -71,16 +67,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_nav_view)
                 ?.setupWithNavController(navController)
     }
-
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.overflow_menu, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
-//                || super.onOptionsItemSelected(item)
-//    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

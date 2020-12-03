@@ -1,4 +1,4 @@
-package com.example.student_attendance_ms.main.verification_methods.scanner
+package com.example.student_attendance_ms.main.schedule.attendance
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -9,22 +9,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
-import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScannerBinding
+import com.example.student_attendance_ms.main.schedule.detail.EventDetailFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 private const val CAMERA_REQUEST_CODE = 10
 internal val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
 
+@AndroidEntryPoint
 class ScannerFragment : Fragment() {
 
     private lateinit var barcodeScanner: CodeScanner
 
     private var _binding: FragmentScannerBinding? = null
     private val binding get() = _binding!!
+
+    // получаем переменную eventId из фрагмента EventDetailFragment
+    private val args: ScannerFragmentArgs by navArgs()
+
+    @Inject
+    lateinit var scannerViewModelFactory: ScannerViewModel.AssistedFactory
+
+    private val scannerViewModel: ScannerViewModel by viewModels{
+        ScannerViewModel.provideFactory(
+                scannerViewModelFactory,
+                args.eventId
+        )
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -54,27 +71,12 @@ class ScannerFragment : Fragment() {
         val activity = requireActivity()
         barcodeScanner = CodeScanner(activity, binding.scannerView)
 
-
+        // успешное декодирование
         barcodeScanner.decodeCallback = DecodeCallback {
-            activity.runOnUiThread {
-                Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
-
-//                UserApiService.retrofitService.sendQR(
-//                    it.text, intent?.authentication_token
-//                ).enqueue(object : Callback<ResponseBody>{
-//                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                        Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
-//                    }
-//
-//                    // удачное сканирование qr
-//                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                        Toast.makeText(context, "Удачное сканирование", Toast.LENGTH_LONG).show()
-//                    }
-//
-//                })
-            }
+            scannerViewModel.provideCodeSending(it.text)
         }
 
+        // ошибка декодирования
         barcodeScanner.errorCallback = ErrorCallback {
             activity.runOnUiThread {
                 Toast.makeText(activity, "Camera initialization error: ${it.message}",

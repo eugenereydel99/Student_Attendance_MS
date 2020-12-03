@@ -8,8 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class EventMember (
         @SerializedName(value = "id") val memberId: Int,
         @SerializedName(value = "image") val memberImage: Int,
-        @SerializedName(value = "first_name") val firstName: String,
-        @SerializedName(value = "second_name") val secondName: String,
-        @SerializedName(value = "middle_name") val lastName: String,
+        @SerializedName(value = "name") val name: String,
+        @SerializedName(value = "surname") val surname: String,
+        @SerializedName(value = "patronymic") val patronymic: String,
         @SerializedName(value = "group") val group: String
 ): Parcelable

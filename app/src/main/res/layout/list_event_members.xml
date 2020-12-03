@@ -43,7 +43,7 @@
                 android:ellipsize="end"
                 android:fontFamily="@font/roboto"
                 android:maxLines="1"
-                android:text="@{eventMember.secondName + ' ' + eventMember.firstName + ' ' + eventMember.lastName}"
+                android:text="@{eventMember.surname + ' ' + eventMember.name + ' ' + eventMember.patronymic}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 tools:text="Рейдель Евгений Викторович" />

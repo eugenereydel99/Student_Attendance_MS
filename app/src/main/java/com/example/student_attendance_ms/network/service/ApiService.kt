@@ -45,8 +45,15 @@ interface ApiService {
             @Path("eventId") eventId: String
     ): ResponseBody
 
+    // проверка QR-кода
+    @POST("events/{eventId}/code")
+    suspend fun sendQr(
+            @Path("eventId") eventId: String,
+            @Query("code") code: String
+    )
+
     companion object {
-        const val BASE_URL = "http://591c8745feab.ngrok.io/"
+        const val BASE_URL = "http://207.154.210.81/"
     }
 }
 

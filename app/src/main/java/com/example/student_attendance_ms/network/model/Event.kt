@@ -20,9 +20,9 @@ data class Event(
 
 @Parcelize
 data class Creator(
-        @SerializedName("first_name") val firstName: String,
-        @SerializedName("second_name") val secondName: String,
-        @SerializedName("middle_name") val lastName: String
+        @SerializedName(value = "name") val name: String,
+        @SerializedName(value = "surname") val surname: String,
+        @SerializedName(value = "patronymic") val patronymic: String
 ): Parcelable
 
 

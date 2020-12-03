@@ -24,14 +24,4 @@ class RepositoryModule {
             apiService, userDao, userProfileMapper
     )
 
-//    @ActivityScoped
-//    @Provides
-//    fun provideEventRepository(
-//            apiService: ApiService,
-//            eventDao: EventDao,
-//            eventMapper: EventMapper
-//    ): EventRepository = EventRepository(
-//            apiService, eventDao, eventMapper
-//    )
-
 }

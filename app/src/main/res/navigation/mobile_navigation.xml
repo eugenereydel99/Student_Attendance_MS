@@ -20,6 +20,13 @@
         <argument
             android:name="eventId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_eventDetailFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -34,6 +41,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.example.student_attendance_ms.main.schedule.attendance.ScannerFragment"
+        android:label="@string/attendance_label"
+        tools:layout="@layout/fragment_scanner">
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>
