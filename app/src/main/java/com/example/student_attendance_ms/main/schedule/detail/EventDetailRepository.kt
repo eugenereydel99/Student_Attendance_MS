@@ -1,6 +1,8 @@
 package com.example.student_attendance_ms.main.schedule.detail
 
+import android.provider.ContactsContract
 import com.example.student_attendance_ms.network.model.EventDetailResponse
+import com.example.student_attendance_ms.network.model.EventVisitor
 import com.example.student_attendance_ms.network.service.ApiService
 import com.example.student_attendance_ms.utils.DataState
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,6 @@ class EventDetailRepository @Inject constructor(
 ) {
     suspend fun getEventParticipants(eventId: Int): Flow<DataState<EventDetailResponse>> = flow {
         emit(DataState.Loading)
-        delay(3000) // TODO: 04.12.2020 Задержку нужно будет убрать
         try {
             val result = apiService.getEventMembers(eventId.toString())
             emit(DataState.Success(result))
@@ -27,9 +28,13 @@ class EventDetailRepository @Inject constructor(
         }
     }
 
-    suspend fun getEventVisitors(eventId: Int){
-        withContext(Dispatchers.IO){
-            apiService.getEventVisitors(eventId.toString())
+    suspend fun getEventVisitors(eventId: Int): Flow<DataState<List<EventVisitor>>> = flow {
+        emit(DataState.Loading)
+        try {
+            val result = apiService.getEventVisitors(eventId.toString())
+            emit(DataState.Success(result))
+        } catch (e: Exception){
+            emit(DataState.Error(e))
         }
     }
 

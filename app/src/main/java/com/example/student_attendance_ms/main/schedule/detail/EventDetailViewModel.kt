@@ -1,15 +1,13 @@
 package com.example.student_attendance_ms.main.schedule.detail
 
 import androidx.lifecycle.*
-import com.example.student_attendance_ms.network.model.Creator
 import com.example.student_attendance_ms.network.model.EventDetailResponse
-import com.example.student_attendance_ms.network.model.EventMember
-import com.example.student_attendance_ms.network.service.ApiService
 import com.example.student_attendance_ms.utils.DataState
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 sealed class EventDetailState{
     object GetEventParticipants: EventDetailState()
@@ -26,7 +24,20 @@ class EventDetailViewModel @AssistedInject constructor(
     val dataState: LiveData<DataState<EventDetailResponse>>
         get() = _dataState
 
-    init {
+    fun onEventDetailStateListener(eventDetailState: EventDetailState){
+        when (eventDetailState){
+            EventDetailState.GetEventParticipants -> {
+                getEventMembers()
+            }
+            EventDetailState.SubscribeOnEvent -> {
+                subscribeOnEvent()
+            }
+            EventDetailState.GetEventVisitors -> {}
+        }
+    }
+
+
+    private fun getEventMembers(){
         viewModelScope.launch {
             repository.getEventParticipants(eventId).collect {
                 _dataState.value = it
@@ -34,9 +45,16 @@ class EventDetailViewModel @AssistedInject constructor(
         }
     }
 
-    fun subscribeOnEvent(){
+    private fun subscribeOnEvent(){
         viewModelScope.launch {
-            repository.subscribeOnEvent(eventId)
+            try {
+                repository.subscribeOnEvent(eventId)
+                repository.getEventParticipants(eventId).collect {
+                    _dataState.value = it
+                }
+            } catch (e: Exception){
+                _dataState.value = DataState.Error(e)
+            }
         }
     }
 

@@ -6,9 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.example.student_attendance_ms.database.UserDao
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
 import com.example.student_attendance_ms.storage.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,7 +27,10 @@ class UserProfileFragment : Fragment() {
     @Inject
     lateinit var sessionManager: SessionManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    @Inject
+    lateinit var userDao: UserDao
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,6 +51,9 @@ class UserProfileFragment : Fragment() {
             val context = this.context
             if (context != null) {
                 sessionManager.finishSession(context)
+                lifecycleScope.launch {
+                    userDao.deleteUser()
+                }
                 this@UserProfileFragment.activity?.finish()
             }
         }

@@ -43,7 +43,7 @@ interface ApiService {
     @GET("events/{eventId}/visitors")
     suspend fun getEventVisitors(
             @Path("eventId") eventId: String
-    )
+    ): List<EventVisitor>
 
     // запрос подписки на событие
     @POST("events/{eventId}/users")

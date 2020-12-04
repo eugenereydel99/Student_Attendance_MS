@@ -30,6 +30,9 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(user: UserEntity)
 
+    @Query("DELETE FROM user")
+    suspend fun deleteUser()
+
     /*
     * Загружаем пользователя в таблицу user
     * (необходимо для предотвращения повторной

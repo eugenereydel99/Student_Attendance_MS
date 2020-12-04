@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
+import com.example.student_attendance_ms.network.model.Event
+import com.example.student_attendance_ms.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class ScheduleFragment : Fragment() {
@@ -20,6 +21,11 @@ class ScheduleFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ScheduleViewModel by viewModels()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +40,12 @@ class ScheduleFragment : Fragment() {
         viewAdapter = EventAdapter(this)
         binding.eventsRecyclerView.adapter = viewAdapter
 
-        viewModel.events.observe(viewLifecycleOwner){
-            viewAdapter.submitList(it)
-        }
+        attachObservers()
+
+        return binding.root
+    }
+
+    private fun attachObservers(){
 
         // отображение событий в календаре при выборе определенной даты
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -44,12 +53,29 @@ class ScheduleFragment : Fragment() {
             viewModel.displayEventsByDate(date = date)
         }
 
-        return binding.root
+        viewModel.dataState.observe(viewLifecycleOwner){ dataState ->
+            when (dataState){
+                is DataState.Success<List<Event>> -> {
+                    displayProgressBar(false)
+                    submitEventList(dataState.data)
+                }
+                is DataState.Error -> {
+                    displayProgressBar(false)
+                    Toast.makeText(activity, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
+                }
+                DataState.Loading -> {
+                    displayProgressBar(true)
+                }
+            }
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun displayProgressBar(isDisplayed: Boolean){
+        val progressBar = binding.progressBar
+        progressBar.visibility = if (isDisplayed) View.VISIBLE else View.GONE
     }
 
+    private fun submitEventList(events: List<Event>){
+        viewAdapter.submitList(events)
+    }
 }
