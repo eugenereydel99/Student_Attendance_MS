@@ -2,47 +2,42 @@ package com.example.student_attendance_ms.main.schedule.detail
 
 import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.Creator
+import com.example.student_attendance_ms.network.model.EventDetailResponse
 import com.example.student_attendance_ms.network.model.EventMember
 import com.example.student_attendance_ms.network.service.ApiService
+import com.example.student_attendance_ms.utils.DataState
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.lang.Exception
+
+sealed class EventDetailState{
+    object GetEventParticipants: EventDetailState()
+    object SubscribeOnEvent: EventDetailState()
+    object GetEventVisitors: EventDetailState()
+}
 
 class EventDetailViewModel @AssistedInject constructor(
-        private val apiService: ApiService,
+        private val repository: EventDetailRepository,
         @Assisted private val eventId: Int
 ) : ViewModel() {
 
-    private val _eventMembers = MutableLiveData<List<EventMember>>()
-    val events: LiveData<List<EventMember>>
-        get() = _eventMembers
+    private val _dataState = MutableLiveData<DataState<EventDetailResponse>>()
+    val dataState: LiveData<DataState<EventDetailResponse>>
+        get() = _dataState
 
-    // проверка на наличие подписки у пользователя
-    private val _isSubscribed = MutableLiveData<Boolean>()
-    val isSubscribed: LiveData<Boolean>
-        get() = _isSubscribed
-
-
-    // запрос на получение списка участников события и статуса подписки
     init {
         viewModelScope.launch {
-            val response = apiService.getEventMembers(eventId.toString())
-            try {
-                _eventMembers.value = response.eventMembers
-                _isSubscribed.value = response.isSubscribed
-            } catch (e: Exception) {
-                _eventMembers.value = ArrayList()
+            repository.getEventParticipants(eventId).collect {
+                _dataState.value = it
             }
         }
     }
 
-    // подписка на событие
-    fun onEventSubscribe(){
+    fun subscribeOnEvent(){
         viewModelScope.launch {
-            val response = apiService.subscribeOnEvent(eventId.toString())
+            repository.subscribeOnEvent(eventId)
         }
-
     }
 
     @AssistedInject.Factory

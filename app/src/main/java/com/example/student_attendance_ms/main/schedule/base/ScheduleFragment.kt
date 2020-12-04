@@ -1,14 +1,15 @@
 package com.example.student_attendance_ms.main.schedule.base
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.example.student_attendance_ms.databinding.FragmentScheduleBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class ScheduleFragment : Fragment() {
@@ -33,14 +34,14 @@ class ScheduleFragment : Fragment() {
         viewAdapter = EventAdapter(this)
         binding.eventsRecyclerView.adapter = viewAdapter
 
-        viewModel.events.observe(viewLifecycleOwner) {
+        viewModel.events.observe(viewLifecycleOwner){
             viewAdapter.submitList(it)
         }
 
-
         // отображение событий в календаре при выборе определенной даты
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.displayEventsByDate("$year-${month+1}-$dayOfMonth")
+            val date = if (dayOfMonth != 2) "$year/${month+1}/0$dayOfMonth" else "$year/${month+1}/$dayOfMonth"
+            viewModel.displayEventsByDate(date = date)
         }
 
         return binding.root

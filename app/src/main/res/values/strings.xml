@@ -42,6 +42,7 @@
     <string name="name_text">Имя</string>
     <string name="patronymic_text">Отчество</string>
     <string name="subscribe_string">Записаться</string>
+    <string name="pass_attendance">Пройти проверку</string>
 
     <string name="group">группа %s</string>
     <string name="creator">Создатель события</string>

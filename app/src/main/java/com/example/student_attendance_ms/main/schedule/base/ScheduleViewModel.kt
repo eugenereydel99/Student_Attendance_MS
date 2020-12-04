@@ -27,9 +27,9 @@ class ScheduleViewModel @ViewModelInject constructor(
 
     fun displayEventsByDate(date: String = currentDate){
         viewModelScope.launch {
-            val getEvents = apiService.getEvents(date)
             try {
-                _events.value = getEvents
+                val result = apiService.getEvents(date)
+                _events.value = result
             } catch (e: Exception){
                 _events.value = ArrayList()
             }

@@ -22,11 +22,7 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_eventDetailFragment_to_scannerFragment"
-            app:destination="@id/scannerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/scheduleFragment"
@@ -36,11 +32,7 @@
 
         <action
             android:id="@+id/action_scheduleFragment_to_eventDetailFragment"
-            app:destination="@id/eventDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:destination="@id/eventDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/scannerFragment"

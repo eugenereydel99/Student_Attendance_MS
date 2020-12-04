@@ -1,17 +1,21 @@
 package com.example.student_attendance_ms.main.schedule.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import com.example.student_attendance_ms.R
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentEventDetailBinding
-import com.example.student_attendance_ms.main.schedule.base.ScheduleViewModel
+import com.example.student_attendance_ms.network.model.EventDetailResponse
+import com.example.student_attendance_ms.network.model.EventMember
+import com.example.student_attendance_ms.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -60,22 +64,56 @@ class EventDetailFragment : Fragment() {
         viewAdapter = EventDetailAdapter()
         binding.eventMembersRecyclerView.adapter = viewAdapter
 
-        // отображаем список участников события в RecyclerView
-        eventDetailViewModel.events.observe(viewLifecycleOwner){
-            viewAdapter.submitList(it)
-        }
-
-        eventDetailViewModel.isSubscribed.observe(viewLifecycleOwner) {
-            if (!it) {
-                binding.onEventSubscribe.setOnClickListener {
-                    eventDetailViewModel.onEventSubscribe()
-                }
-            }
-        }
+        attachObservers()
 
         return binding.root
 
     }
 
+    private fun attachObservers(){
+        eventDetailViewModel.dataState.observe(viewLifecycleOwner){ dataState ->
+            when (dataState){
+                is DataState.Success<EventDetailResponse> -> {
+                    displayProgressBar(false)
+                    submitEventMemberList(dataState.data.eventMembers)
+                    onEventSubscribed(dataState.data.isSubscribed)
+                }
+                is DataState.Error -> {
+                    displayProgressBar(false)
+                    Toast.makeText(activity, "Что-то пошло не так", Toast.LENGTH_SHORT).show()
+                }
+                DataState.Loading -> {
+                    displayProgressBar(true)
+                }
+            }
+        }
 
+    }
+
+    private fun displayProgressBar(isDisplayed: Boolean){
+        val progressBar = binding.progressBar
+        progressBar.visibility = if (isDisplayed) View.VISIBLE else View.GONE
+        if (!progressBar.isVisible) binding.onEventSubscribe.visibility = View.VISIBLE
+    }
+
+    private fun onEventSubscribed(isSubscribed: Boolean){
+        val button = binding.onEventSubscribe
+        if (isSubscribed){
+            button.text = resources.getString(R.string.pass_attendance)
+            button.setOnClickListener {
+                val direction = EventDetailFragmentDirections
+                        .actionEventDetailFragmentToScannerFragment(args.eventId)
+                this@EventDetailFragment.findNavController().navigate(direction)
+            }
+        } else {
+            button.text = resources.getString(R.string.subscribe_string)
+            button.setOnClickListener {
+                eventDetailViewModel.subscribeOnEvent()
+            }
+        }
+    }
+
+    private fun submitEventMemberList(eventMembers: List<EventMember>){
+        viewAdapter.submitList(eventMembers)
+    }
 }

@@ -39,6 +39,12 @@ interface ApiService {
             @Path("id") eventId: String
     ): EventDetailResponse
 
+    // запрос списка отмеченных участников события
+    @GET("events/{eventId}/visitors")
+    suspend fun getEventVisitors(
+            @Path("eventId") eventId: String
+    )
+
     // запрос подписки на событие
     @POST("events/{eventId}/users")
     suspend fun subscribeOnEvent(
