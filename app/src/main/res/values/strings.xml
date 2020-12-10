@@ -22,7 +22,7 @@
     <string name="title_profile">Профиль</string>
     <string name="title_attendance">Посещаемость</string>
     <string name="title_study">Задания</string>
-    <string name="title_schedule">Календарь</string>
+    <string name="title_schedule">События</string>
     <string name="title_activity_main">MainActivity</string>
 
     <string name="title_qr_scanner">QR код</string>
@@ -46,6 +46,9 @@
 
     <string name="group">группа %s</string>
     <string name="creator">Создатель события</string>
+
+    <string name="cancel">Отменить</string>
+    <string name="supporting_text">Вы уверены, что хотите выйти из учетной записи?</string>
 
     <!-- Типы событий -->
     <string name="lecture">lecture</string>

@@ -71,12 +71,11 @@ class ScannerFragment : Fragment() {
         val activity = requireActivity()
         barcodeScanner = CodeScanner(activity, binding.scannerView)
 
-        // успешное декодирование
         barcodeScanner.decodeCallback = DecodeCallback {
             scannerViewModel.provideCodeSending(it.text)
+            Toast.makeText(activity, scannerViewModel.scanResult, Toast.LENGTH_SHORT).show()
         }
 
-        // ошибка декодирования
         barcodeScanner.errorCallback = ErrorCallback {
             activity.runOnUiThread {
                 Toast.makeText(activity, "Camera initialization error: ${it.message}",

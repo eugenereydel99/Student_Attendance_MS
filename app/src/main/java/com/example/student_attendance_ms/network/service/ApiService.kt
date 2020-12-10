@@ -56,7 +56,7 @@ interface ApiService {
     suspend fun sendQr(
             @Path("eventId") eventId: String,
             @Query("code") code: String
-    )
+    ): Call<ResponseBody>
 
     companion object {
         const val BASE_URL = "http://207.154.210.81/"

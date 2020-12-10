@@ -1,29 +1,40 @@
 package com.example.student_attendance_ms.main.schedule.attendance
 
-import androidx.lifecycle.*
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.student_attendance_ms.network.service.ApiService
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 
 class ScannerViewModel @AssistedInject constructor(
         private val apiService: ApiService,
         @Assisted private val eventId: Int
 ) : ViewModel() {
 
-    private val _marked = MutableLiveData<Boolean>()
-    val marked: LiveData<Boolean>
-        get() = _marked
+    lateinit var scanResult: String
 
     fun provideCodeSending(code: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            apiService.sendQr(eventId.toString(), code)
             try {
-                _marked.value = true
-            } catch (e: Exception) {
-                _marked.value = false
+                val request = apiService.sendQr(eventId.toString(), code)
+                request.enqueue(object : retrofit2.Callback<ResponseBody>{
+                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                        scanResult = response.message().toString()
+                    }
+
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable){
+                        scanResult = t.message.toString()
+                    }
+
+                })
+            } catch (e: Exception){
+                scanResult = e.message.toString()
             }
         }
     }

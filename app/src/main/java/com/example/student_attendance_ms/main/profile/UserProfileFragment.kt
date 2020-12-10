@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.database.UserDao
 import com.example.student_attendance_ms.databinding.FragmentUserProfileBinding
 import com.example.student_attendance_ms.storage.SessionManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -49,13 +51,21 @@ class UserProfileFragment : Fragment() {
 
         binding.logoutButton.setOnClickListener {
             val context = this.context
-            if (context != null) {
-                sessionManager.finishSession(context)
-                lifecycleScope.launch {
-                    userDao.deleteUser()
-                }
-                this@UserProfileFragment.activity?.finish()
-            }
+            MaterialAlertDialogBuilder(it.context, R.style.ProfileDialog)
+                    .setMessage(resources.getString(R.string.supporting_text))
+                    .setNegativeButton(resources.getString(R.string.cancel)) { dialog, which ->
+                    }
+                    .setPositiveButton(resources.getString(R.string.logout_title)) { dialog, which ->
+                        if (context != null) {
+                            sessionManager.finishSession(context)
+                            lifecycleScope.launch {
+                                userDao.deleteUser()
+                            }
+                            this@UserProfileFragment.activity?.finish()
+                        }
+                    }.apply {
+                        show()
+                    }
         }
 
     }

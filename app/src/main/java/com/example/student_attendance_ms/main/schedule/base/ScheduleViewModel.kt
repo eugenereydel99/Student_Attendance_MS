@@ -1,4 +1,5 @@
 package com.example.student_attendance_ms.main.schedule.base
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.student_attendance_ms.network.model.Event
@@ -7,6 +8,7 @@ import com.example.student_attendance_ms.utils.DataState
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,10 +24,11 @@ class ScheduleViewModel @ViewModelInject constructor(
 
     // устанавливаем текущую дату
     private val dateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
-    private val currentDate = dateFormat.format(Date()).toString()
+    private var currentDate = dateFormat.format(Date()).toString()
 
     init {
         displayEventsByDate()
+        Timber.i("ScheduleViewModel initialization")
     }
 
     fun displayEventsByDate(date: String = currentDate){

@@ -4,6 +4,13 @@
     package="com.example.student_attendance_ms">
 
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -16,7 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:allowBackup="true"
+        >
 
         <activity
             android:name=".main.MainActivity"
@@ -28,7 +38,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
-            >
+            tools:ignore="GoogleAppIndexingWarning,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT"/>
