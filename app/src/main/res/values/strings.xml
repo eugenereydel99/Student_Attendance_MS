@@ -28,6 +28,7 @@
     <string name="title_qr_scanner">QR код</string>
     <string name="title_image_key">Граф. ключ</string>
     <string name="title_solve_tests">Тесты</string>
+    <string name="already_submit_code">You have already submitted your answer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

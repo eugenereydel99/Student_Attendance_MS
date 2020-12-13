@@ -12,7 +12,6 @@ import java.lang.Exception
 sealed class EventDetailState{
     object GetEventParticipants: EventDetailState()
     object SubscribeOnEvent: EventDetailState()
-    object GetEventVisitors: EventDetailState()
 }
 
 class EventDetailViewModel @AssistedInject constructor(
@@ -32,10 +31,8 @@ class EventDetailViewModel @AssistedInject constructor(
             EventDetailState.SubscribeOnEvent -> {
                 subscribeOnEvent()
             }
-            EventDetailState.GetEventVisitors -> {}
         }
     }
-
 
     private fun getEventMembers(){
         viewModelScope.launch {
@@ -44,6 +41,8 @@ class EventDetailViewModel @AssistedInject constructor(
             }
         }
     }
+
+
 
     private fun subscribeOnEvent(){
         viewModelScope.launch {

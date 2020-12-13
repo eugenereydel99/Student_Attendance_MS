@@ -7,5 +7,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class EventDetailResponse(
         @SerializedName("participants") val eventMembers: List<EventMember>,
-        val isSubscribed: Boolean
+        val isSubscribed: Boolean,
+        @SerializedName("presence") val presence: Boolean
 ): Parcelable

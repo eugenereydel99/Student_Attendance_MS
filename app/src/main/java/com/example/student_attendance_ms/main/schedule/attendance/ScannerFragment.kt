@@ -3,24 +3,26 @@ package com.example.student_attendance_ms.main.schedule.attendance
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
+import com.example.student_attendance_ms.R
 import com.example.student_attendance_ms.databinding.FragmentScannerBinding
-import com.example.student_attendance_ms.main.schedule.detail.EventDetailFragment
+import com.example.student_attendance_ms.utils.DataState
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.HttpException
 import javax.inject.Inject
 
 private const val CAMERA_REQUEST_CODE = 10
-internal val CAMERA_PERMISSION  = arrayOf(Manifest.permission.CAMERA)
+internal val CAMERA_PERMISSION = arrayOf(Manifest.permission.CAMERA)
 
 @AndroidEntryPoint
 class ScannerFragment : Fragment() {
@@ -36,7 +38,7 @@ class ScannerFragment : Fragment() {
     @Inject
     lateinit var scannerViewModelFactory: ScannerViewModel.AssistedFactory
 
-    private val scannerViewModel: ScannerViewModel by viewModels{
+    private val scannerViewModel: ScannerViewModel by viewModels {
         ScannerViewModel.provideFactory(
                 scannerViewModelFactory,
                 args.eventId
@@ -48,7 +50,7 @@ class ScannerFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentScannerBinding.inflate(inflater, container,false)
+        _binding = FragmentScannerBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -60,20 +62,35 @@ class ScannerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        if (context?.let { ContextCompat.checkSelfPermission(it, CAMERA_PERMISSION.toString()) } == PackageManager.PERMISSION_DENIED){
+        if (context?.let { ContextCompat.checkSelfPermission(it, CAMERA_PERMISSION.toString()) } == PackageManager.PERMISSION_DENIED) {
             requestPermissions(CAMERA_PERMISSION, CAMERA_REQUEST_CODE)
         } else {
             startScanning()
         }
     }
 
-    private fun startScanning(){
+    private fun startScanning() {
         val activity = requireActivity()
         barcodeScanner = CodeScanner(activity, binding.scannerView)
 
         barcodeScanner.decodeCallback = DecodeCallback {
             scannerViewModel.provideCodeSending(it.text)
-            Toast.makeText(activity, scannerViewModel.scanResult, Toast.LENGTH_SHORT).show()
+        }
+
+        scannerViewModel.scanResult.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Success -> Toast.makeText(activity, it.data.message, Toast.LENGTH_SHORT).show()
+                is DataState.Error -> {
+                    when (it.exception) {
+                        is HttpException -> Toast.makeText(
+                                activity,
+                                resources.getString(R.string.already_submit_code),
+                                Toast.LENGTH_SHORT)
+                                .show()
+                        else -> Toast.makeText(activity, it.exception.toString(), Toast.LENGTH_LONG).show()
+                    }
+                }
+            }
         }
 
         barcodeScanner.errorCallback = ErrorCallback {
@@ -90,8 +107,8 @@ class ScannerFragment : Fragment() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == CAMERA_REQUEST_CODE){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startScanning()
             } else {
                 Toast.makeText(context, "Camera permission denied", Toast.LENGTH_LONG).show()
@@ -101,13 +118,13 @@ class ScannerFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        if (::barcodeScanner.isInitialized){
+        if (::barcodeScanner.isInitialized) {
             barcodeScanner.startPreview()
         }
     }
 
     override fun onPause() {
-        if (::barcodeScanner.isInitialized){
+        if (::barcodeScanner.isInitialized) {
             barcodeScanner.releaseResources()
         }
         super.onPause()

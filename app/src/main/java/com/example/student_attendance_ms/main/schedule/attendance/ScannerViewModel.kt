@@ -1,40 +1,37 @@
 package com.example.student_attendance_ms.main.schedule.attendance
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.student_attendance_ms.network.model.AttendanceResult
 import com.example.student_attendance_ms.network.service.ApiService
+import com.example.student_attendance_ms.utils.DataState
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
+import okio.IOException
 import retrofit2.Call
+import retrofit2.HttpException
 import retrofit2.Response
+import java.lang.Exception
+import java.net.ConnectException
 
 class ScannerViewModel @AssistedInject constructor(
         private val apiService: ApiService,
         @Assisted private val eventId: Int
 ) : ViewModel() {
 
-    lateinit var scanResult: String
+    private val _scanResult = MutableLiveData<DataState<AttendanceResult>>()
+    val scanResult: LiveData<DataState<AttendanceResult>>
+        get() = _scanResult
 
     fun provideCodeSending(code: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val request = apiService.sendQr(eventId.toString(), code)
-                request.enqueue(object : retrofit2.Callback<ResponseBody>{
-                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                        scanResult = response.message().toString()
-                    }
-
-                    override fun onFailure(call: Call<ResponseBody>, t: Throwable){
-                        scanResult = t.message.toString()
-                    }
-
-                })
-            } catch (e: Exception){
-                scanResult = e.message.toString()
+                val response = apiService.sendQr(eventId.toString(), code)
+                _scanResult.postValue(DataState.Success(response))
+            } catch (exception : Exception){
+                _scanResult.postValue(DataState.Error(exception))
             }
         }
     }

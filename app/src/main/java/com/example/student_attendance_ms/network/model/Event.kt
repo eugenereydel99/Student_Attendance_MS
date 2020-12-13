@@ -25,4 +25,8 @@ data class Creator(
         @SerializedName(value = "patronymic") val patronymic: String
 ): Parcelable
 
+@Parcelize
+data class AttendanceResult(
+        @SerializedName(value = "message") val message: String
+): Parcelable
 

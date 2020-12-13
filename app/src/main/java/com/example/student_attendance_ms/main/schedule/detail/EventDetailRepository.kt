@@ -28,16 +28,6 @@ class EventDetailRepository @Inject constructor(
         }
     }
 
-    suspend fun getEventVisitors(eventId: Int): Flow<DataState<List<EventVisitor>>> = flow {
-        emit(DataState.Loading)
-        try {
-            val result = apiService.getEventVisitors(eventId.toString())
-            emit(DataState.Success(result))
-        } catch (e: Exception){
-            emit(DataState.Error(e))
-        }
-    }
-
     suspend fun subscribeOnEvent(eventId: Int) {
         withContext(Dispatchers.IO) {
             apiService.subscribeOnEvent(eventId.toString())

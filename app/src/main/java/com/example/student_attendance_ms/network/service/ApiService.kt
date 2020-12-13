@@ -39,12 +39,6 @@ interface ApiService {
             @Path("id") eventId: String
     ): EventDetailResponse
 
-    // запрос списка отмеченных участников события
-    @GET("events/{eventId}/visitors")
-    suspend fun getEventVisitors(
-            @Path("eventId") eventId: String
-    ): List<EventVisitor>
-
     // запрос подписки на событие
     @POST("events/{eventId}/users")
     suspend fun subscribeOnEvent(
@@ -56,7 +50,7 @@ interface ApiService {
     suspend fun sendQr(
             @Path("eventId") eventId: String,
             @Query("code") code: String
-    ): Call<ResponseBody>
+    ): AttendanceResult
 
     companion object {
         const val BASE_URL = "http://207.154.210.81/"
